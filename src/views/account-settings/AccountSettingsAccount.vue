@@ -81,14 +81,14 @@
 
 					<v-col cols="12" md="6">
 						<v-text-field
-							v-model="accountDataLocale.company"
+							v-model="accountDataLocale.branch"
 							dense
 							outlined
-							label="Company"
+							label="Branch"
 						></v-text-field>
 					</v-col>
 
-					<!-- alert -->
+					<!-- alert
 					<v-col cols="12">
 						<v-alert color="warning" text class="mb-0">
 							<div class="d-flex align-start">
@@ -109,9 +109,9 @@
 								</div>
 							</div>
 						</v-alert>
-					</v-col>
+					</v-col> -->
 
-					<v-col cols="12">
+					<!-- <v-col cols="12">
 						<v-btn color="primary" class="me-3 mt-4"> Save changes </v-btn>
 						<v-btn
 							color="secondary"
@@ -122,7 +122,7 @@
 						>
 							Cancel
 						</v-btn>
-					</v-col>
+					</v-col> -->
 				</v-row>
 			</v-form>
 		</v-card-text>

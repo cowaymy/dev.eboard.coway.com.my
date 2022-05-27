@@ -23,7 +23,7 @@
 				<!-- title -->
 				<v-card-text>
 					<p class="text-2xl font-weight-semibold text--primary mb-2">
-						Welcome to eboard! 👋🏻
+						Welcome to ePAPAN! 👋🏻
 					</p>
 					<p class="mb-2">
 						Please sign-in to your account and start the adventure
@@ -34,10 +34,9 @@
 				<v-card-text>
 					<v-form @submit.prevent="submitForm">
 						<v-text-field
-							v-model="username"
+							v-model="userId"
 							outlined
-							label="Email"
-							placeholder="leo@example.com"
+							label="UserID"
 							hide-details
 							class="mb-3"
 						></v-text-field>
@@ -139,14 +138,13 @@
 import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
 //import { ref } from '@vue/composition-api';
 import themeConfig from '../../../themeConfig';
-import userApi from '../../api/index';
-import { validEmail } from '@/utils/validation';
+//import { validEmail } from '@/utils/validation';
 import bus from '../../utils/bus.js';
 
 export default {
 	data() {
 		return {
-			username: '',
+			userId: '',
 			password: '',
 			logMaessage: '',
 			isPasswordVisible: false,
@@ -163,7 +161,7 @@ export default {
 	},
 	computed: {
 		isFormValid() {
-			var isValid = validEmail(this.username);
+			var isValid = true; //validEmail(this.username);
 			if (this.password == '') isValid = false;
 
 			return isValid;
@@ -173,22 +171,21 @@ export default {
 		async submitForm() {
 			try {
 				const userdata = {
-					username: this.username,
+					memCode: this.userId,
 					password: this.password,
 				};
 
 				//start spinner
 				bus.$emit('start:spinner');
 
-				const { data } = await userApi.userLogin(userdata);
-				this.$store.commit('setUserInfo', data.user);
-
+				//call lgoin api
+				const user = await this.$store.dispatch('LOGIN', userdata);
 				//go to main page
-				this.$router.push(this.getNextRoute(data));
+				this.$router.push(this.getNextRoute(user));
 			} catch (error) {
 				console.log(error);
 				this.sheet = true;
-				this.logMaessage = error;
+				this.logMaessage = error.message;
 			} finally {
 				this.initForm();
 				bus.$emit('end:spinner');
@@ -196,20 +193,44 @@ export default {
 		},
 
 		initForm() {
-			this.username = '';
+			this.userId = '';
 			this.password = '';
 			this.isPasswordVisible = false;
 		},
 
 		getNextRoute(data) {
-			if (data.user.orgCode == 'HQ') {
-				return '';
-			} else if (data.user.orgCode == 'SALES') {
-				return '';
-			} else if (data.user.orgCode == 'DSC') {
-				return '';
-			} else if (data.user.orgCode == 'CODY') {
-				return '';
+			if (data.userTypeId == '1') {
+				var rtnRoute;
+				if (data.memberLevel == null || data.memberLevel == undefined) {
+					return '/error';
+				}
+				switch (data.memberLevel) {
+					case 0:
+						rtnRoute = '/salesMainSGM';
+						break;
+					case 1:
+						rtnRoute = '/salesMainGM';
+						break;
+					case 2:
+						rtnRoute = '/salesMainSM';
+						break;
+					case 3:
+						rtnRoute = '/salesMainHM';
+						break;
+					case 4:
+						rtnRoute = '/salesMainHP';
+						break;
+					case 99:
+						rtnRoute = '/salesMainHQ';
+						break;
+				}
+				return rtnRoute;
+			} else if (data.userTypeId == '2') {
+				return '/codyMain';
+			} else if (data.userTypeId == '3') {
+				return '/dscMain';
+			} else if (data.userTypeId == '7') {
+				return '/homecareMain';
 			} else {
 				return '/salesMainHQ';
 			}

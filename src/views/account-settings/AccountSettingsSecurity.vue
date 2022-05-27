@@ -23,37 +23,10 @@
 							></v-text-field>
 
 							<!-- new password -->
-							<v-text-field
-								v-model="newPassword"
-								:type="isNewPasswordVisible ? 'text' : 'password'"
-								:append-icon="
-									isNewPasswordVisible
-										? icons.mdiEyeOffOutline
-										: icons.mdiEyeOutline
-								"
-								label="New Password"
-								outlined
-								dense
-								hint="Make sure it's at least 8 characters."
-								persistent-hint
-								@click:append="isNewPasswordVisible = !isNewPasswordVisible"
-							></v-text-field>
+							<v-text-field></v-text-field>
 
 							<!-- confirm password -->
-							<v-text-field
-								v-model="cPassword"
-								:type="isCPasswordVisible ? 'text' : 'password'"
-								:append-icon="
-									isCPasswordVisible
-										? icons.mdiEyeOffOutline
-										: icons.mdiEyeOutline
-								"
-								label="Confirm New Password"
-								outlined
-								dense
-								class="mt-3"
-								@click:append="isCPasswordVisible = !isCPasswordVisible"
-							></v-text-field>
+							<v-text-field></v-text-field>
 						</v-col>
 
 						<v-col
@@ -104,11 +77,10 @@
 					</p>
 				</v-card-text>
 
-				<!-- action buttons -->
-				<v-card-text>
+				<!-- <v-card-text>
 					<v-btn color="primary" class="me-3 mt-3"> Save changes </v-btn>
 					<v-btn color="secondary" outlined class="mt-3"> Cancel </v-btn>
-				</v-card-text>
+				</v-card-text> -->
 			</div>
 		</v-form>
 	</v-card>
@@ -129,17 +101,17 @@ export default {
 		const isCurrentPasswordVisible = false;
 		const isNewPasswordVisible = false;
 		const isCPasswordVisible = false;
-		const currentPassword = '12345678';
-		const newPassword = '87654321';
-		const cPassword = '87654321';
+		const currentPassword = this.$store.state.userInfo.userPassWord;
+		//const newPassword = '87654321';
+		//const cPassword = '87654321';
 
 		return {
 			isCurrentPasswordVisible,
 			isNewPasswordVisible,
 			currentPassword,
 			isCPasswordVisible,
-			newPassword,
-			cPassword,
+			// newPassword,
+			// cPassword,
 			icons: {
 				mdiKeyOutline,
 				mdiLockOpenOutline,

@@ -1,31 +1,42 @@
-import axios from 'axios';
+import { createInstance } from './interceptors';
 
-const instance = axios.create({
-	baseURL: process.env.VUE_APP_API_URL,
-});
+const newInstance = createInstance();
 
+function getCurMonthData(userData) {
+	const options = {
+		memCode: userData.userName,
+		memId: userData.memId,
+		memberLevel: userData.memberLevel,
+		userName: userData.userName,
+		userTypeId: userData.userTypeId,
+		roleId: userData.roleId,
+	};
+
+	console.log(options);
+	return newInstance.get('/sales/curMonthData', { params: options });
+}
 function getEKeyInData(userData) {
-	return instance.post('getEKeyInData', userData);
+	return newInstance.post('getEKeyInData', userData);
 }
 
 function getNetSalesData(userData) {
-	return instance.post('getNetSalesData', userData);
+	return newInstance.post('getNetSalesData', userData);
 }
 
 function getActiveData(userData) {
-	return instance.post('getActiveData', userData);
+	return newInstance.post('getActiveData', userData);
 }
 
 function getSHIData(userData) {
-	return instance.post('getSHIData', userData);
+	return newInstance.post('getSHIData', userData);
 }
 
 function getProdcCateory(userData) {
-	return instance.post('getProdcCateory', userData);
+	return newInstance.post('getProdcCateory', userData);
 }
 
 function getTagetSales(userData) {
-	return instance.post('getTagetSales', userData);
+	return newInstance.post('getTagetSales', userData);
 }
 
 export default {
@@ -35,4 +46,5 @@ export default {
 	getSHIData,
 	getProdcCateory,
 	getTagetSales,
+	getCurMonthData,
 };

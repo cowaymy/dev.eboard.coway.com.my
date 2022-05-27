@@ -61,34 +61,30 @@ export default {
 	components: { VueRolling },
 
 	methods: {
-		getSalestBestRecordApi() {
-			const userdata = this.$store.state.userdata;
-			return baseApi.getBestRecord(userdata);
-		},
-
-		getTestData() {
-			return {
-				userName: 'MOEY WENG HONG',
-				userNo: '506089',
-				bestRecord: '98088',
-			};
+		async callApiBestRecord() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await baseApi.getBestRecord(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
 		},
 	},
 
 	data() {
 		const data = '';
-		this.getSalestBestRecordApi().then(response => {
-			this.data = response.data;
-		});
-
 		return { data };
+	},
 
-		//return data;
-		//turn obj.data;
-		//return this.getSalestBestRecordApi();
-		//const dataList = this.getTestData();
-
-		//return this.obj.data;
+	created() {
+		this.callApiBestRecord().then(
+			request =>
+				(this.data = {
+					bestRecord: '73783',
+					userNo: this.$store.state.userInfo.userFullName,
+					userName: this.$store.state.userInfo.userName,
+				}),
+		);
 	},
 };
 </script>

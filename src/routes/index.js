@@ -13,6 +13,11 @@ const router = new VueRouter({
 			name: 'home',
 		},
 		{
+			path: '/error',
+			name: 'error',
+			component: () => import('../views/comm/ErrorPage.vue'),
+		},
+		{
 			path: '/ssoLogin',
 			name: 'ssoLogin',
 			component: () => import('../views/login/AutoLogin.vue'),
@@ -38,51 +43,51 @@ const router = new VueRouter({
 			component: () => import('../views/login/SignupPage.vue'),
 		},
 		{
-			path: '/dscmain',
-			component: () => import('../views/dashboard/DscMainPage.vue'),
-			meta: { requiresAuth: false },
-		},
-		{
 			path: '*',
 			component: () => import('../views/comm/NotFoundPage.vue'),
-		},
-		{
-			path: '/dmain',
-			name: 'dmain',
-			component: () => import('../views/dashboard/DscMainPage.vue'),
-			meta: { requiresAuth: false },
-		},
-		{
-			path: '/smain',
-			name: 'smain',
-			component: () => import('../views/dashboard/SalesMainPage.vue'),
-			meta: { requiresAuth: false },
 		},
 		{
 			path: '/salesMainHQ',
 			name: 'salesMainHQ',
 			component: () => import('../views/dashboard/sales/SalesMainHQPage.vue'),
-			meta: { requiresAuth: false },
+			meta: { requiresAuth: true },
 		},
-
 		{
-			path: '/tmain',
-			name: 'tmain',
-			component: () => import('../views/dashboard/TempMainPage.vue'),
-			meta: { requiresAuth: false },
+			path: '/salesMainSGM',
+			name: 'salesMainSGM',
+			component: () => import('../views/dashboard/sales/SalesMainSGMPage.vue'),
+			meta: { requiresAuth: true },
+		},
+		{
+			path: '/dscMain',
+			name: 'dscMain',
+			component: () => import('../views/dashboard/dsc/HellowDsc.vue'),
+			meta: { requiresAuth: true },
+		},
+		{
+			path: '/codyMain',
+			name: 'codyMain',
+			component: () => import('../views/dashboard/cody/HellowCody.vue'),
+			meta: { requiresAuth: true },
+		},
+		{
+			path: '/homecareMain',
+			name: 'homecareMain',
+			component: () => import('../views/dashboard/homecare/HellowHomecare.vue'),
+			meta: { requiresAuth: true },
 		},
 
 		{
 			path: '/hpmain',
 			name: 'hpmain',
 			component: () => import('../views/dashboard/TempMainPageForHp.vue'),
-			meta: { requiresAuth: false },
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/accsetting',
 			name: 'accsetting',
 			component: () => import('../views/account-settings/AccountSettings.vue'),
-			meta: { requiresAuth: false },
+			meta: { requiresAuth: true },
 		},
 	],
 });

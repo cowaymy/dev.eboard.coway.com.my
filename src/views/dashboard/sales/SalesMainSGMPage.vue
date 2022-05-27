@@ -10,7 +10,7 @@
 		</v-col>
 
 		<v-col cols="12" md="4">
-			<DashboardCongratulationJohn />
+			<DashboardCongratulationBest />
 		</v-col>
 
 		<!-- <v-col cols="12" md="8">
@@ -80,24 +80,34 @@
 		<!-- <v-col cols="12" md="8">
 			<DashboardCardDepositAndWithdraw />
 		</v-col> -->
+
+		<div v-if="!sheet"></div>
+		<div v-else>
+			<v-bottom-sheet v-model="sheet" inset>
+				<v-sheet class="text-center" height="200px">
+					<v-btn class="mt-6" text color="error" @click="sheet = !sheet">
+						close
+					</v-btn>
+					<div class="my-3">
+						<v-alert
+							border="bottom"
+							colored-border
+							type="warning"
+							elevation="2"
+						>
+							{{ logMaessage }}
+						</v-alert>
+					</div>
+				</v-sheet>
+			</v-bottom-sheet>
+		</div>
 	</v-row>
 </template>
 
 <!-- 
 <template v-if="sheet">
 	<div>
-		<v-bottom-sheet v-model="sheet" inset>
-			<v-sheet class="text-center" height="200px">
-				<v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-					close
-				</v-btn>
-				<div class="my-3">
-					<v-alert border="bottom" colored-border type="warning" elevation="2">
-						{{ logMaessage }}
-					</v-alert>
-				</div>
-			</v-sheet>
-		</v-bottom-sheet>
+		
 	</div>
 </template> -->
 
@@ -114,7 +124,6 @@ import {
 
 import DigitalClock from '../../comm/DigitalClock.vue';
 import bus from '../../../utils/bus.js';
-//import userApi from '../../api/index';
 import salesApi from '../../../api/salesApi';
 
 import StatisticsCardVertical from '../../../components/statistics-card/StatisticsCardVertical.vue';
@@ -122,7 +131,7 @@ import StatisticsCardSide from '../../../components/statistics-card/StatisticsCa
 
 import StatisticsCardRankingList from '../../../components/statistics-card/StatisticsCardRankingList.vue';
 
-import DashboardCongratulationJohn from './DashboardCongratulationBest.vue';
+import DashboardCongratulationBest from './DashboardCongratulationBest.vue';
 import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue';
 import DashboardCardSalesRankingbyGM from './DashboardCardSalesRankingbyGM.vue';
 import DashboardCardSalesRankingbySM from './DashboardCardSalesRankingbySM.vue';
@@ -157,7 +166,7 @@ export default {
 
 	components: {
 		StatisticsCardVertical,
-		DashboardCongratulationJohn,
+		DashboardCongratulationBest,
 		DashboardCardSalesByCountries,
 		DashboardSalesTotalProfit,
 		DashboardSalesStatisticsTotalSales,
@@ -170,12 +179,10 @@ export default {
 	},
 
 	methods: {
-		async callSalesHQMainApi() {
+		async callApiSalesHQMainApi() {
 			try {
-				//start spinner
-				bus.$emit('start:spinner');
-				const userdata = this.$store.state.userdata;
-				return await salesApi.getCurMonthData(userdata);
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getCurMonthData(userInfo);
 			} catch (error) {
 				console.log(error);
 				this.sheet = true;
@@ -185,47 +192,6 @@ export default {
 			}
 		},
 
-		setCurrnData(data) {
-			console.log(data);
-
-			this.KeyInOptions = {
-				statTitle: 'KeyIn',
-				icon: mdiClipboardEditOutline,
-				color: 'success',
-				subtitle: 'updated 10 minutes ago',
-				statistics: data.SAL_KEYIN,
-				change: '+12%',
-			};
-
-			this.NetSalesOptions = {
-				statTitle: 'Net Sales',
-				icon: mdiCheckboxMultipleMarkedOutline,
-				color: 'error',
-				subtitle: 'updated 10 minutes ago',
-				statistics: data.SAL_NET_SALES,
-				change: '+10%',
-			};
-
-			// vertical card options
-			this.ActiveHpOptions = {
-				statTitle: 'Active HP',
-				icon: mdiAccountCheckOutline,
-				color: 'primary',
-				subtitle: 'updated 10 minutes ago',
-				statistics: data.SAL_ACTIVE_HP,
-				change: '-18%',
-			};
-
-			this.SHIOptions = {
-				statTitle: 'SHI',
-				icon: mdiTrendingUp,
-				color: 'warning',
-				subtitle: 'updated 10 minutes ago',
-				statistics: data.SAL_SHI,
-				change: '-18%',
-				moreshow: 'true',
-			};
-		},
 		callSalesHQMainApi2() {
 			console.log('this is test data.....');
 			//start spinner
@@ -567,18 +533,11 @@ export default {
 		};
 	},
 	created() {
-		this.callSalesHQMainApi().then(
+		//start spinner
+		bus.$emit('start:spinner');
+
+		this.callApiSalesHQMainApi().then(
 			response => (
-				// CRT_DT: "2022-05-20T09:31:59.000Z"
-				// MM: "05"
-				// SAL_ACTIVE_HP: "8,924"
-				// SAL_KEYIN: "225,936"
-				// SAL_NET_SALES: "141,160"
-				// SAL_RECRUITMENT: "845"
-				// SAL_SHI: "100"
-				// UPD_DT: "2022-05-23T07:35:18.000Z"
-				// USER_ID: 18981
-				// YYYY: "2022"
 				(this.eKeyInData = {
 					statTitle: 'eKey In',
 					icon: mdiClipboardEditOutline,
@@ -614,12 +573,6 @@ export default {
 				})
 			),
 		);
-
-		// if (!data.success) {
-		// 	this.sheet = true;
-		// 	this.logMaessage = data.message;
-		// 	return;
-		// }
 	},
 };
 </script>

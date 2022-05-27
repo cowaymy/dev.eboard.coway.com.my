@@ -5,10 +5,10 @@
 				<v-row>
 					<v-col cols="12">
 						<v-textarea
-							v-model="optionsLocal.bio"
+							v-model="optionsLocal.notification"
 							outlined
 							rows="3"
-							label="Bio"
+							label="notification"
 						></v-textarea>
 					</v-col>
 
@@ -35,31 +35,29 @@
 							v-model="optionsLocal.website"
 							outlined
 							dense
-							label="Website"
+							label="Coway Mall Link"
 						></v-text-field>
 					</v-col>
 
 					<v-col cols="12" md="6">
-						<v-select
-							v-model="optionsLocal.country"
+						<v-text-field
+							v-model="optionsLocal.Nationality"
 							outlined
 							dense
-							label="Country"
-							:items="['USA', 'UK', 'AUSTRALIA', 'BRAZIL']"
-						></v-select>
+							label="Nationality"
+						></v-text-field>
 					</v-col>
 
 					<v-col cols="12" md="6">
-						<v-select
-							v-model="optionsLocal.languages"
+						<v-text-field
+							v-model="optionsLocal.sponsor"
 							outlined
 							dense
 							multiple
 							chips
 							small-chips
-							label="Languages"
-							:items="['English', 'Spanish', 'French', 'German']"
-						></v-select>
+							label="Sponsor's"
+						></v-text-field>
 					</v-col>
 
 					<v-col cols="12" md="6">
@@ -70,15 +68,15 @@
 							class="mt-0"
 							hide-details
 						>
-							<v-radio value="male" label="Male"> </v-radio>
-							<v-radio value="female" label="Female"> </v-radio>
-							<v-radio value="other" label="Other"> </v-radio>
+							<v-radio value="M" label="Male"> </v-radio>
+							<v-radio value="F" label="Female"> </v-radio>
+							<v-radio value="O" label="Other"> </v-radio>
 						</v-radio-group>
 					</v-col>
 				</v-row>
 			</v-card-text>
 
-			<v-card-text>
+			<!-- <v-card-text>
 				<v-btn color="primary" class="me-3 mt-3"> Save changes </v-btn>
 				<v-btn
 					outlined
@@ -89,7 +87,7 @@
 				>
 					Cancel
 				</v-btn>
-			</v-card-text>
+			</v-card-text> -->
 		</v-form>
 	</v-card>
 </template>

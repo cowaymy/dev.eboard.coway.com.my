@@ -35,11 +35,13 @@
 					class="percentage text-xs mb-2"
 					:class="checkChange(change) ? 'success--text' : 'error--text'"
 				>
-					{{ change }}</span
+					{{ checkNull(change) }}</span
 				>
 			</div>
+			<v-spacer></v-spacer>
+			<p></p>
 			<p style="text-align: right" class="text-xs text--secondary mb-0">
-				{{ subtitle }}
+				updated <strong>{{ subtitle }}</strong>
 			</p>
 
 			<template v-if="moreshow">
@@ -62,7 +64,7 @@ export default {
 	props: {
 		statTitle: { type: String, default: '' },
 		icon: { type: String, default: '' },
-		color: { type: String, default: '' },
+		color: { type: String, default: '#d5d5d5' },
 		subtitle: { type: String, default: '' },
 		statistics: { type: String, default: '' },
 		change: { type: String, default: '' },
@@ -75,17 +77,31 @@ export default {
 		const widgets = false;
 
 		const checkChange = value => {
-			const firstChar = value.charAt(0);
-			if (firstChar === '+') {
-				return true;
+			if (value == undefined || value == null) {
+				return '';
 			}
 
-			return false;
+			const firstChar = value.charAt(0);
+			if (firstChar === '-') {
+				return false;
+			}
+
+			return true;
+		};
+
+		const checkNull = value => {
+			console.log(value);
+			if (value == undefined || value == null) {
+				return '';
+			}
+
+			return value + '%';
 		};
 
 		return {
 			mdiDotsVertical,
 			checkChange,
+			checkNull,
 			isDialogVisible,
 			notifications,
 			sound,

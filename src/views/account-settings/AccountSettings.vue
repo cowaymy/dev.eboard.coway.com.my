@@ -31,11 +31,11 @@
 			<!-- <v-tab-item>
 				<account-settings-billing></account-settings-billing>
 			</v-tab-item> -->
-			<v-tab-item>
+			<!-- <v-tab-item>
 				<account-settings-notification
 					:notification-data="accountSettingData.notification"
 				></account-settings-notification>
-			</v-tab-item>
+			</v-tab-item> -->
 		</v-tabs-items>
 	</v-card>
 </template>
@@ -54,7 +54,7 @@ import AccountSettingsAccount from './AccountSettingsAccount.vue';
 import AccountSettingsSecurity from './AccountSettingsSecurity.vue';
 import AccountSettingsInfo from './AccountSettingsInfo.vue';
 //import AccountSettingsBilling from './AccountSettingsBilling.vue';
-import AccountSettingsNotification from './AccountSettingsNotification.vue';
+//import AccountSettingsNotification from './AccountSettingsNotification.vue';
 
 //console.log('=======>' + this.$store.state.userInfo);
 
@@ -69,37 +69,43 @@ export default {
 			{ title: 'Security', icon: mdiLockOpenOutline },
 			{ title: 'Info', icon: mdiInformationOutline },
 			// { title: 'Billing', icon: mdiBookmarkOutline },
-			{ title: 'Notifications', icon: mdiBellOutline },
+			//{ title: 'Notifications', icon: mdiBellOutline },
 		];
 
 		// account settings data
 		const accountSettingData = {
 			account: {
 				avatarImg: require('@/assets/images/avatars/1.png'),
-				username: this.$store.state.userInfo.nickname,
-				name: this.$store.state.userInfo.nickname,
-				email: this.$store.state.userInfo.nickname,
-				role: 'Admin',
-				status: 'Active',
-				company: 'Google.inc',
+				username: this.$store.state.userInfo.userFullName,
+				name: this.$store.state.userInfo.userName,
+				email: this.$store.state.userInfo.userEmail,
+				role: this.$store.state.userInfo.memOrgDesc,
+				status: this.$store.state.userInfo.statusName,
+				branch: this.$store.state.userInfo.branchName,
 			},
 			information: {
 				bio: 'The name’s John Deo. I am a tireless seeker of knowledge, occasional purveyor of wisdom and also, coincidentally, a graphic designer. Algolia helps businesses across industries quickly create relevant 😎, scaLabel 😀, and lightning 😍 fast search and discovery experiences.',
-				birthday: 'February 22, 1995',
-				phone: '954-006-0844',
-				website: 'https://themeselection.com/',
-				country: 'USA',
-				languages: ['English', 'Spanish'],
-				gender: 'male',
+				birthday: this.$store.state.userInfo.dob,
+				phone: this.$store.state.userInfo.telMobile,
+				website:
+					'https://emall.coway.com.my/?agentcode=' +
+					this.$store.state.userInfo.memId,
+				Nationality: 'MALAYSIA',
+				sponsor:
+					'Code[' +
+					this.$store.state.userInfo.spuseCode +
+					']' +
+					this.$store.state.userInfo.name,
+				gender: this.$store.state.userInfo.gender,
 			},
-			notification: {
-				commentOnArticle: true,
-				answerOnForm: true,
-				followMe: false,
-				newsAnnouncements: false,
-				productUpdates: true,
-				blogDigest: false,
-			},
+			// notification: {
+			// 	commentOnArticle: true,
+			// 	answerOnForm: true,
+			// 	followMe: false,
+			// 	newsAnnouncements: false,
+			// 	productUpdates: true,
+			// 	blogDigest: false,
+			// },
 		};
 
 		return {
@@ -121,7 +127,7 @@ export default {
 		AccountSettingsSecurity,
 		AccountSettingsInfo,
 		//AccountSettingsBilling,
-		AccountSettingsNotification,
+		//AccountSettingsNotification,
 	},
 
 	computed: {

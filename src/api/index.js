@@ -1,24 +1,25 @@
-import axios from 'axios';
+import { createInstance } from './interceptors';
 
-const instance = axios.create({
-	baseURL: process.env.VUE_APP_API_URL,
-});
+const newInstance = createInstance();
 
 function registerUser(userData) {
-	return instance.post('signup', userData);
+	return newInstance.post('signup', userData);
 }
 
 function userLogin(userData) {
-	return instance.post('login', userData);
+	return newInstance.post('login', userData);
 }
 
 async function getBestRecord(userData) {
-	try {
-		const response = await instance.get('sales', userData);
-		return response;
-	} catch (error) {
-		console.log(error);
-	}
+	const options = {
+		memCode: userData.userName,
+		memId: userData.memId,
+		memberLevel: userData.memberLevel,
+		userName: userData.userName,
+		userTypeId: userData.userTypeId,
+		roleId: userData.roleId,
+	};
+	return newInstance.get('/comm/bestRecord', { params: options });
 }
 
 export default { registerUser, userLogin, getBestRecord };
