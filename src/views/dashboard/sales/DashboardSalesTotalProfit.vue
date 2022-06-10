@@ -15,11 +15,17 @@
 					<!-- Title/Header -->
 					<v-card-title class="align-start pt-0 flex-nowrap">
 						<div>
-							<p class="mb-0 font-weight-bold text-5xl">4,590</p>
-							<small class="text--secondary text-xs text-no-wrap"
-								>Today keyIn</small
-							>
+							<p class="mb-0 font-weight-semibold primary--text text-5xl">
+								<VueRolling
+									:text="this.totalsales"
+									:isNumberFormat="true"
+									:transition="4"
+									:defaultChar="0"
+								></VueRolling>
+							</p>
+							<small class="font-weight-semibold text-xl">Today keyIn</small>
 						</div>
+
 						<v-spacer></v-spacer>
 						<v-btn icon small class="me-n6 mt-n1">
 							<v-icon size="22">
@@ -35,25 +41,25 @@
 							<v-list-item class="pa-0">
 								<!-- item 1------->
 								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="primary">
-										{{ icons.mdiEgg }}
+									<v-icon size="30" color="success">
+										{{ icons.mdiWaterOutline }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										1,000
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull(1) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Water purifier</v-list-item-subtitle>
 								</v-list-item-content>
 								<!-- item 2------->
 								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="rad">
+									<v-icon size="30" color="success">
 										{{ icons.mdiBeaker }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										1,000
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull(5) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>POE</v-list-item-subtitle>
 								</v-list-item-content>
@@ -67,36 +73,36 @@
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										1,000
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull(2) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Air purifier</v-list-item-subtitle>
 								</v-list-item-content>
 
 								<!-- item 4------->
 								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="purple">
-										{{ icons.mdiSeatReclineNormal }}
+									<v-icon size="30" color="success">
+										{{ icons.mdiSeatIndividualSuite }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										1,000
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull(6) }}
 									</v-list-item-title>
-									<v-list-item-subtitle>Massage Chair</v-list-item-subtitle>
+									<v-list-item-subtitle>Mattress</v-list-item-subtitle>
 								</v-list-item-content>
 							</v-list-item>
 							<!-- List Item: Expense -->
 							<v-list-item class="pa-0">
 								<!-- item 5------->
 								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="warning">
+									<v-icon size="30" color="success">
 										{{ icons.mdiWeatherWindyVariant }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										590
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull(3) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Bidet</v-list-item-subtitle>
 								</v-list-item-content>
@@ -104,12 +110,12 @@
 								<!-- item 6------->
 								<v-list-item-avatar class="" size="40" rounded>
 									<v-icon size="30" color="success">
-										{{ icons.mdiEgg }}
+										{{ icons.mdiNumeric10BoxMultiple }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										1,000
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull(6) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Other</v-list-item-subtitle>
 								</v-list-item-content>
@@ -117,13 +123,12 @@
 							<v-list-item class="pa-0">
 								<!-- item 1------->
 								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="primary">
+									<v-icon size="30" color="success">
 										{{ icons.mdiFanAuto }}
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold">
-										1,000
+									<v-list-item-title class="font-weight-semibold text-3xl">
 									</v-list-item-title>
 									<v-list-item-subtitle>Air Cond</v-list-item-subtitle>
 								</v-list-item-content>
@@ -139,6 +144,8 @@
 </template>
 
 <script>
+import VueRolling from 'vue-roller';
+
 import VueApexCharts from 'vue-apexcharts';
 // eslint-disable-next-line object-curly-newline
 import {
@@ -154,16 +161,96 @@ import {
 	mdiSeatReclineNormal,
 	mdiWeatherWindyVariant,
 	mdiBeaker,
+	mdiRadiatorDisabled,
+	mdiSeatIndividualSuite,
+	mdiWaterOutline,
+	mdiNumeric10BoxMultiple,
 } from '@mdi/js';
 //import { getVuetify } from '@core/utils';
 //import { kFormatter } from '@core/utils/filter';
+import salesApi from '../../../api/salesApi';
 
 export default {
 	components: {
 		VueApexCharts,
+		VueRolling,
 	},
+
+	methods: {
+		async callApiEKeyInData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getEKeyInData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+
+		async callApiTodayEkeyinData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getTodayEkeyinData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+
+		async callApiSalesTrendData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.salesTrendData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	},
+
+	created() {
+		var cData = [];
+		this.callApiSalesTrendData().then(request => {
+			request.data.data.forEach(function (v) {
+				var newValue = {
+					name: v.STK_CTGRY_NAME,
+					data: [v.M6, v.M5, v.M4, v.M3, v.M2, v.M1, v.M],
+				};
+				cData.push(newValue);
+			});
+		});
+
+		this.chartData = cData;
+
+		this.callApiEKeyInData().then(request => {
+			this.totalsales = request.data.data[0].EKEY_SALES;
+		});
+
+		this.callApiTodayEkeyinData().then(request => {
+			this.todayEeyin = request.data.data;
+
+			console.log(this.todayEeyin);
+		});
+
+		setInterval(() => {
+			this.callApiEKeyInData().then(request => {
+				this.totalsales = request.data.data[0].EKEY_SALES;
+			});
+
+			this.callApiTodayEkeyinData().then(request => {
+				this.todayEeyin = request.data.data;
+			});
+		}, 60000);
+	},
+
 	data() {
-		//	const $vuetify = getVuetify();
+		const checkNull = value => {
+			var rtnVal;
+			try {
+				rtnVal = this.todayEeyin[value].P_TOTAL_CNT;
+			} catch (error) {
+				rtnVal = 0;
+			}
+
+			return rtnVal;
+		};
 
 		const chartOptions = {
 			chart: {
@@ -182,7 +269,7 @@ export default {
 				},
 			},
 			xaxis: {
-				categories: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'April'],
+				categories: ['M-6', 'M-5', 'M-4', 'M-3', 'M-2', 'M-1', 'M'],
 				axisBorder: {
 					show: true,
 				},
@@ -206,7 +293,7 @@ export default {
 			},
 			stroke: {
 				curve: 'smooth',
-				width: 6,
+				width: 7,
 				lineCap: 'round',
 				colors: ['#fff'],
 			},
@@ -225,41 +312,12 @@ export default {
 			],
 		};
 
-		const chartData = [
-			{
-				name: 'W.purf',
-				data: [3100, 2540, 4540, 4540, 3540, 5540],
-			},
-			{
-				name: 'A.purf',
-				data: [3100, 2540, 4540, 4540, 3540, 5540],
-			},
-			{
-				name: 'Bidet',
-				data: [520, 120, 220, 320, 220, 620],
-			},
-			{
-				name: 'POE',
-				data: [100, 10, 20, 10, 390, 120],
-			},
-			{
-				name: 'Massage Chair',
-				data: [22, 33, 100, 100, 12, 120],
-			},
-			{
-				name: 'Air Cond',
-				data: [100, 200, 100, 109, 100, 120],
-			},
-			{
-				name: 'Other',
-				data: [2999, 2999, 2999, 2999, 2999, 2999],
-			},
-		];
-
 		return {
 			chartOptions,
-			chartData,
-
+			checkNull,
+			chartData: [],
+			totalsales: {},
+			todayEeyin: [],
 			icons: {
 				mdiDotsVertical,
 				mdiTrendingUp,
@@ -273,10 +331,19 @@ export default {
 				mdiSeatReclineNormal,
 				mdiWeatherWindyVariant,
 				mdiBeaker,
+				mdiRadiatorDisabled,
+				mdiSeatIndividualSuite,
+				mdiWaterOutline,
+				mdiNumeric10BoxMultiple,
 			},
 		};
 	},
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.roller .rollerBlock {
+	margin: 3px;
+	font-size: 100%;
+}
+</style>

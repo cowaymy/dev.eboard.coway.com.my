@@ -87,3 +87,14 @@ export function isArray(arg) {
 	}
 	return Array.isArray(arg);
 }
+
+/**
+ * @param {string} str
+ * @returns {}
+ */
+export function checkNull(str) {
+	if (typeof str === 'undefined' || str === null) {
+		return 0;
+	}
+	return str;
+}

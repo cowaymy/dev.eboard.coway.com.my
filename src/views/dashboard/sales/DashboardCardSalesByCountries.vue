@@ -1,5 +1,5 @@
 <template>
-	<v-card>
+	<v-card elevation="1">
 		<v-card-title class="align-start">
 			<span>Sales Ranking by HP</span>
 
@@ -13,7 +13,7 @@
 		</v-card-title>
 
 		<v-card-text>
-			<v-list class="pb-0">
+			<v-list>
 				<v-list-item-group
 					v-model="selectedItem"
 					active-class="border"
@@ -29,13 +29,13 @@
 							size="30"
 							:class="`${data.color} white--text font-weight-medium me-3`"
 						>
-							<span class="text-base">{{ data.abbr }}</span>
+							<span class="text-base">{{ data.rank }}</span>
 						</v-avatar>
 
 						<div class="d-flex align-center flex-grow-1 flex-wrap">
 							<div class="me-2">
 								<div class="font-weight-semibold">
-									<span class="text--primary text-base me-1">{{
+									<span class="text--primary text-xl me-1">{{
 										data.sales
 									}}</span>
 									<!-- 
@@ -60,7 +60,7 @@
 								> -->
 								</div>
 
-								<v-list-item-subtitle class="text-xs">
+								<v-list-item-subtitle class="font-weight-semibold text-xs">
 									{{ data.name }}
 								</v-list-item-subtitle>
 							</div>
@@ -89,59 +89,34 @@
 <script>
 import { mdiDotsVertical, mdiChevronUp, mdiChevronDown } from '@mdi/js';
 
+import salesApi from '../../../api/salesApi';
 export default {
+	created() {
+		var cData = [];
+		const user = this.$store.state.userName;
+		this.callApiRinkForGMData().then(request =>
+			request.data.data.forEach(function (v, index) {
+				//console.log(v);
+				var newValue = {
+					rank: v.RNK,
+					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 30),
+					sales: v.NETSALES,
+					color: v.RNK == '1' ? 'warning' : 'secondary',
+					change: v.TARGET,
+				};
+				cData.push(newValue);
+				if (v.MEM_CODE == user) {
+					this.selectedItem = index;
+				}
+			}),
+		);
+
+		this.salesByCountries = cData;
+	},
+
 	data() {
-		const selectedItem = '';
-		const salesByCountries = [
-			{
-				idx: '1',
-				abbr: '1',
-				name: '(506089)MOEY WENG HONG',
-				change: '98.8',
-				sales: '18,00',
-				color: 'warning',
-			},
-			{
-				idx: '2',
-				abbr: '2',
-				name: '(653856)Leo Hamhyungoo',
-				change: '80',
-				sales: '1,060',
-				color: 'secondary',
-			},
-			{
-				idx: '3',
-				abbr: '3',
-				name: '(512558)KHAIRULLNIZAM BIN SABTU',
-				change: '70',
-				sales: '1,000',
-				color: 'secondary',
-			},
-			{
-				idx: '4',
-				abbr: '4',
-				name: '(616508)LIEW LAY YEE',
-				change: '68',
-				sales: '980',
-				color: 'secondary',
-			},
-			{
-				idx: '5',
-				abbr: '5',
-				name: '(653856)NORHISHAM BIN MOHD YAACOB',
-				change: '67',
-				sales: '970',
-				color: 'secondary',
-			},
-			{
-				idx: '6',
-				abbr: '15',
-				name: '(6538561)NORHISHAM BIN MOHD YAACOB',
-				change: '67',
-				sales: '970',
-				color: 'secondary',
-			},
-		];
+		const selectedItem = -1;
+		const salesByCountries = [];
 
 		return {
 			salesByCountries,
@@ -163,6 +138,15 @@ export default {
 
 			return 'secondary';
 		},
+
+		async callApiRinkForGMData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getRinkForHPData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 };
 </script>
@@ -170,8 +154,7 @@ export default {
 .project-progress {
 	min-width: 4rem;
 }
-
 .border {
-	border: 2px dashed orange;
+	border: 6px dashed orange;
 }
 </style>

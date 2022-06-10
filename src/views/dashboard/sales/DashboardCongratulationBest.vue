@@ -24,7 +24,16 @@
 								:isStatic="true"
 								class="roller"
 							></Roller> -->
-							<v-btn small color="primary"> View Sales </v-btn>
+							<!-- <v-btn small color="primary" @click="isDialogVisible = false">
+								View Sales
+							</v-btn> -->
+
+							<div>
+								<DashboardDialog
+									:buttonTitle="`View More`"
+									:statTitle="`Beat My Best Record List`"
+								/>
+							</div>
 						</div>
 					</div>
 				</v-card-text>
@@ -50,15 +59,21 @@
 					src="@/assets/images/misc/trophy.png"
 				></v-img>
 			</v-col>
+			<template v-if="isDialogVisible">
+				<DashboardDialog />
+			</template>
+
+			<template v-else> </template>
 		</v-row>
 	</v-card>
 </template>
 <script>
 import VueRolling from 'vue-roller';
 import baseApi from '../../../api/index.js';
+import DashboardDialog from '../../comm/DialogBottomScreen.vue';
 
 export default {
-	components: { VueRolling },
+	components: { VueRolling, DashboardDialog },
 
 	methods: {
 		async callApiBestRecord() {
@@ -73,14 +88,15 @@ export default {
 
 	data() {
 		const data = '';
-		return { data };
+		const isDialogVisible = false;
+		return { data, isDialogVisible };
 	},
 
 	created() {
 		this.callApiBestRecord().then(
 			request =>
 				(this.data = {
-					bestRecord: '73783',
+					bestRecord: request.data.data[0].BEST_RECORD,
 					userNo: this.$store.state.userInfo.userFullName,
 					userName: this.$store.state.userInfo.userName,
 				}),

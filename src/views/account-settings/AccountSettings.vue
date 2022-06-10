@@ -87,15 +87,12 @@ export default {
 				bio: 'The name’s John Deo. I am a tireless seeker of knowledge, occasional purveyor of wisdom and also, coincidentally, a graphic designer. Algolia helps businesses across industries quickly create relevant 😎, scaLabel 😀, and lightning 😍 fast search and discovery experiences.',
 				birthday: this.$store.state.userInfo.dob,
 				phone: this.$store.state.userInfo.telMobile,
-				website:
-					'https://emall.coway.com.my/?agentcode=' +
-					this.$store.state.userInfo.memId,
+				website: `https://emall.coway.com.my/?agentcode=${this.$store.state.userInfo.userName}`,
 				Nationality: 'MALAYSIA',
 				sponsor:
-					'Code[' +
-					this.$store.state.userInfo.spuseCode +
-					']' +
-					this.$store.state.userInfo.name,
+					`${this.$store.state.userInfo.spuseCode}` == 'null'
+						? ''
+						: `sponsor Code[ ] Name:${this.$store.state.userInfo.spouseName}`,
 				gender: this.$store.state.userInfo.gender,
 			},
 			// notification: {

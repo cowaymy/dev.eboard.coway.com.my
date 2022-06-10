@@ -28,7 +28,7 @@
 
 		<v-card-text class="text--primary mt-3">
 			<div style="text-align: center">
-				<span class="text-3xl align-center font-weight-semibold mb-3">
+				<span class="font-weight-semibold text-5xl mb-3">
 					{{ statistics }}
 				</span>
 				<span
@@ -91,7 +91,7 @@ export default {
 
 		const checkNull = value => {
 			console.log(value);
-			if (value == undefined || value == null) {
+			if (value == undefined || value == null || value == 'null') {
 				return '';
 			}
 

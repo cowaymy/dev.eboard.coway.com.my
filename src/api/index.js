@@ -22,4 +22,16 @@ async function getBestRecord(userData) {
 	return newInstance.get('/comm/bestRecord', { params: options });
 }
 
-export default { registerUser, userLogin, getBestRecord };
+async function getBestRecordList(userData) {
+	const options = {
+		memCode: userData.userName,
+		memId: userData.memId,
+		memberLevel: userData.memberLevel,
+		userName: userData.userName,
+		userTypeId: userData.userTypeId,
+		roleId: userData.roleId,
+	};
+	return newInstance.get('/comm/bestRecordList', { params: options });
+}
+
+export default { registerUser, userLogin, getBestRecord, getBestRecordList };

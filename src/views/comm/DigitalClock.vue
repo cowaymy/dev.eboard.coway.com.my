@@ -1,6 +1,6 @@
 <template>
 	<div id="clock">
-		<span class="date"> {{ clock.date }}</span>
+		<!-- <span class="date"> {{ clock.date }}</span> -->
 		<span class="time"> {{ clock.time }} </span>
 	</div>
 </template>
@@ -67,7 +67,7 @@ p {
 	top: 50%;
 	transform: translate(-50%, -50%);
 	color: #fdfdfbe5;
-	text-shadow: 0 0 20px rgba(10, 175, 230, 1), 0 0 20px rgba(248, 248, 248, 0);
+	/*text-shadow: 0 0 20px rgba(10, 175, 230, 1), 0 0 20px rgba(248, 248, 248, 0); */
 }
 .time {
 	letter-spacing: 0.05em;

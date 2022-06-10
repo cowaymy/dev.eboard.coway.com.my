@@ -28,6 +28,7 @@
 
 <script>
 import VueApexCharts from 'vue-apexcharts';
+import salesApi from '../../../api/salesApi';
 
 import { mdiChevronUp, mdiBullseyeArrow } from '@mdi/js';
 
@@ -35,6 +36,24 @@ export default {
 	components: {
 		VueApexCharts,
 	},
+
+	methods: {
+		async callApiEKeyInData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getEKeyInData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	},
+
+	created() {
+		// this.callApiEKeyInData().then(request => {
+		// 	this.totalsales = request.data[0].EKEY_SALES;
+		// });
+	},
+
 	data() {
 		const chartSeries = [85, 20, 30, 50];
 		const chartOptions = {
@@ -89,7 +108,7 @@ export default {
 		return {
 			chartSeries,
 			chartOptions,
-
+			totalsales: {},
 			// icons
 			icons: {
 				mdiChevronUp,

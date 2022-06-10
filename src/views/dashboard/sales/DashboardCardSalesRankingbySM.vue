@@ -29,13 +29,13 @@
 							size="30"
 							:class="`${data.color} white--text font-weight-medium me-3`"
 						>
-							<span class="text-base">{{ data.abbr }}</span>
+							<span class="text-base">{{ data.rank }}</span>
 						</v-avatar>
 
 						<div class="d-flex align-center flex-grow-1 flex-wrap">
 							<div class="me-2">
 								<div class="font-weight-semibold">
-									<span class="text--primary text-base me-1">{{
+									<span class="text--primary text-xl me-1">{{
 										data.sales
 									}}</span>
 									<!-- 
@@ -60,7 +60,7 @@
 								> -->
 								</div>
 
-								<v-list-item-subtitle class="text-xs">
+								<v-list-item-subtitle class="font-weight-semibold text-xs">
 									{{ data.name }}
 								</v-list-item-subtitle>
 							</div>
@@ -89,54 +89,34 @@
 <script>
 import { mdiDotsVertical, mdiChevronUp, mdiChevronDown } from '@mdi/js';
 
+import salesApi from '../../../api/salesApi';
 export default {
-	data() {
-		const selectedItem = 5;
-		const salesByCountries = [
-			{
-				abbr: '1',
-				name: '(506089)MOEY WENG HONG',
-				change: '98.8',
-				sales: '18,00',
-				color: 'warning',
-			},
-			{
-				abbr: '2',
-				name: '(524903) MUHAMMAD ARIF BIN ROSDAN',
-				change: '80',
-				sales: '1,060',
-				color: 'secondary',
-			},
-			{
-				abbr: '3',
-				name: '(512558)KHAIRULLNIZAM BIN SABTU',
-				change: '70',
-				sales: '1,000',
-				color: 'secondary',
-			},
-			{
-				abbr: '4',
-				name: '(616508)LIEW LAY YEE',
-				change: '68',
-				sales: '980',
-				color: 'secondary',
-			},
-			{
-				abbr: '5',
-				name: '(653856)NORHISHAM BIN MOHD YAACOB',
-				change: '67',
-				sales: '970',
-				color: 'secondary',
-			},
+	created() {
+		var cData = [];
+		const user = this.$store.state.userName;
+		this.callApiRinkForGMData().then(request =>
+			request.data.data.forEach(function (v, index) {
+				//console.log(v);
+				var newValue = {
+					rank: v.RNK,
+					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 30),
+					sales: v.NETSALES,
+					color: v.RNK == '1' ? 'warning' : 'secondary',
+					change: v.TARGET,
+				};
+				cData.push(newValue);
+				if (v.MEM_CODE == user) {
+					this.selectedItem = index;
+				}
+			}),
+		);
 
-			{
-				abbr: '15',
-				name: '(653856)LEO SM',
-				change: '69',
-				sales: '977',
-				color: 'secondary',
-			},
-		];
+		this.salesByCountries = cData;
+	},
+
+	data() {
+		const selectedItem = -1;
+		const salesByCountries = [];
 
 		return {
 			salesByCountries,
@@ -158,6 +138,15 @@ export default {
 
 			return 'secondary';
 		},
+
+		async callApiRinkForGMData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getRinkForSMData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 };
 </script>
@@ -165,8 +154,7 @@ export default {
 .project-progress {
 	min-width: 4rem;
 }
-
 .border {
-	border: 2px dashed orange;
+	border: 6px dashed orange;
 }
 </style>
