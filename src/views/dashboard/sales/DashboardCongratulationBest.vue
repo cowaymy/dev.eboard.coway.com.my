@@ -2,7 +2,7 @@
 	<v-card class="greeting-card" elevation="0">
 		<v-row class="ma-0 pa-0">
 			<v-col cols="8">
-				<v-card-title class="text-no-wrap pt-1 ps-2">
+				<v-card-title class="font-weight-semibold text-2xl pt-1 ps-2">
 					Beat My Best Record
 				</v-card-title>
 				<v-card-subtitle class="text-no-wrap ps-2">

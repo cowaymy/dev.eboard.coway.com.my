@@ -2,7 +2,9 @@
 	<v-card elevation="26">
 		<v-row class="ma-0">
 			<v-col cols="12" sm="7" class="total-profit-chart-col">
-				<v-card-title class="pt-2"> Product Category</v-card-title>
+				<v-card-title class="pt-2 font-weight-semibold text-2xl">
+					Product Category</v-card-title
+				>
 				<VueApexCharts
 					id="total-profit-chart"
 					height="320"
@@ -17,10 +19,9 @@
 						<div>
 							<p class="mb-0 font-weight-semibold primary--text text-5xl">
 								<VueRolling
-									:text="this.totalsales"
+									:text="totalsales.value"
 									:isNumberFormat="true"
 									:transition="4"
-									:defaultChar="0"
 								></VueRolling>
 							</p>
 							<small class="font-weight-semibold text-xl">Today keyIn</small>
@@ -47,7 +48,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull(1) }}
+										{{ checkNull('54') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Water purifier</v-list-item-subtitle>
 								</v-list-item-content>
@@ -59,7 +60,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull(5) }}
+										{{ checkNull('400') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>POE</v-list-item-subtitle>
 								</v-list-item-content>
@@ -74,7 +75,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull(2) }}
+										{{ checkNull('55') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Air purifier</v-list-item-subtitle>
 								</v-list-item-content>
@@ -87,7 +88,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull(6) }}
+										{{ checkNull('5706') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Mattress</v-list-item-subtitle>
 								</v-list-item-content>
@@ -102,7 +103,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull(3) }}
+										{{ checkNull('56') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Bidet</v-list-item-subtitle>
 								</v-list-item-content>
@@ -115,7 +116,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull(6) }}
+										{{ checkNull('5707') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Other</v-list-item-subtitle>
 								</v-list-item-content>
@@ -129,8 +130,22 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull('AI') }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Air Cond</v-list-item-subtitle>
+								</v-list-item-content>
+
+								<!-- item 6------->
+								<v-list-item-avatar class="" size="40" rounded>
+									<v-icon size="30" color="success">
+										{{ icons.mdiAlphaEBox }}
+									</v-icon>
+								</v-list-item-avatar>
+								<v-list-item-content>
+									<v-list-item-title class="font-weight-semibold text-3xl">
+										{{ checkNull('99999') }}
+									</v-list-item-title>
+									<v-list-item-subtitle>eMALL</v-list-item-subtitle>
 								</v-list-item-content>
 							</v-list-item>
 						</v-list>
@@ -165,6 +180,7 @@ import {
 	mdiSeatIndividualSuite,
 	mdiWaterOutline,
 	mdiNumeric10BoxMultiple,
+	mdiAlphaEBox,
 } from '@mdi/js';
 //import { getVuetify } from '@core/utils';
 //import { kFormatter } from '@core/utils/filter';
@@ -220,31 +236,50 @@ export default {
 		this.chartData = cData;
 
 		this.callApiEKeyInData().then(request => {
-			this.totalsales = request.data.data[0].EKEY_SALES;
+			this.totalsales = {
+				value: request.data.data[0].TOTAL_SALES,
+			};
 		});
 
 		this.callApiTodayEkeyinData().then(request => {
 			this.todayEeyin = request.data.data;
 
-			console.log(this.todayEeyin);
-		});
+			// request.data.data.forEach(function (v) {
+			// 	if (v.STK_CTGRY_ID == 54) {
+			// 		console.log('111111123');
+			// 		//Bidet
+			// 		this.tvalue.WA = v.P_TOTAL_CNT;
+			// 	}
+			// });
 
+			//console.log(this.todayEeyin);
+		});
 		setInterval(() => {
 			this.callApiEKeyInData().then(request => {
-				this.totalsales = request.data.data[0].EKEY_SALES;
+				this.totalsales = {
+					value: request.data.data[0].TOTAL_SALES,
+				};
 			});
 
 			this.callApiTodayEkeyinData().then(request => {
 				this.todayEeyin = request.data.data;
+
+				//console.log(request.data.data);
 			});
-		}, 60000);
+		}, 30000);
 	},
 
 	data() {
 		const checkNull = value => {
-			var rtnVal;
+			var rtnVal = 0;
 			try {
-				rtnVal = this.todayEeyin[value].P_TOTAL_CNT;
+				this.todayEeyin.forEach(function (v) {
+					if (value == v.STK_CTGRY_ID) {
+						rtnVal = v.P_TOTAL_CNT;
+					}
+				});
+
+				//rtnVal = this.todayEeyin[value].P_TOTAL_CNT;
 			} catch (error) {
 				rtnVal = 0;
 			}
@@ -315,6 +350,7 @@ export default {
 		return {
 			chartOptions,
 			checkNull,
+			tvalue: {},
 			chartData: [],
 			totalsales: {},
 			todayEeyin: [],
@@ -335,6 +371,7 @@ export default {
 				mdiSeatIndividualSuite,
 				mdiWaterOutline,
 				mdiNumeric10BoxMultiple,
+				mdiAlphaEBox,
 			},
 		};
 	},

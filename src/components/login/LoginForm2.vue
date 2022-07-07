@@ -22,9 +22,9 @@
 
 				<!-- title -->
 				<v-card-text>
-					<p class="text-2xl font-weight-semibold text--primary mb-2">
+					<!-- <p class="text-2xl font-weight-semibold text--primary mb-2">
 						Welcome to ePAPAN! 👋🏻
-					</p>
+					</p> -->
 					<p class="mb-2">
 						Please sign-in to your account and start the adventure
 					</p>
@@ -59,12 +59,12 @@
 							</v-checkbox>
 
 							<!-- forgot link -->
-							<router-link
+							<!-- <router-link
 								:to="{ name: 'auth-forgot-password-v1' }"
 								class="mt-1"
 							>
 								Forgot Password?
-							</router-link>
+							</router-link> -->
 						</div>
 
 						<v-btn
@@ -80,12 +80,12 @@
 				</v-card-text>
 
 				<!-- create new account  -->
-				<v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
+				<!-- <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
 					<span class="me-2"> New on our platform? </span>
 					<router-link :to="{ name: 'auth-register-v1' }">
 						Create an account
 					</router-link>
-				</v-card-text>
+				</v-card-text> -->
 
 				<!-- divider -->
 			</v-card>
@@ -179,9 +179,17 @@ export default {
 				bus.$emit('start:spinner');
 
 				//call lgoin api
-				const user = await this.$store.dispatch('LOGIN', userdata);
-				//go to main page
-				this.$router.push(this.getNextRoute(user));
+				const data = await this.$store.dispatch('LOGIN', userdata);
+
+				console.log(data);
+
+				if (data.success) {
+					//go to main page
+					this.$router.push(this.getNextRoute(data.user[0]));
+				} else {
+					this.sheet = true;
+					this.logMaessage = data.message;
+				}
 			} catch (error) {
 				console.log(error);
 				this.sheet = true;

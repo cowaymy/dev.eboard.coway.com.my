@@ -32,6 +32,7 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		setUserInfo(state, user) {
+			console.log(user);
 			state.userInfo = user;
 			state.userName = user.userName;
 		},
@@ -50,21 +51,21 @@ export default new Vuex.Store({
 
 	actions: {
 		async LOGIN({ commit }, userData) {
-			const { data } = await userApi.userLogin(userData);
-			commit('setUserInfo', data.user[0]);
-			commit('setToken', data.token);
+			const result = await userApi.userLogin(userData);
+			console.log('====>');
+			console.log(result.data);
+			console.log('====>');
 
-			if (!data.success) {
-				this.sheet = true;
-				this.logMaessage = data.message;
-				return;
+			if (result.data.success) {
+				commit('setUserInfo', result.data.user[0]);
+				commit('setToken', result.data.token);
+
+				//set cookies
+				saveAuthToCookie(result.data.token);
+				saveUserToCookie(result.data.user[0]);
 			}
 
-			//set cookies
-			saveAuthToCookie(data.token);
-			saveUserToCookie(data.user[0]);
-
-			return data.user[0];
+			return result.data;
 		},
 	},
 });

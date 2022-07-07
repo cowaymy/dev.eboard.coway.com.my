@@ -105,10 +105,7 @@
 				<div class="mx-6 d-flex justify-space-between">
 					<span>
 						&copy; 2022
-						<a
-							href="https://themeselection.com"
-							class="text-decoration-none"
-							target="_blank"
+						<a href="" class="text-decoration-none" target="_blank"
 							>COWAY ITS</a
 						></span
 					>
@@ -128,7 +125,7 @@ export default {
 		drawer: null,
 		spinnerStatus: false,
 		items: [
-			{ icon: 'fas fa-chalkboard-teacher', text: 'DSC', route: '/salesMainHQ' },
+			{ icon: 'fas fa-chalkboard-teacher', text: '', route: '/salesMain' },
 			{ icon: 'fas fa-cog', text: 'userInfo', route: '/accsetting' },
 		],
 	}),
@@ -154,9 +151,6 @@ export default {
 		},
 
 		gotoMenu(route) {
-			console.log(route);
-
-			console.log(this.$router.history.current.path);
 			if (route != this.$router.history.current.path) {
 				console.log('in here');
 				this.$router.push(route);

@@ -1,7 +1,7 @@
 <template>
 	<v-card elevation="1">
 		<v-card-title class="align-start">
-			<span>Sales Ranking by HM</span>
+			<span class="font-weight-semibold text-2xl">Net Sales Ranking by HM</span>
 
 			<v-spacer></v-spacer>
 
@@ -93,25 +93,27 @@ import salesApi from '../../../api/salesApi';
 export default {
 	created() {
 		var cData = [];
+		var sinx;
 		const user = this.$store.state.userName;
 		this.callApiRinkForGMData().then(request =>
 			request.data.data.forEach(function (v, index) {
 				//console.log(v);
 				var newValue = {
 					rank: v.RNK,
-					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 30),
+					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 25),
 					sales: v.NETSALES,
 					color: v.RNK == '1' ? 'warning' : 'secondary',
 					change: v.TARGET,
 				};
 				cData.push(newValue);
 				if (v.MEM_CODE == user) {
-					this.selectedItem = index;
+					sinx = index;
 				}
 			}),
 		);
 
 		this.salesByCountries = cData;
+		this.selectedItem = sinx;
 	},
 
 	data() {
@@ -131,11 +133,10 @@ export default {
 
 	methods: {
 		resolveUserProgressVariant(progrss) {
-			if (progrss <= 25) return 'error';
-			if (progrss > 25 && progrss <= 50) return 'warning';
-			if (progrss > 50 && progrss <= 75) return 'primary';
-			if (progrss > 75 && progrss <= 100) return 'success';
-
+			if (progrss <= 25) return 'warning';
+			if (progrss > 25 && progrss <= 50) return 'info';
+			if (progrss > 50 && progrss <= 75) return 'success';
+			if (progrss > 75) return 'error';
 			return 'secondary';
 		},
 

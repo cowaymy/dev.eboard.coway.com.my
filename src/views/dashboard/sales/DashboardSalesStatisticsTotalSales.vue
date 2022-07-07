@@ -11,7 +11,9 @@
 					&nbsp; Target Sales
 				</v-card-title>
 				<v-card-text class="text-no-wrap mt-4">
-					<p class="text-xs mb-0">Calculated in last 7 days</p>
+					<p class="font-weight-semibold text-1xl mb-0">
+						Target Sales : {{ totalsales.TARGET_AMT }}
+					</p>
 					<P></P>
 				</v-card-text>
 			</div>
@@ -38,10 +40,10 @@ export default {
 	},
 
 	methods: {
-		async callApiEKeyInData() {
+		async callApiTargetData() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-				return await salesApi.getEKeyInData(userInfo);
+				return await salesApi.getTargetData(userInfo);
 			} catch (error) {
 				console.log(error);
 			}
@@ -49,60 +51,66 @@ export default {
 	},
 
 	created() {
-		// this.callApiEKeyInData().then(request => {
-		// 	this.totalsales = request.data[0].EKEY_SALES;
-		// });
+		var cData = [];
+		this.callApiTargetData().then(request => {
+			request.data.data.forEach(function (v) {
+				// var newValue = {
+				// 	data: [v.RATE],
+				// };
+
+				cData.push(v.RATE);
+				//cData.push(100 - parseFloat(v.RATE));
+			});
+			this.totalsales = request.data.data[0];
+		});
+
+		this.chartSeries = cData;
+
+		console.log(this.chartSeries);
+		console.log(this.totalsales);
 	},
 
 	data() {
-		const chartSeries = [85, 20, 30, 50];
+		const chartSeries = [];
+
 		const chartOptions = {
 			chart: {
-				offsetY: 7,
-				type: 'donut',
+				offsetY: 2,
+				type: 'radialBar',
+
 				sparkline: {
 					enabled: true,
 				},
 				animations: {
-					enabled: false,
+					enabled: true,
 				},
 			},
-			stroke: {
-				colors: ['#fff'],
-				width: 8,
-			},
-			grid: {
-				padding: {
-					bottom: 10,
-				},
-			},
-			colors: ['#FF4500', '#E9EAEC', '#1E90FF', '#FF8C00'],
+
+			colors: ['#56C6F6'],
 			plotOptions: {
-				pie: {
-					donut: {
-						labels: {
+				radialBar: {
+					hollow: {
+						margin: 15,
+						size: '70%',
+					},
+
+					dataLabels: {
+						showOn: 'always',
+						name: {
+							offsetY: -10,
 							show: true,
-							name: {
-								fontSize: '14px',
-								offsetY: 25,
-							},
-							value: {
-								offsetY: -13,
-								formatter(value) {
-									return `${value}k`;
-								},
-							},
-							total: {
-								show: true,
-								label: 'total',
-								formatter() {
-									return '78%';
-								},
-							},
+							color: '#888',
+							fontSize: '23px',
+						},
+						value: {
+							color: '#111',
+							fontSize: '30px',
+							show: true,
 						},
 					},
 				},
 			},
+			labels: ['Total'],
 		};
 
 		return {

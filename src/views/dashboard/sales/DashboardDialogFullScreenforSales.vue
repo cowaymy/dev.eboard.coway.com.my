@@ -39,32 +39,12 @@
 				<v-col cols="12"><p></p></v-col>
 				<v-col cols="12" sm="4" md="2">
 					<StatisticsCardVerticalForSales
-						:change="KeyInOptionsdeail.change"
-						:color="KeyInOptionsdeail.color"
-						:icon="KeyInOptionsdeail.icon"
-						:statistics="KeyInOptionsdeail.statistics"
-						:stat-title="KeyInOptionsdeail.statTitle"
-						:subtitle="KeyInOptionsdeail.subtitle"
-					></StatisticsCardVerticalForSales>
-				</v-col>
-				<v-col cols="12" sm="4" md="2">
-					<StatisticsCardVerticalForSales
-						:change="NetSalesOptions.change"
-						:color="NetSalesOptions.color"
-						:icon="NetSalesOptions.icon"
-						:statistics="NetSalesOptions.statistics"
-						:stat-title="NetSalesOptions.statTitle"
-						:subtitle="NetSalesOptions.subtitle"
-					></StatisticsCardVerticalForSales>
-				</v-col>
-				<v-col cols="12" sm="4" md="2">
-					<StatisticsCardVerticalForSales
-						:change="ActiveHpOptions.change"
-						:color="ActiveHpOptions.color"
-						:icon="ActiveHpOptions.icon"
-						:statistics="ActiveHpOptions.statistics"
-						:stat-title="ActiveHpOptions.statTitle"
-						:subtitle="ActiveHpOptions.subtitle"
+						:change="Recruitment.change"
+						:color="Recruitment.color"
+						:icon="Recruitment.icon"
+						:statistics="Recruitment.statistics"
+						:stat-title="Recruitment.statTitle"
+						:subtitle="Recruitment.subtitle"
 					></StatisticsCardVerticalForSales>
 				</v-col>
 			</v-row>
@@ -74,17 +54,42 @@
 
 <script>
 import {
-	mdiClipboardEditOutline,
+	//mdiClipboardEditOutline,
 	mdiCheckboxMultipleMarkedOutline,
-	mdiAccountCheckOutline,
+	//mdiAccountCheckOutline,
 	mdiClose,
 } from '@mdi/js';
 
 import StatisticsCardVerticalForSales from '../../../components/statistics-card/StatisticsCardVerticalForSales.vue';
-
+//import bus from '../../../utils/bus.js';
+import salesApi from '../../../api/salesApi';
 export default {
 	components: {
 		StatisticsCardVerticalForSales,
+	},
+
+	methods: {
+		async callApiSalesHQMainApi() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getCurMonthData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	},
+	created() {
+		this.callApiSalesHQMainApi().then(
+			response =>
+				(this.Recruitment = {
+					statTitle: 'Recruitment',
+					icon: mdiCheckboxMultipleMarkedOutline,
+					color: 'warning',
+					subtitle: response.data.user[0].LST_UP_TIME,
+					statistics: response.data.user[0].SAL_RECRUITMENT,
+					//change: response.data.user[0].SAL_RECRUITMENT,
+				}),
+		);
 	},
 	data() {
 		const isDialogVisible = false;
@@ -92,42 +97,13 @@ export default {
 		const sound = true;
 		const widgets = false;
 
-		const KeyInOptionsdeail = {
-			statTitle: 'KeyIn',
-			icon: mdiClipboardEditOutline,
-			color: 'success',
-			subtitle: 'updated 10 minutes ago',
-			statistics: '90,981',
-			change: '+12%',
-		};
-
-		const NetSalesOptions = {
-			statTitle: 'Net Sales',
-			icon: mdiCheckboxMultipleMarkedOutline,
-			color: 'error',
-			subtitle: 'updated 10 minutes ago',
-			statistics: '89,008',
-			change: '+10%',
-		};
-
-		// vertical card options
-		const ActiveHpOptions = {
-			statTitle: 'Active HP',
-			icon: mdiAccountCheckOutline,
-			color: 'primary',
-			subtitle: 'updated 10 minutes ago',
-			statistics: '123,862',
-			change: '-18%',
-		};
-
 		return {
 			isDialogVisible,
 			notifications,
 			sound,
 			widgets,
-			ActiveHpOptions,
-			NetSalesOptions,
-			KeyInOptionsdeail,
+			Recruitment: {},
+
 			// icon
 			icons: {
 				mdiClose,

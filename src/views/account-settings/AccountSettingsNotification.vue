@@ -1,88 +1,119 @@
 <template>
 	<v-card flat class="pa-3">
-		<v-card-title>
-			<v-icon size="26" class="text--primary me-3">
-				{{ icons.mdiChartTimelineVariant }}
-			</v-icon>
-			<span>Activity</span>
-		</v-card-title>
+		<v-form class="multi-col-validation">
+			<v-row>
+				<v-col cols="12" md="6">
+					<v-text-field
+						label="Subject"
+						dense
+						hide-details
+						outlined
+					></v-text-field>
+				</v-col>
 
-		<!-- Activity -->
-		<v-card-text>
-			<v-switch
-				v-model="optionsLocale.commentOnArticle"
-				hide-details
-				class="mt-0"
-			>
-				<template #label>
-					<span class="text-sm ms-2"
-						>Email me when someone comments on my article</span
+				<v-col cols="12" md="6">
+					<v-autocomplete
+						v-model="values"
+						:items="items"
+						outlined
+						dense
+						chips
+						small-chips
+						label="Notification Channel"
+						multiple
+					></v-autocomplete>
+				</v-col>
+
+				<v-col cols="12">
+					<v-textarea label="Contents" outlined rows="3"></v-textarea>
+				</v-col>
+
+				<v-col cols="12" md="6">
+					<v-dialog
+						ref="dialog"
+						v-model="modal"
+						:return-value.sync="date"
+						persistent
+						width="290px"
 					>
-				</template>
-			</v-switch>
+						<template v-slot:activator="{ on, attrs }">
+							<v-text-field
+								v-model="date"
+								label="Start Date"
+								:prepend-icon="icons.mdiCalendar"
+								readonly
+								v-bind="attrs"
+								v-on="on"
+							></v-text-field>
+						</template>
 
-			<v-switch v-model="optionsLocale.answerOnForm" hide-details class="mt-3">
-				<template #label>
-					<span class="text-sm ms-2"
-						>Email me when someone answers on my forum thread</span
+						<v-date-picker v-model="date" scrollable color="primary">
+							<v-btn text color="primary" @click="modal = false">
+								Cancel
+							</v-btn>
+							<v-btn text color="primary" @click="$refs.dialog.save(date)">
+								OK
+							</v-btn>
+						</v-date-picker>
+					</v-dialog>
+				</v-col>
+
+				<v-col cols="12" md="6">
+					<v-dialog
+						ref="dialog2"
+						v-model="modal1"
+						:return-value.sync="enddate"
+						persistent
+						width="290px"
 					>
-				</template>
-			</v-switch>
+						<template v-slot:activator="{ on, attrs }">
+							<v-text-field
+								v-model="enddate"
+								label="End Date"
+								:prepend-icon="icons.mdiCalendar"
+								readonly
+								v-bind="attrs"
+								v-on="on"
+							></v-text-field>
+						</template>
 
-			<v-switch v-model="optionsLocale.followMe" hide-details class="mt-3">
-				<template #label>
-					<span class="text-sm ms-2">Email me when someone follows me</span>
-				</template>
-			</v-switch>
-		</v-card-text>
+						<v-date-picker v-model="enddate" scrollable color="primary">
+							<v-btn text color="primary" @click="modal1 = false">
+								Cancel
+							</v-btn>
+							<v-btn text color="primary" @click="$refs.dialog2.save(enddate)">
+								OK
+							</v-btn>
+						</v-date-picker>
+					</v-dialog>
+				</v-col>
 
-		<v-card-title class="mt-2">
-			<v-icon size="26" class="text--primary me-3">
-				{{ icons.mdiEmailOutline }}
-			</v-icon>
-			<span>Application</span>
-		</v-card-title>
+				<v-col cols="12" md="6">
+					<label>Use </label>
+					<v-switch
+						v-model="switch1"
+						:label="`${switch1.toString()}`"
+						hide-details
+					></v-switch>
+				</v-col>
 
-		<!-- Application -->
-		<v-card-text>
-			<v-switch
-				v-model="optionsLocale.newsAnnouncements"
-				hide-details
-				class="mt-0"
-			>
-				<template #label>
-					<span class="text-sm ms-2">News and announcements</span>
-				</template>
-			</v-switch>
-
-			<v-switch
-				v-model="optionsLocale.productUpdates"
-				hide-details
-				class="mt-3"
-			>
-				<template #label>
-					<span class="text-sm ms-2">Weekly product updates</span>
-				</template>
-			</v-switch>
-
-			<v-switch v-model="optionsLocale.blogDigest" hide-details class="mt-3">
-				<template #label>
-					<span class="text-sm ms-2">Weekly blog digest</span>
-				</template>
-			</v-switch>
-		</v-card-text>
-
-		<v-card-text>
-			<v-btn color="primary" class="me-3 mt-5"> Save changes </v-btn>
-			<v-btn color="secondary" outlined class="mt-5"> Cancel </v-btn>
-		</v-card-text>
+				<v-col cols="12">
+					<label>Notification Type</label>
+					<v-radio-group v-model="radios" mandatory row>
+						<v-radio label="Emergency" value="Y"></v-radio>
+						<v-radio label="Normal" value="N"></v-radio>
+					</v-radio-group>
+				</v-col>
+				<v-col offset-md="6" cols="12">
+					<v-btn color="primary"> Submit </v-btn>
+				</v-col>
+			</v-row>
+		</v-form>
 	</v-card>
 </template>
 
 <script>
-import { mdiChartTimelineVariant, mdiEmailOutline } from '@mdi/js';
-//import { ref } from '@vue/composition-api';
-
+import { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar } from '@mdi/js';
 export default {
 	props: {
 		notificationData: {
@@ -92,10 +123,31 @@ export default {
 	},
 	data(props) {
 		const optionsLocale = JSON.parse(JSON.stringify(props.notificationData));
+		const switch1 = true;
+		const items = ['ALL', 'SALES', 'CODY', 'DST', 'CCP'];
+		const values = [];
+		const value = '';
 
+		const date = new Date().toISOString().substr(0, 10);
+		const enddate = new Date().toISOString().substr(0, 10);
+
+		const modal = '';
+		const modal1 = '';
+
+		const radios = 'Emergency';
 		return {
+			items,
+			value,
+			values,
 			optionsLocale,
-			icons: { mdiChartTimelineVariant, mdiEmailOutline },
+			date,
+			enddate,
+
+			modal,
+			modal1,
+			radios,
+			switch1,
+			icons: { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar },
 		};
 	},
 };

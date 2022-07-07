@@ -1,5 +1,5 @@
 <template>
-	<v-card elevation="1">
+	<v-card elevation="1" style="width: auto; height: 350px">
 		<v-card-title class="align-start">
 			<v-avatar :color="color" size="38" elevation="5">
 				<v-icon size="24" color="white" class="rounded-0">
@@ -14,7 +14,18 @@
 		</v-card-title>
 
 		<v-card-text>
-			<div>
+			<v-carousel
+				cycle
+				height="400"
+				hide-delimiter-background
+				show-arrows-on-hover
+			>
+				<v-carousel-item v-for="(item, i) in items" :key="i">
+					<img :src="item.src" style="width: 95%; height: 230px" />
+				</v-carousel-item>
+			</v-carousel>
+
+			<!-- <div>
 				<v-carousel
 					:cycle="true"
 					:interval="5000"
@@ -55,8 +66,8 @@
 							</v-timeline>
 						</v-sheet>
 					</v-carousel-item>
-				</v-carousel>
-			</div>
+				</v-carousel> 
+			</div>-->
 		</v-card-text>
 	</v-card>
 </template>
@@ -80,6 +91,17 @@ export default {
 	data() {
 		return {
 			mdiDotsVertical,
+			items: [
+				{
+					src: 'https://www.coway.com.my/img/general-slider/coway-bamboo-plus-POE-22A.jpg',
+				},
+				{
+					src: 'https://www.coway.com.my/img/general-slider/coway-we-stand-as-one.jpg',
+				},
+				{
+					src: 'https://www.coway.com.my/img/general-slider/coway-double-hepa-filter.jpg',
+				},
+			],
 		};
 	},
 };

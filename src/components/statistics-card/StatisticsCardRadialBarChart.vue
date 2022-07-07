@@ -1,22 +1,14 @@
 <template>
 	<v-card class="stats-card-radial-bar d-flex flex-column">
-		<v-card-title class="text-3xl" style="text-align: center">
-			<v-avatar :color="color" size="38" class="elevation-3">
-				<v-icon size="24" color="red" class="rounded-0">
-					{{ mdiBullseyeArrow }}
-				</v-icon>
-			</v-avatar>
-			&nbsp; {{ statistics }}
-		</v-card-title>
+		<v-card-title class="align-start">{{ statTitle }} </v-card-title>
 
 		<VueApexCharts
 			id="stats-card-radial-bar-chart"
 			type="radialBar"
-			class="d-flex align-center flex-grow-1"
+			class="d-flex align-top flex-grow-3"
 			:options="chartOptions"
-			:series="chartSeries"
+			:series="chartValue"
 		></VueApexCharts>
-
 		<v-card-text class="font-weight-semibold text-center text--primary">
 			{{ statTitle }}
 		</v-card-text>
@@ -36,26 +28,19 @@ export default {
 			type: Array,
 			default: () => [],
 		},
-		chartConfig: {
-			type: Object,
-			default: null,
-		},
-		chartColor: {
-			type: String,
-			required: true,
-		},
-		chartHeight: {
-			type: String,
-			default: 'auto',
-		},
+	},
+
+	created() {
+		console.log(this.chartSeries);
 	},
 	data() {
 		const chartOptions = {
 			chart: {
-				height: 130,
+				height: 150,
+				width: 100,
 				type: 'radialBar',
 			},
-			series: [67],
+			series: [],
 			colors: ['#20E647'],
 			plotOptions: {
 				radialBar: {
@@ -68,7 +53,7 @@ export default {
 					},
 					dataLabels: {
 						name: {
-							show: false,
+							show: true,
 						},
 						value: {
 							fontSize: '30px',
@@ -89,21 +74,16 @@ export default {
 			stroke: {
 				lineCap: 'butt',
 			},
-			labels: ['Progress'],
+			labels: ['NetSales'],
 		};
 		return {
+			chartValue: [],
 			chartOptions,
 			mdiBullseyeArrow,
 		};
 	},
 };
 </script>
-
-// @import '~@core/preset/preset/mixins.scss'; // @include
-theme--child(stats-card-radial-bar) using ($material) { //
-#stats-card-radial-bar-chart { // .apexcharts-canvas { // .apexcharts-text { //
-&.apexcharts-datalabel-value { // fill: map-deep-get($material, 'text',
-'primary'); // font-weight: 600; // } // } // } // } // }
 
 <style lang="scss" scoped>
 .percentage {

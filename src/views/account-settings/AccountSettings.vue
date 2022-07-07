@@ -31,11 +31,11 @@
 			<!-- <v-tab-item>
 				<account-settings-billing></account-settings-billing>
 			</v-tab-item> -->
-			<!-- <v-tab-item>
+			<v-tab-item>
 				<account-settings-notification
 					:notification-data="accountSettingData.notification"
 				></account-settings-notification>
-			</v-tab-item> -->
+			</v-tab-item>
 		</v-tabs-items>
 	</v-card>
 </template>
@@ -95,14 +95,14 @@ export default {
 						: `sponsor Code[ ] Name:${this.$store.state.userInfo.spouseName}`,
 				gender: this.$store.state.userInfo.gender,
 			},
-			// notification: {
-			// 	commentOnArticle: true,
-			// 	answerOnForm: true,
-			// 	followMe: false,
-			// 	newsAnnouncements: false,
-			// 	productUpdates: true,
-			// 	blogDigest: false,
-			// },
+			notification: {
+				commentOnArticle: true,
+				answerOnForm: true,
+				followMe: false,
+				newsAnnouncements: false,
+				productUpdates: true,
+				blogDigest: false,
+			},
 		};
 
 		return {

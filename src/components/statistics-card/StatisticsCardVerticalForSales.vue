@@ -1,5 +1,5 @@
 <template>
-	<v-card>
+	<v-card elevation="3">
 		<v-card-title class="align-start">
 			<v-avatar :color="color" size="38" elevation="5">
 				<v-icon size="24" color="white" class="rounded-0">
@@ -31,12 +31,12 @@
 				<span class="text-3xl align-center font-weight-semibold mb-3">
 					{{ statistics }}
 				</span>
-				<span
+				<!-- <span
 					class="percentage text-xs mb-2"
 					:class="checkChange(change) ? 'success--text' : 'error--text'"
 				>
 					{{ change }}</span
-				>
+				> -->
 			</div>
 			<p style="text-align: right" class="text-xs text--secondary mb-0">
 				{{ subtitle }}
@@ -54,8 +54,6 @@
 <script>
 import { mdiDotsVertical } from '@mdi/js';
 import DashboardDialog from '../../views/dashboard/sales/DashboardDialogFullScreenforSales.vue';
-
-import DashboardDialogFullScreenforSales from '../../views/dashboard/sales/DashboardDialogFullScreenforSales.vue';
 
 export default {
 	components: {

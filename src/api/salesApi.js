@@ -106,6 +106,19 @@ function getRinkForHPData(userData) {
 	return newInstance.get('/sales/rinkForHPData', { params: options });
 }
 
+function getTargetData(userData) {
+	const options = {
+		memCode: userData.userName,
+		memId: userData.memId,
+		memberLevel: userData.memberLevel,
+		userName: userData.userName,
+		userTypeId: userData.userTypeId,
+		roleId: userData.roleId,
+	};
+
+	return newInstance.get('/sales/targetData', { params: options });
+}
+
 function getNetSalesData(userData) {
 	return newInstance.post('getNetSalesData', userData);
 }
@@ -140,4 +153,5 @@ export default {
 	getRinkForSMData,
 	getRinkForHMData,
 	getRinkForHPData,
+	getTargetData,
 };

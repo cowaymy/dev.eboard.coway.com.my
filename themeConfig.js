@@ -2,7 +2,7 @@ import { mdiCheckboxBlankCircleOutline } from '@mdi/js';
 
 const themeConfig = {
 	app: {
-		name: 'eBoard',
+		name: 'ePAPAN',
 		logo: require('/src/assets/images/logos/logo_coway2.png'),
 		isDark: false,
 		isRtl: false,

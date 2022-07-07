@@ -31,12 +31,12 @@
 				<span class="font-weight-semibold text-5xl mb-3">
 					{{ statistics }}
 				</span>
-				<span
+				<!-- <span
 					class="percentage text-xs mb-2"
 					:class="checkChange(change) ? 'success--text' : 'error--text'"
 				>
 					{{ checkNull(change) }}</span
-				>
+				> -->
 			</div>
 			<v-spacer></v-spacer>
 			<p></p>

@@ -1,7 +1,7 @@
 <template>
 	<v-card elevation="1">
 		<v-card-title class="align-start">
-			<span>Sales Ranking by HP</span>
+			<span class="font-weight-semibold text-2xl">Net Sales Ranking by HP</span>
 
 			<v-spacer></v-spacer>
 
@@ -67,7 +67,7 @@
 
 							<v-spacer></v-spacer>
 
-							<div>
+							<!-- <div>
 								<h4 class="font-weight-semibold"></h4>
 								<span class="text-xs">{{ data.change }} %</span>
 								<v-progress-linear
@@ -77,7 +77,7 @@
 									:color="resolveUserProgressVariant(data.change)"
 									:value="data.change"
 								></v-progress-linear>
-							</div>
+							</div> -->
 						</div>
 					</v-list-item>
 				</v-list-item-group>
@@ -93,25 +93,27 @@ import salesApi from '../../../api/salesApi';
 export default {
 	created() {
 		var cData = [];
+		//var sidx;
 		const user = this.$store.state.userName;
 		this.callApiRinkForGMData().then(request =>
 			request.data.data.forEach(function (v, index) {
 				//console.log(v);
 				var newValue = {
 					rank: v.RNK,
-					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 30),
+					name: `(${v.MEM_CODE})${v.NAME}`,
 					sales: v.NETSALES,
 					color: v.RNK == '1' ? 'warning' : 'secondary',
 					change: v.TARGET,
 				};
 				cData.push(newValue);
 				if (v.MEM_CODE == user) {
-					this.selectedItem = index;
+					this.sidx = index;
 				}
 			}),
 		);
 
 		this.salesByCountries = cData;
+		///this.selectedItem = sidx;
 	},
 
 	data() {
@@ -131,10 +133,10 @@ export default {
 
 	methods: {
 		resolveUserProgressVariant(progrss) {
-			if (progrss <= 25) return 'error';
-			if (progrss > 25 && progrss <= 50) return 'warning';
-			if (progrss > 50 && progrss <= 75) return 'primary';
-			if (progrss > 75 && progrss <= 100) return 'success';
+			if (progrss <= 25) return 'warning';
+			if (progrss > 25 && progrss <= 50) return 'info';
+			if (progrss > 50 && progrss <= 75) return 'success';
+			if (progrss > 75) return 'error';
 
 			return 'secondary';
 		},
