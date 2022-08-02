@@ -41,11 +41,17 @@
 			<v-spacer></v-spacer>
 			<p></p>
 			<p style="text-align: right" class="text-xs text--secondary mb-0">
-				updated <strong>{{ subtitle }}</strong>
+				<strong> {{ subtitle }}</strong>
 			</p>
 
 			<template v-if="moreshow">
 				<DashboardDialog />
+			</template>
+
+			<template v-else> </template>
+
+			<template v-if="isDialogBestVisible">
+				<DashboardBestDialog />
 			</template>
 
 			<template v-else> </template>
@@ -54,12 +60,15 @@
 </template>
 
 <script>
+import gsap from 'gsap';
 import { mdiDotsVertical } from '@mdi/js';
+import { boolean } from 'yargs';
 import DashboardDialog from '../../views/dashboard/sales/DashboardDialogFullScreenforSales.vue';
-
+import DashboardBestDialog from '../../views/comm/DialogBottomScreen.vue';
 export default {
 	components: {
 		DashboardDialog,
+		DashboardBestDialog,
 	},
 	props: {
 		statTitle: { type: String, default: '' },
@@ -69,6 +78,7 @@ export default {
 		statistics: { type: String, default: '' },
 		change: { type: String, default: '' },
 		moreshow: { type: String, default: '' },
+		isDialogBestVisible: { type: boolean, default: '' },
 	},
 	data() {
 		const isDialogVisible = false;
@@ -106,7 +116,14 @@ export default {
 			notifications,
 			sound,
 			widgets,
+			number: 0,
+			tweened: 0,
 		};
+	},
+	watch: {
+		number(n) {
+			gsap.to(this, { duration: 0.5, tweened: Number(n) || 0 });
+		},
 	},
 };
 </script>

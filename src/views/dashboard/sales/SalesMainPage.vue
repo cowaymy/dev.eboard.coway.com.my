@@ -304,94 +304,91 @@ export default {
 		};
 	},
 	created() {
-		bus.$emit('start:spinner');
-
-		this.callApiTargetData().then(request => {
-			this.salesRadialChart = {
-				statTitle: 'Total Sales Target',
-				statistics: 'Net Sales',
-				color: 'primary',
-				chartSeries: request.data.data,
-			};
-		});
-
+		//bus.$emit('start:spinner');
+		// this.callApiTargetData().then(request => {
+		// 	this.salesRadialChart = {
+		// 		statTitle: 'Total Sales Target',
+		// 		statistics: 'Net Sales',
+		// 		color: 'primary',
+		// 		chartSeries: request.data.data,
+		// 	};
+		// });
 		this.callApiSalesHQMainApi().then(
 			response => (
 				(this.eKeyInData = {
 					statTitle: 'Key In',
 					icon: mdiClipboardEditOutline,
 					color: 'success',
-					subtitle: response.data.user[0].LST_UP_TIME,
-					statistics: response.data.user[0].SAL_KEYIN,
+					subtitle: response.data.data[0].LST_UP_TIME,
+					statistics: response.data.data[0].SAL_KEYIN,
 					//change: response.data.user[0].PE_SAL_KEYIN,
 				}),
 				(this.NetSalesData = {
 					statTitle: 'Net Sales',
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'error',
-					subtitle: response.data.user[0].LST_UP_TIME,
-					statistics: response.data.user[0].SAL_NET_SALES,
+					subtitle: response.data.data[0].LST_UP_TIME,
+					statistics: response.data.data[0].SAL_NET_SALES,
 					//change: response.data.user[0].PE_SAL_NET_SALES,
 				}),
 				(this.ActiveHpData = {
 					statTitle: 'Active HP',
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'primary',
-					subtitle: response.data.user[0].LST_UP_TIME,
-					statistics: response.data.user[0].SAL_ACTIVE_HP,
+					subtitle: response.data.data[0].LST_UP_TIME,
+					statistics: response.data.data[0].SAL_ACTIVE_HP,
 					//change: response.data.user[0].PE_SAL_ACTIVE_HP,
 				}),
 				(this.SHIData = {
 					statTitle: 'SHI',
 					icon: mdiTrendingUp,
 					color: 'warning',
-					subtitle: response.data.user[0].LST_UP_TIME,
-					statistics: response.data.user[0].SAL_SHI,
+					subtitle: response.data.data[0].LST_UP_TIME,
+					statistics: response.data.data[0].SAL_SHI,
 					//change: response.data.user[0].PE_SAL_SHI,
 					moreshow: 'true',
 				})
 			),
 		);
-
-		setInterval(() => {
-			this.callApiSalesHQMainApi().then(
-				response => (
-					(this.eKeyInData = {
-						statTitle: 'Key In',
-						icon: mdiClipboardEditOutline,
-						color: 'success',
-						subtitle: response.data.user[0].LST_UP_TIME,
-						statistics: response.data.user[0].SAL_KEYIN,
-						//change: response.data.user[0].PE_SAL_KEYIN,
-					}),
-					(this.NetSalesData = {
-						statTitle: 'Net Sales',
-						icon: mdiCheckboxMultipleMarkedOutline,
-						color: 'error',
-						subtitle: response.data.user[0].LST_UP_TIME,
-						statistics: response.data.user[0].SAL_NET_SALES,
-						//change: response.data.user[0].PE_SAL_NET_SALES,
-					}),
-					(this.ActiveHpData = {
-						statTitle: 'Active HP',
-						icon: mdiCheckboxMultipleMarkedOutline,
-						color: 'primary',
-						subtitle: response.data.user[0].LST_UP_TIME,
-						statistics: response.data.user[0].SAL_ACTIVE_HP,
-						//change: response.data.user[0].PE_SAL_ACTIVE_HP,
-					}),
-					(this.SHIData = {
-						statTitle: 'SHI',
-						icon: mdiTrendingUp,
-						color: 'warning',
-						subtitle: response.data.user[0].LST_UP_TIME,
-						statistics: response.data.user[0].SAL_SHI,
-						//change: response.data.user[0].PE_SAL_SHI,
-						moreshow: 'true',
-					})
-				),
-			);
-		}, 30000);
+		// setInterval(() => {
+		// 	this.callApiSalesHQMainApi().then(
+		// 		response => (
+		// 			(this.eKeyInData = {
+		// 				statTitle: 'Key In',
+		// 				icon: mdiClipboardEditOutline,
+		// 				color: 'success',
+		// 				subtitle: response.data.user[0].LST_UP_TIME,
+		// 				statistics: response.data.user[0].SAL_KEYIN,
+		// 				//change: response.data.user[0].PE_SAL_KEYIN,
+		// 			}),
+		// 			(this.NetSalesData = {
+		// 				statTitle: 'Net Sales',
+		// 				icon: mdiCheckboxMultipleMarkedOutline,
+		// 				color: 'error',
+		// 				subtitle: response.data.user[0].LST_UP_TIME,
+		// 				statistics: response.data.user[0].SAL_NET_SALES,
+		// 				//change: response.data.user[0].PE_SAL_NET_SALES,
+		// 			}),
+		// 			(this.ActiveHpData = {
+		// 				statTitle: 'Active HP',
+		// 				icon: mdiCheckboxMultipleMarkedOutline,
+		// 				color: 'primary',
+		// 				subtitle: response.data.user[0].LST_UP_TIME,
+		// 				statistics: response.data.user[0].SAL_ACTIVE_HP,
+		// 				//change: response.data.user[0].PE_SAL_ACTIVE_HP,
+		// 			}),
+		// 			(this.SHIData = {
+		// 				statTitle: 'SHI',
+		// 				icon: mdiTrendingUp,
+		// 				color: 'warning',
+		// 				subtitle: response.data.user[0].LST_UP_TIME,
+		// 				statistics: response.data.user[0].SAL_SHI,
+		// 				//change: response.data.user[0].PE_SAL_SHI,
+		// 				moreshow: 'true',
+		// 			})
+		// 		),
+		// 	);
+		// }, 30000);
 	},
 };
 </script>

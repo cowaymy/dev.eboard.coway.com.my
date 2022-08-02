@@ -1,9 +1,16 @@
 <template>
-	<div class="TextAnime1">
-		<transition-group tag="div" class="title">
-			<span v-for="el in text" :key="el.id" class="item" v-text="el.text" />
-		</transition-group>
-	</div>
+	<v-carousel
+		:cycle="true"
+		height="auto"
+		:show-arrows="false"
+		hide-delimiter-background
+	>
+		<v-carousel-item v-for="(slide, i) in original" :key="i">
+			<v-sheet class="fill-height" justify="center">
+				<div class="item">{{ slide }}</div>
+			</v-sheet>
+		</v-carousel-item>
+	</v-carousel>
 </template>
 
 <script>
@@ -36,7 +43,7 @@ export default {
 	},
 	watch: {
 		autoplay(val) {
-			clearTimeout(this.timer);
+			//clearTimeout(this.timer);
 			if (val) {
 				//this.ticker();
 			}
@@ -58,12 +65,6 @@ export default {
 
 				this.original = dataList;
 
-				//console.log(this.original);
-
-				this.messages = this.original.map(el => this.convText(el));
-				this.text = this.messages[0];
-				this.ticker();
-
 				// var obj = [
 				// 	'The ETRUST system performance is currently normal.',
 				// 	'The ekeyin closing day is in 23rd this month.',
@@ -73,35 +74,13 @@ export default {
 				console.log(error);
 			}
 		},
-
-		// 데모 전용 타이머
-		ticker() {
-			this.timer = setTimeout(() => {
-				if (this.autoplay) {
-					this.index =
-						this.index < this.messages.length - 1 ? this.index + 1 : 0;
-					this.text = this.messages[this.index];
-					this.ticker();
-				}
-			}, 10000);
-		},
-		// 텍스트를 분리해서 객체로 리턴하기
-		convText(text) {
-			console.log(text);
-			const alms = {};
-			const result = text.split('').map(el => {
-				alms[el] = alms[el] ? ++alms[el] : 1;
-				return { id: `${el}_${alms[el]}`, text: el };
-			});
-			return Object.freeze(result); // 감시하지 않음
-		},
 	},
 	created() {
 		this.callApiNootificationData();
 
 		setInterval(() => {
 			this.callApiNootificationData();
-		}, 30000);
+		}, 100000);
 	},
 };
 </script>

@@ -8,14 +8,18 @@
 				<v-card-subtitle class="text-no-wrap ps-2">
 					({{ data.userNo }}) {{ data.userName }}
 				</v-card-subtitle>
-				<v-card-text class="d-flex align-center mt-2 pb-2 ps-2">
+				<v-card-text
+					class="d-flex align-center mt-2 pb-2 ps-2 text-align: center"
+				>
 					<div>
-						<div class="text-5xl font-weight-semibold primary--text mb-2">
-							<VueRolling
+						<div class="text-5xl font-weight-semibold primary--text mb-2 ;">
+							{{ data.bestRecord }}
+							<!-- <VueRolling
 								:text="data.bestRecord"
-								:isNumberFormat="true"
+								:isNumberFormat="false"
 								:transition="2"
-							></VueRolling>
+								:char-set="alphabet"
+							></VueRolling> -->
 
 							<!-- <Roller
 								text="vue-roller"
@@ -68,12 +72,12 @@
 	</v-card>
 </template>
 <script>
-import VueRolling from 'vue-roller';
+//import VueRolling from 'vue-roller';
 import baseApi from '../../../api/index.js';
 import DashboardDialog from '../../comm/DialogBottomScreen.vue';
 
 export default {
-	components: { VueRolling, DashboardDialog },
+	components: { DashboardDialog },
 
 	methods: {
 		async callApiBestRecord() {

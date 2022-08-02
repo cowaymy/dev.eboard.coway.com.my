@@ -53,6 +53,7 @@ export default {
 	created() {
 		var cData = [];
 		this.callApiTargetData().then(request => {
+			console.log(request);
 			request.data.data.forEach(function (v) {
 				// var newValue = {
 				// 	data: [v.RATE],
