@@ -15,7 +15,7 @@
 		<v-card-text>
 			<v-list>
 				<v-list-item-group
-					v-model="selectedItem"
+					v-model="salesByCountries.myrank"
 					active-class="border"
 					color="indigo"
 				>
@@ -25,7 +25,7 @@
 						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
 					>
 						<v-avatar
-							:color="selectedItem === index ? 'error' : ''"
+							:color="salesByCountries.myrank === index ? 'error' : ''"
 							size="30"
 							:class="`${data.color} white--text font-weight-medium me-3`"
 						>
@@ -35,9 +35,12 @@
 						<div class="d-flex align-center flex-grow-1 flex-wrap">
 							<div class="me-2">
 								<div class="font-weight-semibold">
-									<span class="text--primary text-xl me-1">{{
-										data.sales
-									}}</span>
+									<span class="text--primary text-xl me-1">
+										{{ data.sales }}
+									</span>
+									<span class="text--primary text-x5 me-1">
+										({{ data.orgcode }})
+									</span>
 									<!-- 
 								<v-icon
 									size="20"
@@ -67,7 +70,7 @@
 
 							<v-spacer></v-spacer>
 
-							<!-- <div>
+							<div>
 								<h4 class="font-weight-semibold"></h4>
 								<span class="text-xs">{{ data.change }} %</span>
 								<v-progress-linear
@@ -77,7 +80,7 @@
 									:color="resolveUserProgressVariant(data.change)"
 									:value="data.change"
 								></v-progress-linear>
-							</div> -->
+							</div>
 						</div>
 					</v-list-item>
 				</v-list-item-group>
@@ -93,36 +96,37 @@ import salesApi from '../../../api/salesApi';
 export default {
 	created() {
 		var cData = [];
-		//var sidx;
+
 		const user = this.$store.state.userName;
-		this.callApiRinkForGMData().then(request =>
+		this.callApiRinkForGMData().then(function (request) {
 			request.data.data.forEach(function (v, index) {
 				//console.log(v);
 				var newValue = {
 					rank: v.RNK,
-					name: `(${v.MEM_CODE})${v.NAME}`,
+					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 25),
 					sales: v.NETSALES,
 					color: v.RNK == '1' ? 'warning' : 'secondary',
 					change: v.TARGET,
+					orgcode: v.ORG_CODE,
 				};
 				cData.push(newValue);
 				if (v.MEM_CODE == user) {
-					this.sidx = index;
+					cData.myrank = index;
 				}
-			}),
-		);
+			});
+		});
 
 		this.salesByCountries = cData;
-		///this.selectedItem = sidx;
 	},
 
 	data() {
-		const selectedItem = -1;
 		const salesByCountries = [];
-
+		const selectedItem = -1;
+		const selIdx = -1;
 		return {
 			salesByCountries,
 			selectedItem,
+			selIdx,
 			icons: {
 				mdiDotsVertical,
 				mdiChevronUp,
@@ -137,7 +141,6 @@ export default {
 			if (progrss > 25 && progrss <= 50) return 'info';
 			if (progrss > 50 && progrss <= 75) return 'success';
 			if (progrss > 75) return 'error';
-
 			return 'secondary';
 		},
 

@@ -29,7 +29,7 @@
 		<v-card-text class="text--primary mt-3">
 			<div style="text-align: center">
 				<span class="font-weight-semibold text-5xl mb-3">
-					{{ statistics }}
+					{{ checkNull(statistics) }}
 				</span>
 				<!-- <span
 					class="percentage text-xs mb-2"
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import gsap from 'gsap';
+//import gsap from 'gsap';
 import { mdiDotsVertical } from '@mdi/js';
 import { boolean } from 'yargs';
 import DashboardDialog from '../../views/dashboard/sales/DashboardDialogFullScreenforSales.vue';
@@ -102,10 +102,10 @@ export default {
 		const checkNull = value => {
 			console.log(value);
 			if (value == undefined || value == null || value == 'null') {
-				return '';
+				return 0;
 			}
 
-			return value + '%';
+			return value;
 		};
 
 		return {
@@ -116,14 +116,7 @@ export default {
 			notifications,
 			sound,
 			widgets,
-			number: 0,
-			tweened: 0,
 		};
-	},
-	watch: {
-		number(n) {
-			gsap.to(this, { duration: 0.5, tweened: Number(n) || 0 });
-		},
 	},
 };
 </script>

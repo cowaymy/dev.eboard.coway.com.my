@@ -34,7 +34,7 @@
 
 							<div>
 								<DashboardDialog
-									:buttonTitle="`View More`"
+									:buttonTitle="`Month`"
 									:statTitle="`Beat My Best Record List`"
 								/>
 							</div>

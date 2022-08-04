@@ -85,9 +85,9 @@ export default {
 					statTitle: 'Recruitment',
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'warning',
-					subtitle: response.data.user[0].LST_UP_TIME,
-					statistics: response.data.user[0].SAL_RECRUITMENT,
-					//change: response.data.user[0].SAL_RECRUITMENT,
+					subtitle: response.data.data[0].LST_UP_TIME,
+					statistics: response.data.data[0].SAL_RECRUITMENT,
+					//change: response.data.data[0].SAL_RECRUITMENT,
 				}),
 		);
 	},

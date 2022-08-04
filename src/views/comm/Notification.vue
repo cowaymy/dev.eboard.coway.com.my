@@ -80,7 +80,7 @@ export default {
 
 		setInterval(() => {
 			this.callApiNootificationData();
-		}, 100000);
+		}, 60000);
 	},
 };
 </script>

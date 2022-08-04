@@ -101,6 +101,10 @@ export default {
 				{
 					src: 'https://www.coway.com.my/img/general-slider/coway-double-hepa-filter.jpg',
 				},
+
+				{
+					src: 'https://www.cowayrun.com.my/images/coway-img-47-v5_2days_r.png',
+				},
 			],
 		};
 	},

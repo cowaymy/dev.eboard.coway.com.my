@@ -237,7 +237,7 @@ export default {
 
 		this.callApiEKeyInData().then(request => {
 			this.totalsales = {
-				value: request.data.data[0].TOTAL_SALES,
+				value: Number(request.data.data[0].TOTAL_SALES),
 			};
 		});
 

@@ -15,7 +15,7 @@
 		<v-card-text>
 			<v-list>
 				<v-list-item-group
-					v-model="selectedItem"
+					v-model="salesByCountries.myrank"
 					active-class="border"
 					color="indigo"
 				>
@@ -25,7 +25,7 @@
 						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
 					>
 						<v-avatar
-							:color="selectedItem == index ? 'error' : ''"
+							:color="salesByCountries.myrank == index ? 'error' : ''"
 							size="30"
 							:class="`${data.color} white--text font-weight-medium me-3`"
 						>
@@ -93,30 +93,26 @@ import salesApi from '../../../api/salesApi';
 export default {
 	created() {
 		var cData = [];
-		var sidx;
 		const user = this.$store.state.userName;
 		this.callApiRinkForGMData().then(request =>
 			request.data.data.forEach(function (v, index) {
 				//console.log(v);
 				var newValue = {
 					rank: v.RNK,
-					name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 25),
+					name: `(${v.ORG_CODE})${v.NAME}`.substring(0, 25),
 					sales: v.NETSALES,
 					color: v.RNK == '1' ? 'warning' : 'secondary',
 					change: v.TARGET,
 				};
 				cData.push(newValue);
 
-				console.log(v.MEM_CODE + '||' + user + '||' + index);
 				if (v.MEM_CODE == user) {
-					console.log('=======>' + index);
-					sidx = index;
+					cData.myrank = index;
 				}
 			}),
 		);
 
 		this.salesByCountries = cData;
-		this.selectedItem = sidx;
 
 		// setInterval(() => {
 		// 	var cData2 = [];

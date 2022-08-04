@@ -55,34 +55,34 @@ const router = new VueRouter({
 		{
 			path: '/salesMainSGM',
 			name: 'salesMainSGM',
-			component: () => import('../views/dashboard/sales/SalesMainPage.vue'),
+			component: () => import('../views/dashboard/sales/SalesMainSGMPage.vue'),
 			meta: { requiresAuth: true },
 		},
 		{
 			path: '/salesMainGM',
 			name: 'salesMainGM',
-			component: () => import('../views/dashboard/sales/SalesMainPage.vue'),
+			component: () => import('../views/dashboard/sales/SalesMainGMPage.vue'),
 			meta: { requiresAuth: true },
 		},
 
 		{
 			path: '/salesMainSM',
 			name: 'salesMainSM',
-			component: () => import('../views/dashboard/sales/SalesMainPage.vue'),
+			component: () => import('../views/dashboard/sales/SalesMainSMPage.vue'),
 			meta: { requiresAuth: true },
 		},
 
 		{
 			path: '/salesMainHM',
 			name: 'salesMainHM',
-			component: () => import('../views/dashboard/sales/SalesMainPage.vue'),
+			component: () => import('../views/dashboard/sales/SalesMainHMPage.vue'),
 			meta: { requiresAuth: true },
 		},
 
 		{
 			path: '/salesMainHP',
 			name: 'salesMainHP',
-			component: () => import('../views/dashboard/sales/SalesMainPage.vue'),
+			component: () => import('../views/dashboard/sales/SalesMainHPage.vue'),
 			meta: { requiresAuth: true },
 		},
 
