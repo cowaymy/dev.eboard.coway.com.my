@@ -29,6 +29,7 @@
 				:KeyInOptions="KeyInOptions"
 				:NetSalesOptions="NetSalesOptions"
 				:ActiveHpOptions="ActiveHpOptions"
+				:RejoinOptions="RejoinOptions"
 			>
 			</DashboardCodyDialogue>
 		</v-col>
@@ -88,6 +89,7 @@ export default {
 	KeyInOptions: {},
 	NetSalesOptions: {},
 	ActiveHpOptions: {},
+	RejoinOptions : {},
 	SHIOptions: {},
 	KeyInOptions:{},
 	salesSide: {},
@@ -205,33 +207,77 @@ export default {
 				statistics: response.data.user[0].Net_SAL,
 				moreshow: 'true',
 			};
-			this.KeyInOptions = {
-				statTitle: 'SVM Sales',
-				icon: mdiClipboardEditOutline,
-				color: 'success',
-				subtitle: change,
-				statistics: response.data.user[0].SVM_SAL,
-			};
-			this.NetSalesOptions = {
-				statTitle: 'Extrade Sales',
-				icon: mdiCheckboxMultipleMarkedOutline,
-				color: 'error',
-				subtitle: change,
-				statistics: response.data.user[0].Extrade_SAL,
-			};
-			this.ActiveHpOptions = {
-				statTitle: 'Net Sales Rate',
-				icon: mdiAccountCheckOutline,
-				color: 'primary',
-				subtitle: change,
-				statistics: (response.data.user[0].Net_SAL / response.data.user[0].Total_Keyin).toFixed(2) ,
-			};
-			this.targetSales = {
-				act_hs:response.data.user[0].ACT_HS,
-				com_hs:response.data.user[0].COM_HS,
-				canc_hs:response.data.user[0].CANC_HS,
-				fal_hs:response.data.user[0].FAL_HS,
-			};
+
+			if(response.data.user[0].MEM_LVL == 4){
+				console.log('sales_men');
+				this.KeyInOptions = {
+					statTitle: 'SVM Sales',
+					icon: mdiClipboardEditOutline,
+					color: 'success',
+					subtitle: change,
+					statistics: response.data.user[0].SVM_SAL,
+				};
+				this.NetSalesOptions = {
+					statTitle: 'Extrade Sales',
+					icon: mdiCheckboxMultipleMarkedOutline,
+					color: 'error',
+					subtitle: change,
+					statistics: response.data.user[0].Extrade_SAL,
+				};
+				this.ActiveHpOptions = {
+					statTitle: 'Net Sales Rate',
+					icon: mdiAccountCheckOutline,
+					color: 'primary',
+					subtitle: change,
+					statistics: (response.data.user[0].Net_SAL / response.data.user[0].Total_Keyin).toFixed(2) ,
+				};
+				this.RejoinOptions = {
+					appear: false
+				};
+			}
+			else{
+				this.KeyInOptions = {
+					statTitle: 'Net Sales Productivity',
+					icon: mdiClipboardEditOutline,
+					color: 'success',
+					subtitle: change,
+					statistics: (response.data.user[0].Net_SAL / response.data.user[0].ACT_CODY).toFixed(2),
+				};
+				this.NetSalesOptions = {
+					statTitle: 'Active Cody',
+					icon: mdiCheckboxMultipleMarkedOutline,
+					color: 'error',
+					subtitle: change,
+					statistics: response.data.user[0].ACT_CODY,
+				};
+				this.ActiveHpOptions = {
+					statTitle: 'Retention',
+					icon: mdiAccountCheckOutline,
+					color: 'primary',
+					subtitle: change,
+					statistics: response.data.user[0].retention ,
+				};
+				this.RejoinOptions = {
+					statTitle: 'Rejoin',
+					icon: mdiAccountCheckOutline,
+					color: 'primary',
+					subtitle: change,
+					statistics: response.data.user[0].rejoin ,
+					appear: true
+				};
+
+			}
+			console.log(response.data.user[0].MEM_LVL,'hehe boi')
+				this.targetSales = {
+					mem_lvl:response.data.user[0].MEM_LVL,
+					target:response.data.user[0].SAL_TARGET,
+					achieved:response.data.user[0].Net_SAL,
+					To_achieved: response.data.user[0].SAL_TARGET - response.data.user[0].Net_SAL,
+					act_hs:response.data.user[0].ACT_HS,
+					com_hs:response.data.user[0].COM_HS,
+					canc_hs:response.data.user[0].CANC_HS,
+					fal_hs:response.data.user[0].FAL_HS,
+				};
 			this.graphSales = {
 				ap_sal:response.data.user[0].AP_SAL,
 				wp_sal:response.data.user[0].WP_SAL,

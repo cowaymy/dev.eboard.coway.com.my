@@ -82,6 +82,16 @@
                                         :subtitle="ActiveHpOptions.subtitle"
                                     ></StatisticsCardVerticalForSales>
                                 </v-col>
+                                <v-col cols="12" sm="6" md="2" v-if="RejoinOptions.appear == true">
+                                    <StatisticsCardVerticalForSales
+                                        :change="RejoinOptions.change"
+                                        :color="RejoinOptions.color"
+                                        :icon="RejoinOptions.icon"
+                                        :statistics="RejoinOptions.statistics"
+                                        :stat-title="RejoinOptions.statTitle"
+                                        :subtitle="RejoinOptions.subtitle"
+                                    ></StatisticsCardVerticalForSales>
+                                </v-col>
                             </v-row>
                         </v-card>
                     </v-dialog>
@@ -114,7 +124,8 @@ export default {
         SHIData: {type: Object},
         KeyInOptions: {type: Object},
         NetSalesOptions: {type: Object},
-        ActiveHpOptions: {type: Object}
+        ActiveHpOptions: {type: Object},
+        RejoinOptions: {type: Object}
     },
     data() {
         const isDialogVisible = false;
