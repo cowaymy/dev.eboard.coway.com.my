@@ -8,10 +8,15 @@
 							{{ icons.mdiBullseyeArrow }}
 						</v-icon>
 					</v-avatar>
-					&nbsp; Total Heart Service
+					&nbsp;  {{ this.targetSales.mem_lvl != 4 ? 'Target Sales' : 'HS Progress'}}
 				</v-card-title>
 				<v-card-text class="text-no-wrap mt-4">
-					<p class="text-xs mb-0">Active : {{targetSales.act_hs}} Complete : {{targetSales.com_hs}} Cancel : {{targetSales.canc_hs}}  Fail : {{targetSales.fal_hs}}</p>
+					<p class="text-xs mb-0"  v-if="this.targetSales.mem_lvl == 4" >
+					Active : {{targetSales.act_hs}} Complete : {{targetSales.com_hs}} Cancel : {{targetSales.canc_hs}}  Fail : {{targetSales.fal_hs}}
+					</p>
+					<p class="text-xs mb-0" v-if="this.targetSales.mem_lvl != 4" >
+					Target : {{targetSales.target}} To achieved : {{targetSales.To_achieved}} achieved : {{targetSales.achieved}}
+					</p>
 					<P></P>
 				</v-card-text>
 			</div>
@@ -21,6 +26,14 @@
 				height="140"
 				:options="chartOptions"
 				:series="[targetSales.act_hs, targetSales.com_hs, targetSales.canc_hs, targetSales.fal_hs]"
+				v-if="this.targetSales.mem_lvl == 4" 
+			/>
+			<VueApexCharts
+				id="chart-stats-total-sales"
+				height="140"
+				:options="chartOptions2"
+				:series="[targetSales.To_achieved,targetSales.achieved]"
+				v-if="this.targetSales.mem_lvl != 4" 
 			/>
 		</div>
 	</v-card>
@@ -99,10 +112,61 @@ export default {
 				},
 			},
 		};
-
+		const chartOptions2 = {
+			labels: ['Achieved Sales', 'To achieve Sales'],
+			chart: {
+				offsetY: 7,
+				type: 'donut',
+				sparkline: {
+					enabled: true,
+				},
+				animations: {
+					enabled: false,
+				},
+			},
+			stroke: {
+				colors: ['#fff'],
+				width: 8,
+			},
+			grid: {
+				padding: {
+					bottom: 10,
+				},
+			},
+			colors: ['#FF4500', '#E9EAEC'],
+			plotOptions: {
+				pie: {
+					donut: {
+						labels: {
+							show: true,
+							name: {
+								fontSize: '14px',
+								offsetY: 25,
+							},
+							value: {
+								offsetY: -13,
+								formatter(val) {
+									return val;
+								},
+							},
+							total: {
+								show: true,
+								label: 'Target Sales',
+								formatter:function (w) {
+								return w.globals.seriesTotals.reduce((a, b) => {
+								return a + b
+								}, 0)
+								},
+							},
+						},
+					},
+				},
+			},
+		};
 		return {
 			chartSeries,
 			chartOptions,
+			chartOptions2,
 			totalsales: {},
 			// icons
 			icons: {
