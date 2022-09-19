@@ -278,7 +278,7 @@ export default {
 					fal_hs:response.data.user[0].FAL_HS,
 				};
 			this.graphSales = {
-				ha_sal:response.data.user[0].Net_SAL - response.data.user[0].MAT_SAL,
+				new_sal:response.data.user[0].Net_SAL - response.data.user[0].Extrade_SAL,
 				hc_sal:response.data.user[0].MAT_SAL,
 				extrade:response.data.user[0].Extrade_SAL,
 				svm:response.data.user[0].SVM_SAL,

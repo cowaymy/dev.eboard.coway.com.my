@@ -7,7 +7,7 @@
 					id="total-profit-chart"
 					height="320"
 					:options="chartOptions"
-					:series="[{data: [graphSales.ha_sal,graphSales.hc_sal,graphSales.svm,graphSales.extrade]}]"
+					:series="[{data: [graphSales.new_sal,graphSales.hc_sal,graphSales.svm,graphSales.extrade]}]"
 				></VueApexCharts>
 			</v-col>
 			<v-col cols="12" sm="5">
@@ -47,9 +47,9 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.ha_sal}}
+										{{graphSales.new_sal}}
 									</v-list-item-title>
-									<v-list-item-subtitle>HA Sales</v-list-item-subtitle>
+									<v-list-item-subtitle>New Sales</v-list-item-subtitle>
 								</v-list-item-content>
 								<!-- item 2------->
 								<v-list-item-avatar class="" size="40" rounded>
