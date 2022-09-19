@@ -162,7 +162,7 @@ export default {
 				},
 			},
 			xaxis: {
-				categories: ['HA', 'HC', 'SVM', 'Extrade'],
+				categories: ['New Sales', 'HC', 'SVM', 'Extrade'],
 				axisBorder: {
 					show: true,
 				},
