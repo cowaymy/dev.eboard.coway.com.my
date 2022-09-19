@@ -7,7 +7,7 @@
 					id="total-profit-chart"
 					height="320"
 					:options="chartOptions"
-					:series="[{data: [ graphSales.wp_sal,graphSales.ap_sal,graphSales.mat_sal,graphSales.extrade,graphSales.svm]}]"
+					:series="[{data: [graphSales.ha_sal,graphSales.hc_sal,graphSales.svm,graphSales.extrade]}]"
 				></VueApexCharts>
 			</v-col>
 			<v-col cols="12" sm="5">
@@ -47,9 +47,9 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.wp_sal}}
+										{{graphSales.ha_sal}}
 									</v-list-item-title>
-									<v-list-item-subtitle>Water purifier</v-list-item-subtitle>
+									<v-list-item-subtitle>HA Sales</v-list-item-subtitle>
 								</v-list-item-content>
 								<!-- item 2------->
 								<v-list-item-avatar class="" size="40" rounded>
@@ -59,26 +59,13 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.mat_sal}}
+										{{graphSales.hc_sal}}
 									</v-list-item-title>
-									<v-list-item-subtitle>Mattress</v-list-item-subtitle>
+									<v-list-item-subtitle>HC Sales</v-list-item-subtitle>
 								</v-list-item-content>
 							</v-list-item>
 							<!-- List Item: Income -->
 							<v-list-item class="pa-0">
-								<!-- item 3------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiWaves }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.ap_sal}}
-									</v-list-item-title>
-									<v-list-item-subtitle>Air purifier</v-list-item-subtitle>
-								</v-list-item-content>
-
 								<!-- item 4------->
 								<v-list-item-avatar class="" size="40" rounded>
 									<v-icon size="30" color="success">
@@ -92,10 +79,7 @@
 									</v-list-item-title>
 									<v-list-item-subtitle style="white-space: break-spaces;">Service Membership</v-list-item-subtitle>
 								</v-list-item-content>
-							</v-list-item>
-							<!-- List Item: Expense -->
-							<v-list-item class="pa-0">
-								<!-- item 5------->
+								
 								<v-list-item-avatar class="" size="40" rounded>
 									<v-icon size="30" color="success">
 										{{ icons.mdiAccountConvert }}
@@ -178,7 +162,7 @@ export default {
 				},
 			},
 			xaxis: {
-				categories: ['WP', 'AP', 'Mattress', 'Extrade', 'SVM'],
+				categories: ['HA', 'HC', 'SVM', 'Extrade'],
 				axisBorder: {
 					show: true,
 				},
