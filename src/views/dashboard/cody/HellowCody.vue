@@ -190,7 +190,7 @@ export default {
 				icon: mdiCheckboxMultipleMarkedOutline,
 				color: 'error',
 				subtitle: change,
-				statistics: response.data.user[0].RC_RATE || 0,
+				statistics: (response.data.user[0].RC_RATE || 0)+"%",
 			};
 			this.ActiveHpData = {
 				statTitle: 'Sales Key In',
@@ -255,7 +255,7 @@ export default {
 					icon: mdiAccountCheckOutline,
 					color: 'primary',
 					subtitle: change,
-					statistics: response.data.user[0].retention ,
+					statistics: response.data.user[0].retention+"%" ,
 				};
 				this.RejoinOptions = {
 					statTitle: 'Rejoin',
@@ -267,7 +267,6 @@ export default {
 				};
 
 			}
-			console.log(response.data.user[0].MEM_LVL,'hehe boi')
 				this.targetSales = {
 					mem_lvl:response.data.user[0].MEM_LVL,
 					target:response.data.user[0].SAL_TARGET,
@@ -279,9 +278,8 @@ export default {
 					fal_hs:response.data.user[0].FAL_HS,
 				};
 			this.graphSales = {
-				ap_sal:response.data.user[0].AP_SAL,
-				wp_sal:response.data.user[0].WP_SAL,
-				mat_sal:response.data.user[0].MAT_SAL,
+				ha_sal:response.data.user[0].Net_SAL - response.data.user[0].MAT_SAL,
+				hc_sal:response.data.user[0].MAT_SAL,
 				extrade:response.data.user[0].Extrade_SAL,
 				svm:response.data.user[0].SVM_SAL,
 				keyin:response.data.user[0].Today_Keyin

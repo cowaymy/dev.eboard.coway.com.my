@@ -2,8 +2,8 @@
 	<v-card elevation="1">
 		<v-card-title class="align-start">
 			<span style="word-break: break-word;"> 
-			{{this.i.Type == 'COM_HS' ? 'Complete HS Rate' :this.i.Type == 'MAT_SAL' ? 'Home Care Net Sales' : this.i.Type == 'HA_NET' ? 'Home Appliance Net Sales' 
-			: this.i.Type == 'TOTAL_KEYIN' ? 'Total Sales Keyin' : this.i.Type == 'RC_RATE' ? 'RC Rate' : this.i.Type == 'NET_SAL' ? 'Net Sales'
+			{{this.i.Type == 'COM_HS' ? 'Com HS Rate' :this.i.Type == 'MAT_SAL' ? 'HC Net Sales' : this.i.Type == 'HA_NET' ? 'HA Net Sales' 
+			: this.i.Type == 'TOTAL_KEYIN' ? 'Sales Keyin' : this.i.Type == 'RC_RATE' ? 'RC Rate' : this.i.Type == 'NET_SAL' ? 'Net Sales'
 			: this.i.Type}} Ranking by {{ this.i.Position }}
 			</span>
 			<v-spacer></v-spacer>
@@ -20,7 +20,6 @@
 						v-for="(data, index) in this.i.Mem_data"
 						:key="data.name"
 						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
-
 					>
 
 						<v-avatar
@@ -36,12 +35,11 @@
 							<div class="me-2">
 								<div class="font-weight-semibold">
 									<span class="text--primary text-xl me-1">{{
-										data.Total_Figure
+										data.Total_figure
 									}}</span>
 								</div>
-
-								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;">
-									({{ data.Ranking_member }})  {{ data.Ranking_Membername }}
+								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;" v-if="data.Ranking_level != '1'">
+									({{ data.Org_code }})  {{ data.Ranking_membername }} | {{data.Branch}}
 								</v-list-item-subtitle> 
 							</div>
 
