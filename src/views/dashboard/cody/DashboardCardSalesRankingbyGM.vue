@@ -41,6 +41,9 @@
 								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;" v-if="data.Ranking_level != '1'">
 									({{ data.Org_code }})  {{ data.Ranking_membername }} | {{data.Branch}}
 								</v-list-item-subtitle> 
+								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;" v-if="data.Ranking_level == '1'">
+									({{ data.Org_code }})  {{ data.Ranking_membername }}
+								</v-list-item-subtitle> 
 							</div>
 
 							<v-spacer></v-spacer>
