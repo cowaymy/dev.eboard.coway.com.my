@@ -2,7 +2,7 @@
 	<v-card elevation="1">
 		<v-card-title class="align-start">
 			<span style="word-break: break-word;"> 
-			{{this.i.Type == 'COM_HS' ? 'Com HS Rate' :this.i.Type == 'MAT_SAL' ? 'HC Net Sales' : this.i.Type == 'HA_NET' ? 'HA Net Sales' 
+			{{this.i.Type == 'HS_RATE' ? 'Com HS Rate' :this.i.Type == 'MAT_SAL' ? 'HC Net Sales' : this.i.Type == 'HA_NET' ? 'HA Net Sales' 
 			: this.i.Type == 'TOTAL_KEYIN' ? 'Sales Keyin' : this.i.Type == 'RC_RATE' ? 'RC Rate' : this.i.Type == 'NET_SAL' ? 'Net Sales'
 			: this.i.Type}} Ranking by {{ this.i.Position }}
 			</span>
