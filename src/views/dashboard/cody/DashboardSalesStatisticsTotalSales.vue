@@ -113,7 +113,7 @@ export default {
 			},
 		};
 		const chartOptions2 = {
-			labels: ['Achieved Sales', 'To achieve Sales'],
+			labels: ['To achieve Sales', 'Achieved Sales'],
 			chart: {
 				offsetY: 7,
 				type: 'donut',

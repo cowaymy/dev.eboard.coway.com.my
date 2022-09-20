@@ -125,7 +125,7 @@ export default {
 		drawer: null,
 		spinnerStatus: false,
 		items: [
-			{ icon: 'fas fa-chalkboard-teacher', text: '', route: '/salesMain' },
+			{ icon: 'fas fa-chalkboard-teacher', text: '', route: 'main' },
 			{ icon: 'fas fa-cog', text: 'userInfo', route: '/accsetting' },
 		],
 	}),
@@ -151,6 +151,10 @@ export default {
 		},
 
 		gotoMenu(route) {
+			if (route == 'main') {
+				route = this.$store.getters.isLogin.userTypeId == 1 ? '/salesMain' : '/codyMain'
+			}
+			
 			if (route != this.$router.history.current.path) {
 				console.log('in here');
 				this.$router.push(route);
