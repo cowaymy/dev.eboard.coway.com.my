@@ -179,18 +179,18 @@ export default {
 			}
 			
 			this.eKeyInData = {
-				statTitle: 'Active Hs',
+				statTitle: 'Active Hs Rate',
 				icon: mdiClipboardEditOutline,
 				color: 'success',
 				subtitle: change,
-				statistics: response.data.user[0].ACT_HS,
+				statistics: response.data.user[0].HS_RATE.toFixed(2)+"%",
 			};
 			this.NetSalesData = {
 				statTitle: 'RC Rate',
 				icon: mdiCheckboxMultipleMarkedOutline,
 				color: 'error',
 				subtitle: change,
-				statistics: (response.data.user[0].RC_RATE || 0)+"%",
+				statistics: (response.data.user[0].rc_rate || 0)+"%",
 			};
 			this.ActiveHpData = {
 				statTitle: 'Sales Key In',
