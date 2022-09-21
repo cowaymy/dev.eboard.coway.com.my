@@ -76,7 +76,7 @@ import DashboardCongratulationJohn from './DashboardCongratulationBest.vue';
 import DashboardCardSalesRankingbyGM from './DashboardCardSalesRankingbyGM.vue';
 import DashboardSalesTotalProfit from './DashboardSalesTotalProfit.vue';
 import DashboardSalesStatisticsTotalSales from './DashboardSalesStatisticsTotalSales.vue';
-
+import number_format from '../../../utils/number_format.js'
 export default {
 	graphSales:{},
 	targetSales:{},
@@ -142,6 +142,7 @@ export default {
 				bus.$emit('end:spinner');
 			}
 		},
+		number_format,
 	},
 
 	data() {
@@ -197,14 +198,14 @@ export default {
 				icon: mdiCheckboxMultipleMarkedOutline,
 				color: 'primary',
 				subtitle: change,
-				statistics: response.data.user[0].Total_Keyin,
+				statistics: this.number_format(response.data.user[0].Total_Keyin),
 			};
 			this.SHIData = {
 				statTitle: 'Net Sales',
 				icon: mdiTrendingUp,
 				color: 'warning',
 				subtitle: change,
-				statistics: response.data.user[0].Net_SAL,
+				statistics: this.number_format(response.data.user[0].Net_SAL),
 				moreshow: 'true',
 			};
 
@@ -215,14 +216,14 @@ export default {
 					icon: mdiClipboardEditOutline,
 					color: 'success',
 					subtitle: change,
-					statistics: response.data.user[0].SVM_SAL,
+					statistics: this.number_format(response.data.user[0].SVM_SAL),
 				};
 				this.NetSalesOptions = {
 					statTitle: 'Extrade Sales',
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'error',
 					subtitle: change,
-					statistics: response.data.user[0].Extrade_SAL,
+					statistics: this.number_format(response.data.user[0].Extrade_SAL),
 				};
 				this.ActiveHpOptions = {
 					statTitle: 'Net Sales Rate',
@@ -248,7 +249,7 @@ export default {
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'error',
 					subtitle: change,
-					statistics: response.data.user[0].ACT_CODY,
+					statistics: this.number_format(response.data.user[0].ACT_CODY),
 				};
 				this.ActiveHpOptions = {
 					statTitle: 'Retention',
@@ -262,33 +263,33 @@ export default {
 					icon: mdiAccountCheckOutline,
 					color: 'primary',
 					subtitle: change,
-					statistics: response.data.user[0].rejoin ,
+					statistics: this.number_format(response.data.user[0].rejoin),
 					appear: true
 				};
 
 			}
 				this.targetSales = {
 					mem_lvl:response.data.user[0].MEM_LVL,
-					target:response.data.user[0].SAL_TARGET,
-					achieved:response.data.user[0].Net_SAL,
+					target: response.data.user[0].SAL_TARGET,
+					achieved: response.data.user[0].Net_SAL,
 					To_achieved: response.data.user[0].SAL_TARGET - response.data.user[0].Net_SAL,
-					act_hs:response.data.user[0].ACT_HS,
-					com_hs:response.data.user[0].COM_HS,
-					canc_hs:response.data.user[0].CANC_HS,
-					fal_hs:response.data.user[0].FAL_HS,
+					act_hs: response.data.user[0].ACT_HS,
+					com_hs: response.data.user[0].COM_HS,
+					canc_hs: response.data.user[0].CANC_HS,
+					fal_hs: response.data.user[0].FAL_HS,
 				};
 			this.graphSales = {
-				new_sal:response.data.user[0].Net_SAL - response.data.user[0].Extrade_SAL,
-				hc_sal:response.data.user[0].MAT_SAL,
-				extrade:response.data.user[0].Extrade_SAL,
-				svm:response.data.user[0].SVM_SAL,
-				keyin:response.data.user[0].Today_Keyin
+				new_sal: response.data.user[0].Net_SAL - response.data.user[0].Extrade_SAL,
+				hc_sal: response.data.user[0].MAT_SAL,
+				extrade: response.data.user[0].Extrade_SAL,
+				svm: response.data.user[0].SVM_SAL,
+				keyin: response.data.user[0].Today_Keyin
 			}
 			this.NetsalesRecord = {
-				curr_ranking_number : response.data.user[0].curr_ranking_number,
-				curr_ranking_figure : response.data.user[0].curr_ranking_figure,
-				prev_ranking_number : response.data.user[0].prev_ranking_number,
-				prev_ranking_figure : response.data.user[0].prev_ranking_figure
+				curr_ranking_number : this.number_format(response.data.user[0].curr_ranking_number),
+				curr_ranking_figure : this.number_format(response.data.user[0].curr_ranking_figure),
+				prev_ranking_number : this.number_format(response.data.user[0].prev_ranking_number),
+				prev_ranking_figure : this.number_format(response.data.user[0].prev_ranking_figure)
 			}
 		}),
 		this.callRankingAPI().then(response => {

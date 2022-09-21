@@ -28,14 +28,14 @@
 							:class="`white text font-weight-medium me-3`"
 							:style="`background-color: ${index == 0 ? '#ffb400' : index == 5 ? '#ff5d5d' : 'gray'} !important; color: #fff;`"
 						>
-							<span class="text-base">{{ data.Rank_number }}</span>
+							<span class="text-base">{{ data.Rank_number}}</span>
 						</v-avatar> 
 
 						<div class="d-flex align-center flex-grow-1 flex-wrap">
 							<div class="me-2">
 								<div class="font-weight-semibold">
 									<span class="text--primary text-xl me-1">{{
-										data.Total_figure
+										number_format(data.Total_figure)
 									}}</span>
 								</div>
 								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;" v-if="data.Ranking_level != '1'">
@@ -57,6 +57,7 @@
 
 <script>
 import { mdiDotsVertical, mdiChevronUp, mdiChevronDown } from '@mdi/js';
+import number_format from '../../../utils/number_format.js'
 export default {
 	props: ['i'],
 	created() {
@@ -81,15 +82,7 @@ export default {
 	},
 
 	methods: {
-		resolveUserProgressVariant(progrss) {
-			if (progrss <= 25) return 'error';
-			if (progrss > 25 && progrss <= 50) return 'warning';
-			if (progrss > 50 && progrss <= 75) return 'primary';
-			if (progrss > 75 && progrss <= 100) return 'success';
-
-			return 'secondary';
-		},
-
+		number_format,
 	},
 };
 </script>
