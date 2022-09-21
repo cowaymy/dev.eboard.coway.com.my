@@ -47,7 +47,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.new_sal}}
+										{{number_format(graphSales.new_sal)}}
 									</v-list-item-title>
 									<v-list-item-subtitle>New Sales</v-list-item-subtitle>
 								</v-list-item-content>
@@ -59,7 +59,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.hc_sal}}
+										{{number_format(graphSales.hc_sal)}}
 									</v-list-item-title>
 									<v-list-item-subtitle>HC Sales</v-list-item-subtitle>
 								</v-list-item-content>
@@ -75,7 +75,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.svm}}
+										{{number_format(graphSales.svm)}}
 									</v-list-item-title>
 									<v-list-item-subtitle style="white-space: break-spaces;">Service Membership</v-list-item-subtitle>
 								</v-list-item-content>
@@ -87,7 +87,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{graphSales.extrade}}
+										{{number_format(graphSales.extrade)}}
 									</v-list-item-title>
 									<v-list-item-subtitle>Extrade</v-list-item-subtitle>
 								</v-list-item-content>
@@ -106,6 +106,7 @@
 import VueRolling from 'vue-roller';
 
 import VueApexCharts from 'vue-apexcharts';
+import number_format from '../../../utils/number_format.js'
 // eslint-disable-next-line object-curly-newline
 import {
 	mdiDotsVertical,
@@ -137,6 +138,9 @@ export default {
 
 	props: {
 		graphSales:{type: Object},
+	},
+	methods: {
+		number_format
 	},
 
 	created() {
