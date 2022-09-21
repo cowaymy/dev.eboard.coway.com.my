@@ -12,10 +12,10 @@
 				</v-card-title>
 				<v-card-text class="text-no-wrap mt-4">
 					<p class="text-xs mb-0"  v-if="this.targetSales.mem_lvl == 4" >
-					Active : {{targetSales.act_hs}} Complete : {{targetSales.com_hs}} Cancel : {{targetSales.canc_hs}}  Fail : {{targetSales.fal_hs}}
+					Active : {{number_format(targetSales.act_hs)}} Complete : {{number_format(targetSales.com_hs)}} Cancel : {{number_format(targetSales.canc_hs)}}  Fail : {{number_format(targetSales.fal_hs)}}
 					</p>
 					<p class="text-xs mb-0" v-if="this.targetSales.mem_lvl != 4" >
-					Target : {{targetSales.target}} To achieved : {{targetSales.To_achieved}} achieved : {{targetSales.achieved}}
+					Target : {{number_format(targetSales.target)}} To achieved : {{number_format(targetSales.To_achieved)}} achieved : {{number_format(targetSales.achieved)}}
 					</p>
 					<P></P>
 				</v-card-text>
@@ -43,7 +43,7 @@
 import VueApexCharts from 'vue-apexcharts';
 
 import { mdiChevronUp, mdiBullseyeArrow } from '@mdi/js';
-
+import number_format from '../../../utils/number_format.js'
 export default {
 	components: {
 		VueApexCharts,
@@ -53,6 +53,7 @@ export default {
 		}
 	,
 	methods: {
+		number_format
 	},
 
 	created() {
