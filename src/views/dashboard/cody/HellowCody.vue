@@ -180,7 +180,7 @@ export default {
 			}
 			
 			this.eKeyInData = {
-				statTitle: 'Active Hs Rate',
+				statTitle: 'Complete Hs Rate',
 				icon: mdiClipboardEditOutline,
 				color: 'success',
 				subtitle: change,
@@ -256,7 +256,7 @@ export default {
 					icon: mdiAccountCheckOutline,
 					color: 'primary',
 					subtitle: change,
-					statistics: response.data.user[0].retention+"%" ,
+					statistics: response.data.user[0].retention_rate.toFixed(2)+"%" ,
 				};
 				this.RejoinOptions = {
 					statTitle: 'Rejoin',
