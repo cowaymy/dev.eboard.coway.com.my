@@ -7,7 +7,7 @@
 					id="total-profit-chart"
 					height="320"
 					:options="chartOptions"
-					:series="[{data: [graphSales.new_sal,graphSales.hc_sal,graphSales.svm,graphSales.extrade]}]"
+					:series="[{data: [graphSales.new_sal,graphSales.extrade,graphSales.hc_sal,graphSales.svm]}]"
 				></VueApexCharts>
 			</v-col>
 			<v-col cols="12" sm="5">
@@ -166,7 +166,7 @@ export default {
 				},
 			},
 			xaxis: {
-				categories: ['New Sales', 'HC', 'SVM', 'Extrade'],
+				categories: ['New Sales', 'Extrade', 'HC', 'SVM'],
 				axisBorder: {
 					show: true,
 				},
