@@ -82,7 +82,6 @@ export default {
 		};
 
 		const checkNull = value => {
-			console.log(value);
 			if (value == undefined || value == null || value == 'null') {
 				return '';
 			}

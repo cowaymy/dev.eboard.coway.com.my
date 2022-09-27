@@ -91,7 +91,6 @@ export default {
 	ActiveHpOptions: {},
 	RejoinOptions : {},
 	SHIOptions: {},
-	KeyInOptions:{},
 	salesSide: {},
 	revenueOptions: {},
 	logisticsOptions: {},
@@ -117,7 +116,6 @@ export default {
 				//start spinner
 				bus.$emit('start:spinner');
 				const userdata = this.$store.state.userInfo;
-				console.log('callSalesHQMainApi');
 				return codyApi.getCurMonthData(userdata);
 			} catch (error) {
 				console.log(error);
@@ -156,6 +154,12 @@ export default {
 			NetSalesData: {},
 			ActiveHpData: {},
 			SHIData: {},
+			KeyInOptions :{},
+			NetSalesOptions: {},
+			ActiveHpOptions: {},
+			RejoinOptions: {},
+			graphSales: {keyin:0},
+
 			targetSales:{},
 			NetsalesRecord:{},
 			color: { secondary: 'secondary', warning: 'warning', error: '#00f' },
@@ -163,11 +167,9 @@ export default {
 	},
 	created() {
 		this.callSalesHQMainApi().then(response => {
-			console.log('API Return',response.data.user[0]);
 			const date1 = new Date(response.data.user[0].upd_dt);
 			const date2 = new Date();
 			let msec = date2-date1;
-			console.log('time = ',date1,date2)
 			const hh = Math.floor(msec / 1000 / 60 / 60);
 			msec -= hh * 1000 * 60 * 60;
 			const mm = Math.floor(msec / 1000 / 60);
@@ -184,14 +186,14 @@ export default {
 				icon: mdiClipboardEditOutline,
 				color: 'success',
 				subtitle: change,
-				statistics: response.data.user[0].HS_RATE.toFixed(2)+"%",
+				statistics: ((response.data.user[0].COM_HS / (response.data.user[0].COM_HS+response.data.user[0].ACT_HS+response.data.user[0].FAL_HS+response.data.user[0].CANC_HS) )* 100).toFixed(2)+"%",
 			};
 			this.NetSalesData = {
 				statTitle: 'RC Rate',
 				icon: mdiCheckboxMultipleMarkedOutline,
 				color: 'error',
 				subtitle: change,
-				statistics: (response.data.user[0].rc_rate || 0)+"%",
+				statistics: (response.data.user[0].rc_rate || "0")+"%",
 			};
 			this.ActiveHpData = {
 				statTitle: 'Sales Key In',
@@ -210,7 +212,6 @@ export default {
 			};
 
 			if(response.data.user[0].MEM_LVL == 4){
-				console.log('sales_men');
 				this.KeyInOptions = {
 					statTitle: 'SVM Sales',
 					icon: mdiClipboardEditOutline,
@@ -293,7 +294,6 @@ export default {
 			}
 		}),
 		this.callRankingAPI().then(response => {
-			console.log('userdata = ',response)
 			this.Ranking_Data = response.data.user
 		})
 

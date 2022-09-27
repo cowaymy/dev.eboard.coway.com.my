@@ -61,7 +61,6 @@ import number_format from '../../../utils/number_format.js'
 export default {
 	props: ['i'],
 	created() {
-		console.log(this.i)
 		var cData = [];
 		this.salesByCountries = cData;
 	},

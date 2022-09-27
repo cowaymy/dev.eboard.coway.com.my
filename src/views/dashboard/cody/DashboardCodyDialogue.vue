@@ -54,7 +54,6 @@
                                 <v-col cols="12"><p></p></v-col>
                                 <v-col cols="12" sm="6" md="2">
                                     <StatisticsCardVerticalForSales
-                                        :change="KeyInOptions.change"
                                         :color="KeyInOptions.color"
                                         :icon="KeyInOptions.icon"
                                         :statistics="KeyInOptions.statistics"
@@ -64,7 +63,6 @@
                                 </v-col>
                                 <v-col cols="12" sm="6" md="2">
                                     <StatisticsCardVerticalForSales
-                                        :change="NetSalesOptions.change"
                                         :color="NetSalesOptions.color"
                                         :icon="NetSalesOptions.icon"
                                         :statistics="NetSalesOptions.statistics"
@@ -74,7 +72,6 @@
                                 </v-col>
                                 <v-col cols="12" sm="6" md="2">
                                     <StatisticsCardVerticalForSales
-                                        :change="ActiveHpOptions.change"
                                         :color="ActiveHpOptions.color"
                                         :icon="ActiveHpOptions.icon"
                                         :statistics="ActiveHpOptions.statistics"
@@ -84,7 +81,6 @@
                                 </v-col>
                                 <v-col cols="12" sm="6" md="2" v-if="RejoinOptions.appear == true">
                                     <StatisticsCardVerticalForSales
-                                        :change="RejoinOptions.change"
                                         :color="RejoinOptions.color"
                                         :icon="RejoinOptions.icon"
                                         :statistics="RejoinOptions.statistics"

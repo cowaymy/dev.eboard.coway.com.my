@@ -17,10 +17,11 @@
 						<div>
 							<p class="mb-0 font-weight-semibold primary--text text-5xl">
 								<VueRolling
-									:text="graphSales.keyin"
+									:text="graphSales.keyin.toString()"
+									:value="graphSales.keyin"
 									:isNumberFormat="true"
 									:transition="4"
-									:defaultChar="0"
+									:default-value="0"
 								></VueRolling>
 							</p>
 							<small class="font-weight-semibold text-xl">Today keyIn</small>
@@ -159,7 +160,7 @@ export default {
 			},
 			plotOptions: {
 				bar: {
-					borderRadius: 10,
+					borderRadius: '10',
 					columnWidth: '35%',
 					startingShape: 'rounded',
 					endingShape: 'rounded',

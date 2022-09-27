@@ -25,7 +25,7 @@
 				>
 					<v-carousel-item>
 						<v-sheet color="white" height="100%" tile>
-							<v-timeline align-top dense :class="slidetype">
+							<v-timeline align-top dense>
 								<v-timeline-item small color="error">
 									<div
 										class="d-flex justify-space-between align-center flex-wrap"
@@ -47,8 +47,8 @@
 									<p class="mb-0">
 										You are
 										<span class="text-xs error--text">
-											Top {{this.NetsalesRecord.prev_ranking_number}} ({{this.NetsalesRecord.prev_ranking_figure}})</span
-										>
+											Top {{this.NetsalesRecord.prev_ranking_number}} ({{this.NetsalesRecord.prev_ranking_figure}})
+											</span>
 										 Sales Ranking
 									</p>
 								</v-timeline-item>
@@ -79,9 +79,6 @@ export default {
 		},
 	},
 	data() {
-		NetsalesRecord = "",
-		thisMonth = "",
-		prevMonth = ""
 		return {
 			mdiDotsVertical,
 		};
