@@ -1,10 +1,23 @@
 <template>
 	<v-card elevation="1">
 		<v-card-title class="align-start">
-			<span style="word-break: break-word;"> 
-			{{this.i.Type == 'HS_RATE' ? 'Com HS Rate' :this.i.Type == 'MAT_SAL' ? 'HC Net Sales' : this.i.Type == 'HA_NET' ? 'HA Net Sales' 
-			: this.i.Type == 'TOTAL_KEYIN' ? 'Sales Keyin' : this.i.Type == 'RC_RATE' ? 'RC Rate' : this.i.Type == 'NET_SAL' ? 'Net Sales'
-			: this.i.Type}} Ranking by {{ this.i.Position }}
+			<span style="word-break: break-word">
+				{{
+					this.i.Type == 'HS_RATE'
+						? 'Com HS Rate'
+						: this.i.Type == 'MAT_SAL'
+						? 'HC Net Sales'
+						: this.i.Type == 'HA_NET'
+						? 'HA Net Sales'
+						: this.i.Type == 'TOTAL_KEYIN'
+						? 'Sales Keyin'
+						: this.i.Type == 'RC_RATE'
+						? 'RC Rate'
+						: this.i.Type == 'NET_SAL'
+						? 'Net Sales'
+						: this.i.Type
+				}}
+				Ranking by {{ this.i.Position }}
 			</span>
 			<v-spacer></v-spacer>
 		</v-card-title>
@@ -21,15 +34,16 @@
 						:key="data.name"
 						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
 					>
-
 						<v-avatar
 							:color="selectedItem === index ? 'error' : ''"
 							size="30"
 							:class="`white text font-weight-medium me-3`"
-							:style="`background-color: ${index == 0 ? '#ffb400' : index == 5 ? '#ff5d5d' : 'gray'} !important; color: #fff;`"
+							:style="`background-color: ${
+								index == 0 ? '#ffb400' : index == 5 ? '#ff5d5d' : 'gray'
+							} !important; color: #fff;`"
 						>
-							<span class="text-base">{{ data.Rank_number}}</span>
-						</v-avatar> 
+							<span class="text-base">{{ data.Rank_number }}</span>
+						</v-avatar>
 
 						<div class="d-flex align-center flex-grow-1 flex-wrap">
 							<div class="me-2">
@@ -38,12 +52,21 @@
 										number_format(data.Total_figure)
 									}}</span>
 								</div>
-								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;" v-if="data.Ranking_level != '1'">
-									({{ data.Org_code }})  {{ data.Ranking_membername }} | {{data.Branch}}
-								</v-list-item-subtitle> 
-								 <v-list-item-subtitle class="font-weight-semibold text-xs" style="white-space: break-spaces;" v-if="data.Ranking_level == '1'">
-									({{ data.Org_code }})  {{ data.Ranking_membername }}
-								</v-list-item-subtitle> 
+								<v-list-item-subtitle
+									class="font-weight-semibold text-xs"
+									style="white-space: break-spaces"
+									v-if="data.Ranking_level != '1'"
+								>
+									({{ data.Org_code }}) {{ data.Ranking_membername }} |
+									{{ data.Branch }}
+								</v-list-item-subtitle>
+								<v-list-item-subtitle
+									class="font-weight-semibold text-xs"
+									style="white-space: break-spaces"
+									v-if="data.Ranking_level == '1'"
+								>
+									({{ data.Org_code }}) {{ data.Ranking_membername }}
+								</v-list-item-subtitle>
 							</div>
 
 							<v-spacer></v-spacer>
@@ -57,7 +80,7 @@
 
 <script>
 import { mdiDotsVertical, mdiChevronUp, mdiChevronDown } from '@mdi/js';
-import number_format from '../../../utils/number_format.js'
+import number_format from '../../../utils/number_format.js';
 export default {
 	props: ['i'],
 	created() {

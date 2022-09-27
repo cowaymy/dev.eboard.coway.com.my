@@ -89,22 +89,20 @@ export default {
 	},
 	data() {
 		const data = {
-			bestRecord: 0
+			bestRecord: 0,
 		};
 		const isDialogVisible = false;
 		return { data, isDialogVisible };
 	},
 
 	created() {
-		this.callApiBestRecord().then(
-			request => {
-				this.data = {
-				userNo: this.$store.state.userInfo.userFullName ,
+		this.callApiBestRecord().then(request => {
+			this.data = {
+				userNo: this.$store.state.userInfo.userFullName,
 				userName: this.$store.state.userInfo.userName,
 				bestRecord: request.data.data[0].BEST_RECORD,
-				}
-			}
-		);
+			};
+		});
 	},
 };
 </script>

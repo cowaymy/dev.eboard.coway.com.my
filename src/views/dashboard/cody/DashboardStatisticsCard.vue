@@ -28,12 +28,8 @@
 						<v-icon dark color="white" size="30"> mdi-arrow-top-right </v-icon>
 					</v-avatar>
 					<div class="ms-3">
-						<p class="text-xl mb-0">
-						Title
-						</p>
-						<h3 class="text-xl font-weight-semibold">
-						Title
-						</h3>
+						<p class="text-xl mb-0">Title</p>
+						<h3 class="text-xl font-weight-semibold">Title</h3>
 					</div>
 				</v-col>
 			</v-row>

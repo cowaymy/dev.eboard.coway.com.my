@@ -7,7 +7,16 @@
 					id="total-profit-chart"
 					height="320"
 					:options="chartOptions"
-					:series="[{data: [graphSales.new_sal,graphSales.extrade,graphSales.hc_sal,graphSales.svm]}]"
+					:series="[
+						{
+							data: [
+								graphSales.new_sal,
+								graphSales.extrade,
+								graphSales.hc_sal,
+								graphSales.svm,
+							],
+						},
+					]"
 				></VueApexCharts>
 			</v-col>
 			<v-col cols="12" sm="5">
@@ -48,7 +57,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{number_format(graphSales.new_sal)}}
+										{{ number_format(graphSales.new_sal) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>New Sales</v-list-item-subtitle>
 								</v-list-item-content>
@@ -60,7 +69,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{number_format(graphSales.hc_sal)}}
+										{{ number_format(graphSales.hc_sal) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>HC Sales</v-list-item-subtitle>
 								</v-list-item-content>
@@ -71,16 +80,17 @@
 								<v-list-item-avatar class="" size="40" rounded>
 									<v-icon size="30" color="success">
 										{{ icons.mdiAccount }}
-										
 									</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{number_format(graphSales.svm)}}
+										{{ number_format(graphSales.svm) }}
 									</v-list-item-title>
-									<v-list-item-subtitle style="white-space: break-spaces;">Service Membership</v-list-item-subtitle>
+									<v-list-item-subtitle style="white-space: break-spaces"
+										>Service Membership</v-list-item-subtitle
+									>
 								</v-list-item-content>
-								
+
 								<v-list-item-avatar class="" size="40" rounded>
 									<v-icon size="30" color="success">
 										{{ icons.mdiAccountConvert }}
@@ -88,7 +98,7 @@
 								</v-list-item-avatar>
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{number_format(graphSales.extrade)}}
+										{{ number_format(graphSales.extrade) }}
 									</v-list-item-title>
 									<v-list-item-subtitle>Extrade</v-list-item-subtitle>
 								</v-list-item-content>
@@ -107,7 +117,7 @@
 import VueRolling from 'vue-roller';
 
 import VueApexCharts from 'vue-apexcharts';
-import number_format from '../../../utils/number_format.js'
+import number_format from '../../../utils/number_format.js';
 // eslint-disable-next-line object-curly-newline
 import {
 	mdiDotsVertical,
@@ -138,18 +148,17 @@ export default {
 	},
 
 	props: {
-		graphSales:{type: Object},
+		graphSales: { type: Object },
 	},
 	methods: {
-		number_format
+		number_format,
 	},
 
 	created() {
-		var cData = [5,5,5,5,5];
+		var cData = [5, 5, 5, 5, 5];
 		this.chartData = cData;
 	},
 	data() {
-
 		const chartOptions = {
 			chart: {
 				type: 'bar',
@@ -190,19 +199,6 @@ export default {
 				lineCap: 'round',
 				colors: ['#fff'],
 			},
-			responsive: [
-				{
-					breakpoint: 1400,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: '45%',
-							},
-						},
-					},
-				},
-			],
 		};
 
 		return {
@@ -229,7 +225,7 @@ export default {
 				mdiNumeric10BoxMultiple,
 				mdiAccount,
 				mdiAccountConvert,
-				mdiWaves
+				mdiWaves,
 			},
 		};
 	},
