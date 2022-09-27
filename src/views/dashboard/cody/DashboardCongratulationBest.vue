@@ -12,9 +12,11 @@
 					<div>
 						<div class="text-5xl font-weight-semibold primary--text mb-2">
 							<VueRolling
-								:text="data.bestRecord"
+								:text="data.bestRecord.toString()"
+								:value="data.bestRecord"
 								:isNumberFormat="true"
 								:transition="2"
+								:default-value="0"
 							></VueRolling>
 
 							<!-- <Roller
@@ -86,23 +88,21 @@ export default {
 		},
 	},
 	data() {
-		const data = '';
+		const data = {
+			bestRecord: 0,
+		};
 		const isDialogVisible = false;
 		return { data, isDialogVisible };
 	},
 
 	created() {
-		console.log('2123')
-		this.callApiBestRecord().then(
-			request => {
-				console.log('123',request)
-				this.data = {
-				userNo: this.$store.state.userInfo.userFullName ,
+		this.callApiBestRecord().then(request => {
+			this.data = {
+				userNo: this.$store.state.userInfo.userFullName,
 				userName: this.$store.state.userInfo.userName,
 				bestRecord: request.data.data[0].BEST_RECORD,
-				}
-			}
-		);
+			};
+		});
 	},
 };
 </script>

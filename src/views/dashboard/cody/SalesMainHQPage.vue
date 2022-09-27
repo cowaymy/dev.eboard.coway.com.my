@@ -46,8 +46,8 @@
 				</v-col>
 				<!-- <v-col cols="12" sm="6">
 					<DashboardTopGMChart />
-				</v-col> -->
-			</v-row>CD101148
+				</v-col> --> </v-row
+			>CD101148
 		</v-col>
 
 		<!--/ vertical statistics card -->

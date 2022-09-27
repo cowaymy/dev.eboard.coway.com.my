@@ -8,14 +8,20 @@
 							{{ icons.mdiBullseyeArrow }}
 						</v-icon>
 					</v-avatar>
-					&nbsp;  {{ this.targetSales.mem_lvl != 4 ? 'Target Sales' : 'HS Progress'}}
+					&nbsp;
+					{{ this.targetSales.mem_lvl != 4 ? 'Target Sales' : 'HS Progress' }}
 				</v-card-title>
 				<v-card-text class="text-no-wrap mt-4">
-					<p class="text-xs mb-0"  v-if="this.targetSales.mem_lvl == 4" >
-					Active : {{number_format(targetSales.act_hs)}} Complete : {{number_format(targetSales.com_hs)}} Cancel : {{number_format(targetSales.canc_hs)}}  Fail : {{number_format(targetSales.fal_hs)}}
+					<p class="text-xs mb-0" v-if="this.targetSales.mem_lvl == 4">
+						Active : {{ number_format(targetSales.act_hs) }} Complete :
+						{{ number_format(targetSales.com_hs) }} Cancel :
+						{{ number_format(targetSales.canc_hs) }} Fail :
+						{{ number_format(targetSales.fal_hs) }}
 					</p>
-					<p class="text-xs mb-0" v-if="this.targetSales.mem_lvl != 4" >
-					Target : {{number_format(targetSales.target)}} To achieved : {{number_format(targetSales.To_achieved)}} achieved : {{number_format(targetSales.achieved)}}
+					<p class="text-xs mb-0" v-if="this.targetSales.mem_lvl != 4">
+						Target : {{ number_format(targetSales.target) }} To achieved :
+						{{ number_format(targetSales.To_achieved) }} achieved :
+						{{ number_format(targetSales.achieved) }}
 					</p>
 					<P></P>
 				</v-card-text>
@@ -25,15 +31,20 @@
 				id="chart-stats-total-sales"
 				height="140"
 				:options="chartOptions"
-				:series="[targetSales.act_hs, targetSales.com_hs, targetSales.canc_hs, targetSales.fal_hs]"
-				v-if="this.targetSales.mem_lvl == 4" 
+				:series="[
+					targetSales.act_hs,
+					targetSales.com_hs,
+					targetSales.canc_hs,
+					targetSales.fal_hs,
+				]"
+				v-if="this.targetSales.mem_lvl == 4"
 			/>
 			<VueApexCharts
 				id="chart-stats-total-sales"
 				height="140"
 				:options="chartOptions2"
-				:series="[targetSales.To_achieved,targetSales.achieved]"
-				v-if="this.targetSales.mem_lvl != 4" 
+				:series="[targetSales.To_achieved, targetSales.achieved]"
+				v-if="this.targetSales.mem_lvl != 4"
 			/>
 		</div>
 	</v-card>
@@ -43,25 +54,22 @@
 import VueApexCharts from 'vue-apexcharts';
 
 import { mdiChevronUp, mdiBullseyeArrow } from '@mdi/js';
-import number_format from '../../../utils/number_format.js'
+import number_format from '../../../utils/number_format.js';
 export default {
 	components: {
 		VueApexCharts,
 	},
-	props:{
-		targetSales:{type: Object}
-		}
-	,
+	props: {
+		targetSales: { type: Object },
+	},
 	methods: {
-		number_format
+		number_format,
 	},
 
-	created() {
-		
-	},
+	created() {},
 
 	data() {
-		const chartSeries = [10,10,10,10];
+		const chartSeries = [10, 10, 10, 10];
 		const chartOptions = {
 			labels: ['Active HS', 'Complete HS', 'Cancel HS', 'Fail HS'],
 			chart: {
@@ -102,10 +110,10 @@ export default {
 							total: {
 								show: true,
 								label: 'total',
-								formatter:function (w) {
-								return w.globals.seriesTotals.reduce((a, b) => {
-								return a + b
-								}, 0)
+								formatter: function (w) {
+									return w.globals.seriesTotals.reduce((a, b) => {
+										return a + b;
+									}, 0);
 								},
 							},
 						},
@@ -153,10 +161,10 @@ export default {
 							total: {
 								show: true,
 								label: 'Target Sales',
-								formatter:function (w) {
-								return w.globals.seriesTotals.reduce((a, b) => {
-								return a + b
-								}, 0)
+								formatter: function (w) {
+									return w.globals.seriesTotals.reduce((a, b) => {
+										return a + b;
+									}, 0);
 								},
 							},
 						},

@@ -2,14 +2,10 @@
 	<v-card elevation="1">
 		<v-card-title class="align-start">
 			<v-avatar :color="color" size="38" elevation="5">
-				<v-icon size="24" color="white" class="rounded-0">
-					 icon 
-				</v-icon>
+				<v-icon size="24" color="white" class="rounded-0"> icon </v-icon>
 			</v-avatar>
 
-			<p class="v-card__title text-no-wrap pt-1 ps-2">
-				Net Sales Record
-			</p>
+			<p class="v-card__title text-no-wrap pt-1 ps-2">Net Sales Record</p>
 			<v-spacer></v-spacer>
 		</v-card-title>
 
@@ -25,31 +21,37 @@
 				>
 					<v-carousel-item>
 						<v-sheet color="white" height="100%" tile>
-							<v-timeline align-top dense :class="slidetype">
+							<v-timeline align-top dense>
 								<v-timeline-item small color="error">
 									<div
 										class="d-flex justify-space-between align-center flex-wrap"
 									>
-										<h4 class="font-weight-semibold me-1"> {{thisMonth}} </h4>
+										<h4 class="font-weight-semibold me-1">{{ thisMonth }}</h4>
 									</div>
 									<p class="mb-0">
 										You are
 										<span class="text-xs error--text">
-											Top {{this.NetsalesRecord.curr_ranking_number}} ({{this.NetsalesRecord.curr_ranking_figure}})
+											Top {{ this.NetsalesRecord.curr_ranking_number }} ({{
+												this.NetsalesRecord.curr_ranking_figure
+											}})
 										</span>
 										Sales Ranking Now
 									</p>
 								</v-timeline-item>
 								<v-timeline-item small color="blue-grey">
 									<div style="text-align: left">
-										<h4 class="font-weight-semibold me-1"> {{previousMonth}}  </h4>
+										<h4 class="font-weight-semibold me-1">
+											{{ previousMonth }}
+										</h4>
 									</div>
 									<p class="mb-0">
 										You are
 										<span class="text-xs error--text">
-											Top {{this.NetsalesRecord.prev_ranking_number}} ({{this.NetsalesRecord.prev_ranking_figure}})</span
-										>
-										 Sales Ranking
+											Top {{ this.NetsalesRecord.prev_ranking_number }} ({{
+												this.NetsalesRecord.prev_ranking_figure
+											}})
+										</span>
+										Sales Ranking
 									</p>
 								</v-timeline-item>
 							</v-timeline>
@@ -66,7 +68,7 @@ import { mdiDotsVertical } from '@mdi/js';
 
 export default {
 	props: {
-		NetsalesRecord :{},
+		NetsalesRecord: {},
 		statTitle: { type: String, default: '' },
 		icon: { type: String, default: '' },
 		color: { type: String, default: '' },
@@ -79,19 +81,16 @@ export default {
 		},
 	},
 	data() {
-		NetsalesRecord = "",
-		thisMonth = "",
-		prevMonth = ""
 		return {
 			mdiDotsVertical,
 		};
 	},
-	created(){
+	created() {
 		const current = new Date();
 		this.thisMonth = current.toLocaleString('default', { month: 'long' });
-		current.setMonth(current.getMonth()-1);
+		current.setMonth(current.getMonth() - 1);
 		this.previousMonth = current.toLocaleString('default', { month: 'long' });
-	}
+	},
 };
 </script>
 

@@ -35,7 +35,9 @@
 		</v-col>
 
 		<v-col cols="12" md="8">
-			<DashboardSalesTotalProfit :graphSales="graphSales"></DashboardSalesTotalProfit>
+			<DashboardSalesTotalProfit
+				:graphSales="graphSales"
+			></DashboardSalesTotalProfit>
 		</v-col>
 
 		<v-col cols="12" md="4">
@@ -44,14 +46,12 @@
 					<StatisticsCardSide :NetsalesRecord="NetsalesRecord" />
 				</v-col>
 				<v-col cols="12">
-					<DashboardSalesStatisticsTotalSales 
-					:targetSales="targetSales"
-					/>
+					<DashboardSalesStatisticsTotalSales :targetSales="targetSales" />
 				</v-col>
 			</v-row>
 		</v-col>
-		<v-col cols="12" md="3"  v-for='i in Ranking_Data'>
-			<DashboardCardSalesRankingbyGM :i='i'/>
+		<v-col cols="12" md="3" v-for="i in Ranking_Data">
+			<DashboardCardSalesRankingbyGM :i="i" />
 		</v-col>
 	</v-row>
 </template>
@@ -76,10 +76,9 @@ import DashboardCongratulationJohn from './DashboardCongratulationBest.vue';
 import DashboardCardSalesRankingbyGM from './DashboardCardSalesRankingbyGM.vue';
 import DashboardSalesTotalProfit from './DashboardSalesTotalProfit.vue';
 import DashboardSalesStatisticsTotalSales from './DashboardSalesStatisticsTotalSales.vue';
-import number_format from '../../../utils/number_format.js'
+import number_format from '../../../utils/number_format.js';
 export default {
-	graphSales:{},
-	targetSales:{},
+	targetSales: {},
 	curmontData: {},
 	netSalesData: {},
 	activeData: {},
@@ -89,9 +88,8 @@ export default {
 	KeyInOptions: {},
 	NetSalesOptions: {},
 	ActiveHpOptions: {},
-	RejoinOptions : {},
+	RejoinOptions: {},
 	SHIOptions: {},
-	KeyInOptions:{},
 	salesSide: {},
 	revenueOptions: {},
 	logisticsOptions: {},
@@ -117,7 +115,6 @@ export default {
 				//start spinner
 				bus.$emit('start:spinner');
 				const userdata = this.$store.state.userInfo;
-				console.log('callSalesHQMainApi');
 				return codyApi.getCurMonthData(userdata);
 			} catch (error) {
 				console.log(error);
@@ -156,42 +153,53 @@ export default {
 			NetSalesData: {},
 			ActiveHpData: {},
 			SHIData: {},
-			targetSales:{},
-			NetsalesRecord:{},
+			KeyInOptions: {},
+			NetSalesOptions: {},
+			ActiveHpOptions: {},
+			RejoinOptions: {},
+			graphSales: { keyin: 0 ,new_sal:0,extrade:0,hc_sal:0,svm:0},
+			targetSales: { act_hs:0 , com_hs:0, canc_hs:0, fal_hs:0,target:0,To_achieved:0,achieved:0,mem_lvl:0 },
+			NetsalesRecord: {},
 			color: { secondary: 'secondary', warning: 'warning', error: '#00f' },
 		};
 	},
 	created() {
 		this.callSalesHQMainApi().then(response => {
-			console.log('API Return',response.data.user[0]);
 			const date1 = new Date(response.data.user[0].upd_dt);
 			const date2 = new Date();
-			let msec = date2-date1;
-			console.log('time = ',date1,date2)
+			let msec = date2 - date1;
 			const hh = Math.floor(msec / 1000 / 60 / 60);
 			msec -= hh * 1000 * 60 * 60;
 			const mm = Math.floor(msec / 1000 / 60);
 			msec -= mm * 1000 * 60;
-			let change= "";
-			if(hh >= 1){
-				change += hh+" Hours ago"
-			}else{
-				change += mm+" Mins ago"
+			let change = '';
+			if (hh >= 1) {
+				change += hh + ' Hours ago';
+			} else {
+				change += mm + ' Mins ago';
 			}
-			
+
 			this.eKeyInData = {
 				statTitle: 'Complete Hs Rate',
 				icon: mdiClipboardEditOutline,
 				color: 'success',
 				subtitle: change,
-				statistics: response.data.user[0].HS_RATE.toFixed(2)+"%",
+				statistics:
+					(
+						(response.data.user[0].COM_HS /
+							(response.data.user[0].COM_HS +
+								response.data.user[0].ACT_HS +
+								response.data.user[0].FAL_HS +
+								response.data.user[0].CANC_HS)) *
+						100
+					).toFixed(2) + '%',
 			};
 			this.NetSalesData = {
 				statTitle: 'RC Rate',
 				icon: mdiCheckboxMultipleMarkedOutline,
 				color: 'error',
 				subtitle: change,
-				statistics: (response.data.user[0].rc_rate || 0)+"%",
+				statistics: (response.data.user[0].rc_rate || '0') + '%',
 			};
 			this.ActiveHpData = {
 				statTitle: 'Sales Key In',
@@ -209,8 +217,7 @@ export default {
 				moreshow: 'true',
 			};
 
-			if(response.data.user[0].MEM_LVL == 4){
-				console.log('sales_men');
+			if (response.data.user[0].MEM_LVL == 4) {
 				this.KeyInOptions = {
 					statTitle: 'SVM Sales',
 					icon: mdiClipboardEditOutline,
@@ -230,19 +237,22 @@ export default {
 					icon: mdiAccountCheckOutline,
 					color: 'primary',
 					subtitle: change,
-					statistics: (response.data.user[0].Net_SAL / response.data.user[0].Total_Keyin).toFixed(2) ,
+					statistics: (
+						response.data.user[0].Net_SAL / response.data.user[0].Total_Keyin
+					).toFixed(2),
 				};
 				this.RejoinOptions = {
-					appear: false
+					appear: false,
 				};
-			}
-			else{
+			} else {
 				this.KeyInOptions = {
 					statTitle: 'Net Sales Productivity',
 					icon: mdiClipboardEditOutline,
 					color: 'success',
 					subtitle: change,
-					statistics: (response.data.user[0].Net_SAL / response.data.user[0].ACT_CODY).toFixed(2),
+					statistics: (
+						response.data.user[0].Net_SAL / response.data.user[0].ACT_CODY
+					).toFixed(2),
 				};
 				this.NetSalesOptions = {
 					statTitle: 'Active Cody',
@@ -256,7 +266,7 @@ export default {
 					icon: mdiAccountCheckOutline,
 					color: 'primary',
 					subtitle: change,
-					statistics: response.data.user[0].retention_rate.toFixed(2)+"%" ,
+					statistics: response.data.user[0].retention_rate.toFixed(2) + '%',
 				};
 				this.RejoinOptions = {
 					statTitle: 'Rejoin',
@@ -264,40 +274,46 @@ export default {
 					color: 'primary',
 					subtitle: change,
 					statistics: this.number_format(response.data.user[0].rejoin),
-					appear: true
+					appear: true,
 				};
-
 			}
-				this.targetSales = {
-					mem_lvl:response.data.user[0].MEM_LVL,
-					target: response.data.user[0].SAL_TARGET,
-					achieved: response.data.user[0].Net_SAL,
-					To_achieved: response.data.user[0].SAL_TARGET - response.data.user[0].Net_SAL,
-					act_hs: response.data.user[0].ACT_HS,
-					com_hs: response.data.user[0].COM_HS,
-					canc_hs: response.data.user[0].CANC_HS,
-					fal_hs: response.data.user[0].FAL_HS,
-				};
+			this.targetSales = {
+				mem_lvl: response.data.user[0].MEM_LVL,
+				target: response.data.user[0].SAL_TARGET,
+				achieved: response.data.user[0].Net_SAL,
+				To_achieved:
+					response.data.user[0].SAL_TARGET - response.data.user[0].Net_SAL,
+				act_hs: response.data.user[0].ACT_HS,
+				com_hs: response.data.user[0].COM_HS,
+				canc_hs: response.data.user[0].CANC_HS,
+				fal_hs: response.data.user[0].FAL_HS,
+			};
 			this.graphSales = {
-				new_sal: response.data.user[0].Net_SAL - response.data.user[0].Extrade_SAL,
+				new_sal:
+					response.data.user[0].Net_SAL - response.data.user[0].Extrade_SAL,
 				hc_sal: response.data.user[0].MAT_SAL,
 				extrade: response.data.user[0].Extrade_SAL,
 				svm: response.data.user[0].SVM_SAL,
-				keyin: response.data.user[0].Today_Keyin
-			}
+				keyin: response.data.user[0].Today_Keyin,
+			};
 			this.NetsalesRecord = {
-				curr_ranking_number : this.number_format(response.data.user[0].curr_ranking_number),
-				curr_ranking_figure : this.number_format(response.data.user[0].curr_ranking_figure),
-				prev_ranking_number : this.number_format(response.data.user[0].prev_ranking_number),
-				prev_ranking_figure : this.number_format(response.data.user[0].prev_ranking_figure)
-			}
+				curr_ranking_number: this.number_format(
+					response.data.user[0].curr_ranking_number,
+				),
+				curr_ranking_figure: this.number_format(
+					response.data.user[0].curr_ranking_figure,
+				),
+				prev_ranking_number: this.number_format(
+					response.data.user[0].prev_ranking_number,
+				),
+				prev_ranking_figure: this.number_format(
+					response.data.user[0].prev_ranking_figure,
+				),
+			};
 		}),
-		this.callRankingAPI().then(response => {
-			console.log('userdata = ',response)
-			this.Ranking_Data = response.data.user
-		})
-
-		;
+			this.callRankingAPI().then(response => {
+				this.Ranking_Data = response.data.user;
+			});
 	},
 };
 </script>
