@@ -178,7 +178,7 @@ export default {
 			} else {
 				change += mm + ' Mins ago';
 			}
-
+			console.log(response.data.user[0])
 			this.eKeyInData = {
 				statTitle: 'Complete Hs Rate',
 				icon: mdiClipboardEditOutline,
