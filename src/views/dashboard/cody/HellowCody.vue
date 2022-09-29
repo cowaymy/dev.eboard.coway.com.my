@@ -30,6 +30,7 @@
 				:NetSalesOptions="NetSalesOptions"
 				:ActiveHpOptions="ActiveHpOptions"
 				:RejoinOptions="RejoinOptions"
+				:Personal_Data="Personal_Data"
 			>
 			</DashboardCodyDialogue>
 		</v-col>
@@ -145,6 +146,7 @@ export default {
 	data() {
 		return {
 			Ranking_Data: [],
+			Personal_Data: {Personal_Data_Display: [],Personal_Data_Option: []},
 			logMaessage: '',
 			sheet: false,
 			mdiHelpCircleOutline,
@@ -178,6 +180,10 @@ export default {
 			} else {
 				change += mm + ' Mins ago';
 			}
+			console.log(response.data.user[0])
+			const user_config = response.data.user[0].user_config.split(",");
+			 
+			let Data_Temp = [];
 			console.log(response.data.user[0])
 			this.eKeyInData = {
 				statTitle: 'Complete Hs Rate',
@@ -241,9 +247,7 @@ export default {
 						response.data.user[0].Net_SAL / response.data.user[0].Total_Keyin
 					).toFixed(2),
 				};
-				this.RejoinOptions = {
-					appear: false,
-				};
+				Data_Temp.push(this.KeyInOptions,this.NetSalesOptions,this.ActiveHpOptions)
 			} else {
 				this.KeyInOptions = {
 					statTitle: 'Net Sales Productivity',
@@ -274,9 +278,24 @@ export default {
 					color: 'primary',
 					subtitle: change,
 					statistics: this.number_format(response.data.user[0].rejoin),
-					appear: true,
 				};
+				Data_Temp.push(this.KeyInOptions,this.NetSalesOptions,this.ActiveHpOptions,this.RejoinOptions)
 			}
+			
+			Data_Temp.push(this.eKeyInData,this.NetSalesData,this.ActiveHpData,this.SHIData)
+			Data_Temp.sort(function(a, b){
+              let x = user_config.indexOf(a.statTitle);
+              let y = user_config.indexOf(b.statTitle);
+              if (x < y) {return -1;}
+              if (x > y) {return 1;}
+              return 0;
+            });
+
+			this.Personal_Data.Personal_Data_Display = Data_Temp.splice(0,4);
+
+			this.Personal_Data.Personal_Data_Option = Data_Temp;
+
+
 			this.targetSales = {
 				mem_lvl: response.data.user[0].MEM_LVL,
 				target: response.data.user[0].SAL_TARGET,
