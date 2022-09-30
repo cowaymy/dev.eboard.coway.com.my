@@ -1,17 +1,9 @@
 <template>
 	<div style="position: relative">
 		<v-row>
-			<v-col cols="12" sm="6" md="3">
-				<StatisticsCardVertical v-bind="eKeyInData"> </StatisticsCardVertical>
-			</v-col>
-			<v-col cols="12" sm="6" md="3">
-				<StatisticsCardVertical v-bind="NetSalesData"></StatisticsCardVertical>
-			</v-col>
-			<v-col cols="12" sm="6" md="3">
-				<StatisticsCardVertical v-bind="ActiveHpData"></StatisticsCardVertical>
-			</v-col>
-			<v-col cols="12" sm="6" md="3">
-				<StatisticsCardVertical v-bind="SHIData"></StatisticsCardVertical>
+
+			<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Display">
+				<StatisticsCardVertical v-bind="i" /> </StatisticsCardVertical>
 			</v-col>
 			<template v-if="true">
 				<v-dialog
@@ -49,56 +41,19 @@
 									text
 									class="my-auto"
 									@click="isDialogVisible = false"
-								>
-									Close
+									@click.native="saveMenu"
+									>
+									Save
 								</v-btn>
 							</v-toolbar-items>
 						</v-toolbar>
 
-						<v-row>
 							<v-col cols="12"><p></p></v-col>
-							<v-col cols="12" sm="6" md="2">
-								<StatisticsCardVerticalForSales
-									:color="KeyInOptions.color"
-									:icon="KeyInOptions.icon"
-									:statistics="KeyInOptions.statistics"
-									:stat-title="KeyInOptions.statTitle"
-									:subtitle="KeyInOptions.subtitle"
-								></StatisticsCardVerticalForSales>
-							</v-col>
-							<v-col cols="12" sm="6" md="2">
-								<StatisticsCardVerticalForSales
-									:color="NetSalesOptions.color"
-									:icon="NetSalesOptions.icon"
-									:statistics="NetSalesOptions.statistics"
-									:stat-title="NetSalesOptions.statTitle"
-									:subtitle="NetSalesOptions.subtitle"
-								></StatisticsCardVerticalForSales>
-							</v-col>
-							<v-col cols="12" sm="6" md="2">
-								<StatisticsCardVerticalForSales
-									:color="ActiveHpOptions.color"
-									:icon="ActiveHpOptions.icon"
-									:statistics="ActiveHpOptions.statistics"
-									:stat-title="ActiveHpOptions.statTitle"
-									:subtitle="ActiveHpOptions.subtitle"
-								></StatisticsCardVerticalForSales>
-							</v-col>
-							<v-col
-								cols="12"
-								sm="6"
-								md="2"
-								v-if="RejoinOptions.appear == true"
-							>
-								<StatisticsCardVerticalForSales
-									:color="RejoinOptions.color"
-									:icon="RejoinOptions.icon"
-									:statistics="RejoinOptions.statistics"
-									:stat-title="RejoinOptions.statTitle"
-									:subtitle="RejoinOptions.subtitle"
-								></StatisticsCardVerticalForSales>
-							</v-col>
-						</v-row>
+							<draggable v-model="Personal_Data.Personal_Data_Option" class="row" >
+								<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Option">
+									<StatisticsCardVertical v-bind="i" />
+								</v-col>
+							</draggable>
 					</v-card>
 				</v-dialog>
 			</template>
@@ -110,7 +65,10 @@
 
 <script>
 import StatisticsCardVertical from '../../../components/statistics-card/StatisticsCardVerticalForCody.vue';
-import StatisticsCardVerticalForSales from '../../../components/statistics-card/StatisticsCardVerticalForSales.vue';
+import draggable from 'vuedraggable';
+import codyApi from '../../../api/codyApi';
+import bus from '../../../utils/bus.js';
+
 import {
 	mdiClipboardEditOutline,
 	mdiCheckboxMultipleMarkedOutline,
@@ -121,7 +79,7 @@ import {
 export default {
 	components: {
 		StatisticsCardVertical,
-		StatisticsCardVerticalForSales,
+		draggable,
 	},
 	props: {
 		eKeyInData: { type: Object },
@@ -132,6 +90,24 @@ export default {
 		NetSalesOptions: { type: Object },
 		ActiveHpOptions: { type: Object },
 		RejoinOptions: { type: Object },
+		Personal_Data: {Personal_Data_Display: [],Personal_Data_Option: []},
+	},
+	methods: {
+		saveMenu() {
+			try {
+				//start spinner
+				bus.$emit('start:spinner');
+				let user_data = {mem_id: this.$store.state.userInfo.memId ,user_config:this.Personal_Data.Personal_Data_Option.reduce(function (a, b) {return (a.statTitle || a) + "," + b.statTitle})}
+				codyApi.updateCodyMenu(user_data);
+				window.location.reload();
+			} catch (error) {
+				console.log(error);
+				this.sheet = true;
+				this.logMaessage = error.message;
+			} finally {
+				bus.$emit('end:spinner');
+			}
+		},
 	},
 	data() {
 		const isDialogVisible = false;
