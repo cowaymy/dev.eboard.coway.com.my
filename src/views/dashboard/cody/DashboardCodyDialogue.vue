@@ -41,18 +41,19 @@
 									text
 									class="my-auto"
 									@click="isDialogVisible = false"
-								>
-									Close
+									@click.native="saveMenu"
+									>
+									Save
 								</v-btn>
 							</v-toolbar-items>
 						</v-toolbar>
 
-						<v-row>
 							<v-col cols="12"><p></p></v-col>
-							<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Option">
-								<StatisticsCardVertical v-bind="i" /> </StatisticsCardVertical>
-							</v-col>
-						</v-row>
+							<draggable v-model="Personal_Data.Personal_Data_Option" class="row" >
+								<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Option">
+									<StatisticsCardVertical v-bind="i" />
+								</v-col>
+							</draggable>
 					</v-card>
 				</v-dialog>
 			</template>
@@ -64,6 +65,10 @@
 
 <script>
 import StatisticsCardVertical from '../../../components/statistics-card/StatisticsCardVerticalForCody.vue';
+import draggable from 'vuedraggable';
+import codyApi from '../../../api/codyApi';
+import bus from '../../../utils/bus.js';
+
 import {
 	mdiClipboardEditOutline,
 	mdiCheckboxMultipleMarkedOutline,
@@ -73,7 +78,8 @@ import {
 
 export default {
 	components: {
-		StatisticsCardVertical
+		StatisticsCardVertical,
+		draggable,
 	},
 	props: {
 		eKeyInData: { type: Object },
@@ -85,6 +91,23 @@ export default {
 		ActiveHpOptions: { type: Object },
 		RejoinOptions: { type: Object },
 		Personal_Data: {Personal_Data_Display: [],Personal_Data_Option: []},
+	},
+	methods: {
+		saveMenu() {
+			try {
+				//start spinner
+				bus.$emit('start:spinner');
+				let user_data = {mem_id: this.$store.state.userInfo.memId ,user_config:this.Personal_Data.Personal_Data_Option.reduce(function (a, b) {return (a.statTitle || a) + "," + b.statTitle})}
+				codyApi.updateCodyMenu(user_data);
+				window.location.reload();
+			} catch (error) {
+				console.log(error);
+				this.sheet = true;
+				this.logMaessage = error.message;
+			} finally {
+				bus.$emit('end:spinner');
+			}
+		},
 	},
 	data() {
 		const isDialogVisible = false;

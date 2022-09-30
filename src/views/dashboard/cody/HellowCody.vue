@@ -125,7 +125,6 @@ export default {
 				bus.$emit('end:spinner');
 			}
 		},
-
 		callRankingAPI() {
 			try {
 				//start spinner
@@ -291,7 +290,7 @@ export default {
               return 0;
             });
 
-			this.Personal_Data.Personal_Data_Display = Data_Temp.splice(0,4);
+			this.Personal_Data.Personal_Data_Display = Data_Temp.slice(0,4);
 
 			this.Personal_Data.Personal_Data_Option = Data_Temp;
 

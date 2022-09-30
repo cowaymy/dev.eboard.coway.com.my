@@ -27,7 +27,17 @@ function getCurRankingData(userData) {
 	return obj;
 }
 
+function updateCodyMenu(user_config) {
+	const options = {
+		memId: user_config.mem_id,
+		user_config: user_config.user_config,
+	};
+	var obj = newInstance.get('/cody/updateCodyMenu', { params: options });
+	return obj;
+}
+
 export default {
 	getCurRankingData,
 	getCurMonthData,
+	updateCodyMenu,
 };
