@@ -264,13 +264,7 @@ export default {
 					subtitle: change,
 					statistics: this.number_format(response.data.user[0].ACT_CODY),
 				};
-				this.ActiveHpOptions = {
-					statTitle: 'Retention',
-					icon: mdiAccountCheckOutline,
-					color: 'primary',
-					subtitle: change,
-					statistics: response.data.user[0].retention_rate.toFixed(2) + '%',
-				};
+				
 				this.RejoinOptions = {
 					statTitle: 'Rejoin',
 					icon: mdiAccountCheckOutline,
