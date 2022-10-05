@@ -264,7 +264,6 @@ export default {
 					subtitle: change,
 					statistics: this.number_format(response.data.user[0].ACT_CODY),
 				};
-				
 				this.RejoinOptions = {
 					statTitle: 'Rejoin',
 					icon: mdiAccountCheckOutline,
@@ -272,7 +271,7 @@ export default {
 					subtitle: change,
 					statistics: this.number_format(response.data.user[0].rejoin),
 				};
-				Data_Temp.push(this.KeyInOptions,this.NetSalesOptions,this.ActiveHpOptions,this.RejoinOptions)
+				Data_Temp.push(this.KeyInOptions,this.NetSalesOptions,this.RejoinOptions)
 			}
 			
 			Data_Temp.push(this.eKeyInData,this.NetSalesData,this.ActiveHpData,this.SHIData)
