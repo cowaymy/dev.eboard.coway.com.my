@@ -120,7 +120,7 @@ import Spinner from '../components/comm/Spinner.vue';
 import bus from '../utils/bus.js';
 
 export default {
-	data: () => ({
+	data: (c) => ({
 		selectedItem: 0,
 		drawer: null,
 		spinnerStatus: false,
@@ -135,6 +135,43 @@ export default {
 		bus.$on('end:spinner', this.endSpinner);
 	},
 	computed: {
+		mainRoute() {
+			if (this.$store.state.userInfo.userTypeId == '1') {
+				var rtnRoute;
+				if (this.$store.state.userInfo.memberLevel == null || this.$store.state.userInfo.memberLevel == undefined) {
+					return '/error';
+				}
+				switch (this.$store.state.userInfo.memberLevel) {
+					case 0:
+						rtnRoute = '/salesMainSGM';
+						break;
+					case 1:
+						rtnRoute = '/salesMainGM';
+						break;
+					case 2:
+						rtnRoute = '/salesMainSM';
+						break;
+					case 3:
+						rtnRoute = '/salesMainHM';
+						break;
+					case 4:
+						rtnRoute = '/salesMainHP';
+						break;
+					case 99:
+						rtnRoute = '/salesMainHQ';
+						break;
+				}
+				return rtnRoute;
+			} else if (this.$store.state.userInfo.userTypeId == '2') {
+				return '/codyMain';
+			} else if (this.$store.state.userInfo.userTypeId == '3') {
+				return '/dscMain';
+			} else if (this.$store.state.userInfo.userTypeId == '7') {
+				return '/homecareMain';
+			} else {
+				return '/salesMainHQ';
+			}
+		},
 		isUserLogin() {
 			return this.$store.getters.isLogin;
 		},
@@ -152,10 +189,7 @@ export default {
 
 		gotoMenu(route) {
 			if (route == 'main') {
-				route =
-					this.$store.getters.isLogin.userTypeId == 1
-						? '/salesMain'
-						: '/codyMain';
+				route = this.mainRoute
 			}
 
 			if (route != this.$router.history.current.path) {

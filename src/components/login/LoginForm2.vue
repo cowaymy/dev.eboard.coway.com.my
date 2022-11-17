@@ -207,6 +207,7 @@ export default {
 		},
 
 		getNextRoute(data) {
+			console.log(data)
 			if (data.userTypeId == '1') {
 				var rtnRoute;
 				if (data.memberLevel == null || data.memberLevel == undefined) {
