@@ -123,6 +123,12 @@ const router = new VueRouter({
 			component: () => import('../views/account-settings/AccountSettings.vue'),
 			meta: { requiresAuth: true },
 		},
+		{
+			path: '/HQMain',
+			name: 'HQMain',
+			component: () => import('../views/infoHub/KnowledgeBase.vue'),
+			meta: { requiresAuth: true },
+		},
 	],
 });
 

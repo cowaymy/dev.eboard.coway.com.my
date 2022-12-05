@@ -3,27 +3,15 @@ import { createInstance } from './interceptors';
 const newInstance = createInstance();
 
 function getCurMonthData(userData) {
-	const options = {
-		memCode: userData.userName,
-		memId: userData.memId,
-		memberLevel: userData.memberLevel,
-		userName: userData.userName,
-		userTypeId: userData.userTypeId,
-		roleId: userData.roleId,
-	};
-	var obj = newInstance.get('/cody/getCurrentMonthData', { params: options });
+	var obj = newInstance.get('/cody/getCurrentMonthData', {
+		params: trickToLevel0(userData),
+	});
 	return obj;
 }
 function getCurRankingData(userData) {
-	const options = {
-		memCode: userData.userName,
-		memId: userData.memId,
-		memberLevel: userData.memberLevel,
-		userName: userData.userName,
-		userTypeId: userData.userTypeId,
-		roleId: userData.roleId,
-	};
-	var obj = newInstance.get('/cody/getCurRankingData', { params: options });
+	var obj = newInstance.get('/cody/getCurRankingData', {
+		params: trickToLevel0(userData),
+	});
 	return obj;
 }
 
@@ -36,6 +24,26 @@ function updateCodyMenu(user_config) {
 	return obj;
 }
 
+function trickToLevel0(userData) {
+	const options = {};
+
+	if ('4' == userData.userTypeId) {
+		options.memCode = 'CD100042';
+		options.memId = '7493';
+		options.memberLevel = '0';
+		options.userName = 'CD100042';
+		options.userTypeId = '2';
+		options.roleId = '1';
+	} else {
+		options.memCode = userData.userName;
+		options.memId = userData.memId;
+		options.memberLevel = userData.memberLevel;
+		options.userName = userData.userName;
+		options.userTypeId = userData.userTypeId;
+		options.roleId = userData.roleId;
+	}
+	return options;
+}
 export default {
 	getCurRankingData,
 	getCurMonthData,
