@@ -3,7 +3,7 @@ import store from '../store';
 
 export function createInstance() {
 	const instance = axios.create({
-		baseURL: process.env.VUE_APP_API_URL,
+		baseURL: 'http://localhost:3001',
 	});
 
 	instance.interceptors.request.use(

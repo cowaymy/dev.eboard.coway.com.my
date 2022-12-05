@@ -29,7 +29,7 @@
 		<v-card-text class="text--primary mt-3">
 			<div style="text-align: center">
 				<span class="font-weight-semibold text-5xl mb-3">
-					{{ checkNull(statistics) }}
+					{{ checkNull(statistics.toString()) }}
 				</span>
 				<!-- <span
 					class="percentage text-xs mb-2"

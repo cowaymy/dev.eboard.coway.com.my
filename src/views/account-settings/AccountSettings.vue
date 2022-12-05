@@ -54,7 +54,7 @@ import AccountSettingsAccount from './AccountSettingsAccount.vue';
 import AccountSettingsSecurity from './AccountSettingsSecurity.vue';
 import AccountSettingsInfo from './AccountSettingsInfo.vue';
 //import AccountSettingsBilling from './AccountSettingsBilling.vue';
-//import AccountSettingsNotification from './AccountSettingsNotification.vue';
+import AccountSettingsNotification from './AccountSettingsNotification.vue';
 
 //console.log('=======>' + this.$store.state.userInfo);
 
@@ -69,7 +69,7 @@ export default {
 			{ title: 'Security', icon: mdiLockOpenOutline },
 			{ title: 'Info', icon: mdiInformationOutline },
 			// { title: 'Billing', icon: mdiBookmarkOutline },
-			//{ title: 'Notifications', icon: mdiBellOutline },
+			{ title: 'Notifications', icon: mdiBellOutline },
 		];
 
 		// account settings data
@@ -84,7 +84,6 @@ export default {
 				branch: this.$store.state.userInfo.branchName,
 			},
 			information: {
-				bio: 'The name’s John Deo. I am a tireless seeker of knowledge, occasional purveyor of wisdom and also, coincidentally, a graphic designer. Algolia helps businesses across industries quickly create relevant 😎, scaLabel 😀, and lightning 😍 fast search and discovery experiences.',
 				birthday: this.$store.state.userInfo.dob,
 				phone: this.$store.state.userInfo.telMobile,
 				website: `https://emall.coway.com.my/?agentcode=${this.$store.state.userInfo.userName}`,
@@ -124,7 +123,7 @@ export default {
 		AccountSettingsSecurity,
 		AccountSettingsInfo,
 		//AccountSettingsBilling,
-		//AccountSettingsNotification,
+		AccountSettingsNotification,
 	},
 
 	computed: {

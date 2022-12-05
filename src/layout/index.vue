@@ -53,7 +53,7 @@
 			v-if="(this.$route.name != 'login') & (this.$route.name != 'ssoLogin')"
 		>
 			&nbsp; <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-			<v-toolbar-title>eTtrustBoard</v-toolbar-title>
+			<v-toolbar-title>eTtrust ePapan</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<!--login -->
 			<template v-if="isUserLogin">
@@ -120,15 +120,17 @@ import Spinner from '../components/comm/Spinner.vue';
 import bus from '../utils/bus.js';
 
 export default {
-	data: (c) => ({
-		selectedItem: 0,
-		drawer: null,
-		spinnerStatus: false,
-		items: [
-			{ icon: 'fas fa-chalkboard-teacher', text: '', route: 'main' },
-			{ icon: 'fas fa-cog', text: 'userInfo', route: '/accsetting' },
-		],
-	}),
+	data: function () {
+		return {
+			selectedItem: 0,
+			drawer: null,
+			spinnerStatus: false,
+			items: [
+				{ icon: 'fas fa-chalkboard-teacher', text: '', route: 'main' },
+				{ icon: 'fas fa-cog', text: 'userInfo', route: '/accsetting' },
+			],
+		};
+	},
 	components: { Spinner },
 	created() {
 		bus.$on('start:spinner', this.startSpinner);
@@ -138,7 +140,10 @@ export default {
 		mainRoute() {
 			if (this.$store.state.userInfo.userTypeId == '1') {
 				var rtnRoute;
-				if (this.$store.state.userInfo.memberLevel == null || this.$store.state.userInfo.memberLevel == undefined) {
+				if (
+					this.$store.state.userInfo.memberLevel == null ||
+					this.$store.state.userInfo.memberLevel == undefined
+				) {
 					return '/error';
 				}
 				switch (this.$store.state.userInfo.memberLevel) {
@@ -168,6 +173,8 @@ export default {
 				return '/dscMain';
 			} else if (this.$store.state.userInfo.userTypeId == '7') {
 				return '/homecareMain';
+			} else if (this.$store.state.userInfo.userTypeId == '4') {
+				return '/HQMain';
 			} else {
 				return '/salesMainHQ';
 			}
@@ -189,7 +196,7 @@ export default {
 
 		gotoMenu(route) {
 			if (route == 'main') {
-				route = this.mainRoute
+				route = this.mainRoute;
 			}
 
 			if (route != this.$router.history.current.path) {

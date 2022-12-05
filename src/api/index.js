@@ -1,6 +1,6 @@
 import { createInstance } from './interceptors';
 
-const newInstance = createInstance();
+let newInstance = createInstance();
 
 function registerUser(userData) {
 	return newInstance.post('signup', userData);
@@ -10,8 +10,12 @@ function userLogin(userData) {
 	return newInstance.post('login', userData);
 }
 
+async function saveNotification(data) {
+	return newInstance.post('/comm/notification', data);
+}
+
 async function getBestRecord(userData) {
-	const options = {
+	let options = {
 		memCode: userData.userName,
 		memId: userData.memId,
 		memberLevel: userData.memberLevel,
@@ -23,7 +27,7 @@ async function getBestRecord(userData) {
 }
 
 async function getBestRecordList(userData) {
-	const options = {
+	let options = {
 		memCode: userData.userName,
 		memId: userData.memId,
 		memberLevel: userData.memberLevel,
@@ -35,7 +39,7 @@ async function getBestRecordList(userData) {
 }
 
 async function getNotification(userData) {
-	const options = {
+	let options = {
 		memCode: userData.userName,
 		memId: userData.memId,
 		memberLevel: userData.memberLevel,
@@ -43,7 +47,10 @@ async function getNotification(userData) {
 		userTypeId: userData.userTypeId,
 		roleId: userData.roleId,
 		type: userData.type,
+		notificationType: userData.notificationsType,
 	};
+
+	console.log(userData);
 	return newInstance.get('/comm/notification', { params: options });
 }
 
@@ -53,4 +60,5 @@ export default {
 	getBestRecord,
 	getBestRecordList,
 	getNotification,
+	saveNotification,
 };
