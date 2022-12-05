@@ -14,11 +14,13 @@
 			class="knowledge-base-bg d-flex align-center justify-center text-center mb-7"
 		>
 			<v-card-text>
+
 				<!-- <p class="kb-title text-2xl font-weight-semibold primary--text mb-2">
 					Hello, how can we help?
 				</p>
 				<p class="mb-7">
 					or choose a category to quickly find the help you need
+
 				</p> -->
 
 				<v-form class="kb-search-input mx-auto">
@@ -95,6 +97,7 @@ import { mdiMagnify } from '@mdi/js';
 import StatisticsCardHQMain from '../../components/statistics-card/StatisticsCardHQMain_Salse.vue';
 import StatisticsCardHQMain_Cody from '../../components/statistics-card/StatisticsCardHQMain_Cody.vue';
 import LinkToSSO from '../../components/comm/LinkToSSO';
+
 import DigitalClock from '../../views/comm/DigitalClock.vue';
 
 export default {
