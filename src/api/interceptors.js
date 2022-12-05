@@ -3,7 +3,7 @@ import store from '../store';
 
 export function createInstance() {
 	const instance = axios.create({
-		baseURL: 'http://localhost:3001',
+		baseURL: 'https://epapanapis.malaysia.coway.do/api',
 	});
 
 	instance.interceptors.request.use(

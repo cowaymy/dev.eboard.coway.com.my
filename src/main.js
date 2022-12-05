@@ -5,14 +5,12 @@ import './style/styles.scss';
 import ChartPlugins from './plugins/ChartPlugins.js';
 import router from '@/routes/index';
 import store from '@/store/index';
-import Toasted from 'vue-toasted';
 Vue.config.productionTip = true;
 
 new Vue({
 	vuetify,
 	router,
 	store,
-	Toasted,
 	ChartPlugins,
 
 	//preset,

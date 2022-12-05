@@ -233,9 +233,9 @@ export default {
 				const result = comApi.saveNotification(notiObj);
 
 				if (result.success) {
-					this.$toasted.show('hello billo');
+					//this.$toasted.show('hello billo');
 				} else {
-					this.$toasted.show(result.message);
+					//this.$toasted.show(result.message);
 				}
 			} catch (error) {
 				console.log('=========>' + error);
