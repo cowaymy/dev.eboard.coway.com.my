@@ -9,6 +9,21 @@
 			</v-alert>
 		</v-col>
 
+		<v-col cols="12" md="12"
+			><div align="center">
+				<v-alert
+					v-model="alert"
+					dismissible
+					color="#00BFFF"
+					border="left"
+					elevation="2"
+					colored-border
+					icon="mdi-twitter"
+				>
+					<Notification :autoplay="autoplay" :noteType="noteType" />
+				</v-alert>
+			</div>
+		</v-col>
 		<v-col cols="12" md="4" sm="12">
 			<DashboardCongratulationJohn />
 		</v-col>
@@ -72,12 +87,13 @@ import DigitalClock from '../../comm/DigitalClock.vue';
 import bus from '../../../utils/bus.js';
 import codyApi from '../../../api/codyApi';
 import StatisticsCardSide from '../../../components/statistics-card/StatisticsCardSideForCody.vue';
-import StatisticsCardRankingList from '../../../components/statistics-card/StatisticsCardRankingList.vue';
+//import StatisticsCardRankingList from '../../../components/statistics-card/StatisticsCardRankingList.vue';
 import DashboardCongratulationJohn from './DashboardCongratulationBest.vue';
 import DashboardCardSalesRankingbyGM from './DashboardCardSalesRankingbyGM.vue';
 import DashboardSalesTotalProfit from './DashboardSalesTotalProfit.vue';
 import DashboardSalesStatisticsTotalSales from './DashboardSalesStatisticsTotalSales.vue';
 import number_format from '../../../utils/number_format.js';
+import Notification from '../../comm/Notification.vue';
 export default {
 	targetSales: {},
 	curmontData: {},
@@ -105,9 +121,10 @@ export default {
 		DashboardSalesStatisticsTotalSales,
 		StatisticsCardSide,
 		DashboardCardSalesRankingbyGM,
-		StatisticsCardRankingList,
+		//	StatisticsCardRankingList,
 		DigitalClock,
 		DashboardCodyDialogue,
+		Notification,
 	},
 
 	methods: {
@@ -145,7 +162,7 @@ export default {
 	data() {
 		return {
 			Ranking_Data: [],
-			Personal_Data: {Personal_Data_Display: [],Personal_Data_Option: []},
+			Personal_Data: { Personal_Data_Display: [], Personal_Data_Option: [] },
 			logMaessage: '',
 			sheet: false,
 			mdiHelpCircleOutline,
@@ -158,10 +175,23 @@ export default {
 			NetSalesOptions: {},
 			ActiveHpOptions: {},
 			RejoinOptions: {},
-			graphSales: { keyin: 0 ,new_sal:0,extrade:0,hc_sal:0,svm:0},
-			targetSales: { act_hs:0 , com_hs:0, canc_hs:0, fal_hs:0,target:0,To_achieved:0,achieved:0,mem_lvl:0 },
+			graphSales: { keyin: 0, new_sal: 0, extrade: 0, hc_sal: 0, svm: 0 },
+			targetSales: {
+				act_hs: 0,
+				com_hs: 0,
+				canc_hs: 0,
+				fal_hs: 0,
+				target: 0,
+				To_achieved: 0,
+				achieved: 0,
+				mem_lvl: 0,
+			},
 			NetsalesRecord: {},
 			color: { secondary: 'secondary', warning: 'warning', error: '#00f' },
+
+			autoplay: true,
+			alert: true,
+			noteType: 'CODY',
 		};
 	},
 	created() {
@@ -179,11 +209,11 @@ export default {
 			} else {
 				change += mm + ' Mins ago';
 			}
-			console.log(response.data.user[0])
-			const user_config = response.data.user[0].user_config.split(",");
-			 
+			console.log(response.data.user[0]);
+			const user_config = response.data.user[0].user_config.split(',');
+
 			let Data_Temp = [];
-			console.log(response.data.user[0])
+			console.log(response.data.user[0]);
 			this.eKeyInData = {
 				statTitle: 'Complete Hs Rate',
 				icon: mdiClipboardEditOutline,
@@ -246,7 +276,11 @@ export default {
 						response.data.user[0].Net_SAL / response.data.user[0].Total_Keyin
 					).toFixed(2),
 				};
-				Data_Temp.push(this.KeyInOptions,this.NetSalesOptions,this.ActiveHpOptions)
+				Data_Temp.push(
+					this.KeyInOptions,
+					this.NetSalesOptions,
+					this.ActiveHpOptions,
+				);
 			} else {
 				this.KeyInOptions = {
 					statTitle: 'Net Sales Productivity',
@@ -271,22 +305,34 @@ export default {
 					subtitle: change,
 					statistics: this.number_format(response.data.user[0].rejoin),
 				};
-				Data_Temp.push(this.KeyInOptions,this.NetSalesOptions,this.RejoinOptions)
+				Data_Temp.push(
+					this.KeyInOptions,
+					this.NetSalesOptions,
+					this.RejoinOptions,
+				);
 			}
-			
-			Data_Temp.push(this.eKeyInData,this.NetSalesData,this.ActiveHpData,this.SHIData)
-			Data_Temp.sort(function(a, b){
-              let x = user_config.indexOf(a.statTitle);
-              let y = user_config.indexOf(b.statTitle);
-              if (x < y) {return -1;}
-              if (x > y) {return 1;}
-              return 0;
-            });
 
-			this.Personal_Data.Personal_Data_Display = Data_Temp.slice(0,4);
+			Data_Temp.push(
+				this.eKeyInData,
+				this.NetSalesData,
+				this.ActiveHpData,
+				this.SHIData,
+			);
+			Data_Temp.sort(function (a, b) {
+				let x = user_config.indexOf(a.statTitle);
+				let y = user_config.indexOf(b.statTitle);
+				if (x < y) {
+					return -1;
+				}
+				if (x > y) {
+					return 1;
+				}
+				return 0;
+			});
+
+			this.Personal_Data.Personal_Data_Display = Data_Temp.slice(0, 4);
 
 			this.Personal_Data.Personal_Data_Option = Data_Temp;
-
 
 			this.targetSales = {
 				mem_lvl: response.data.user[0].MEM_LVL,

@@ -4,8 +4,8 @@
 			<div>
 				<p class="text-5xl font-weight-semibold text--primary mb-2">
 					<VueRolling
-						:value="graphSales.keyin.toString()"
-						:text="graphSales.keyin.toString()"
+						:value="newEkeyIn"
+						:text="newEkeyIn"
 						:isNumberFormat="true"
 						:transition="4"
 					></VueRolling>
@@ -27,7 +27,7 @@
 					</v-list-item-avatar>
 					<v-list-item-content>
 						<v-list-item-title class="font-weight-semibold text-3xl">
-							{{ number_format(graphSales.new_sal) }}
+							{{ graphSales.new_sal }}
 						</v-list-item-title>
 						<v-list-item-subtitle>New Sales</v-list-item-subtitle>
 					</v-list-item-content>
@@ -39,7 +39,7 @@
 					</v-list-item-avatar>
 					<v-list-item-content>
 						<v-list-item-title class="font-weight-semibold text-3xl">
-							{{ number_format(graphSales.hc_sal) }}
+							{{ graphSales.hc_sal }}
 						</v-list-item-title>
 						<v-list-item-subtitle>HC Sales</v-list-item-subtitle>
 					</v-list-item-content>
@@ -54,7 +54,7 @@
 					</v-list-item-avatar>
 					<v-list-item-content>
 						<v-list-item-title class="font-weight-semibold text-3xl">
-							{{ number_format(graphSales.svm) }}
+							{{ graphSales.svm }}
 						</v-list-item-title>
 						<v-list-item-subtitle style="white-space: break-spaces"
 							>Service Membership</v-list-item-subtitle
@@ -68,7 +68,7 @@
 					</v-list-item-avatar>
 					<v-list-item-content>
 						<v-list-item-title class="font-weight-semibold text-3xl">
-							{{ number_format(graphSales.extrade) }}
+							{{ graphSales.extrade }}
 						</v-list-item-title>
 						<v-list-item-subtitle>Extrade</v-list-item-subtitle>
 					</v-list-item-content>
@@ -103,7 +103,7 @@ import {
 import VueRolling from 'vue-roller';
 
 import bus from '../../utils/bus.js';
-import number_format from '../../utils/number_format.js';
+//import number_format from '../../utils/number_format.js';
 import codyApi from '../../api/codyApi.js';
 
 export default {
@@ -111,11 +111,15 @@ export default {
 
 	data() {
 		//const $vuetify = getVuetify();
-		//const newEkeyIn = 0;
+		const newEkeyIn = '';
 		const graphSales = {};
+
+		const pollData = null;
 
 		return {
 			graphSales,
+			newEkeyIn,
+			pollData,
 			icons: {
 				mdiDotsVertical,
 				mdiTrendingUp,
@@ -141,7 +145,7 @@ export default {
 	},
 
 	methods: {
-		number_format,
+		//number_format,
 		getEachColorsa(caty) {
 			if (caty == '54') return 'info';
 			if (caty == '55') return 'primary';
@@ -178,6 +182,10 @@ export default {
 		},
 	},
 
+	beforeDestroy() {
+		clearInterval(this.polling);
+	},
+
 	created() {
 		this.callSalesHQMainApi().then(response => {
 			this.graphSales = {
@@ -188,9 +196,11 @@ export default {
 				svm: response.data.user[0].SVM_SAL,
 				keyin: response.data.user[0].Today_Keyin,
 			};
+
+			this.newEkeyIn = response.data.user[0].Today_Keyin + '';
 		});
 
-		setInterval(() => {
+		this.pollData = setInterval(() => {
 			this.callSalesHQMainApi().then(response => {
 				this.graphSales = {
 					new_sal:
@@ -200,6 +210,7 @@ export default {
 					svm: response.data.user[0].SVM_SAL,
 					keyin: response.data.user[0].Today_Keyin,
 				};
+				this.newEkeyIn = response.data.user[0].Today_Keyin + '';
 			});
 		}, 30000);
 	},

@@ -1,20 +1,29 @@
 <template>
-	<v-card elevation="24">
-		<v-card-text class="d-flex align-center justify-space-between pb-1 pt-5">
+	<v-card elevation="0">
+		<!-- Title/Header -->
+		<v-card-title class="align-start pt-0 flex-nowrap">
 			<div>
-				<p class="text-5xl font-weight-semibold text--primary mb-2">
+				<p class="mb-0 font-weight-semibold primary--text text-5xl">
 					<VueRolling
-						:value="newEkeyIn.toString()"
-						:text="newEkeyIn.toString()"
+						:text="rollerKeyin.toString()"
+						:value="rollerKeyin.toString()"
 						:isNumberFormat="true"
 						:transition="4"
 					></VueRolling>
 				</p>
-				<span class="text-base font-weight-semibold">ToDay's eKeyIn</span>
+				<small class="font-weight-semibold text-xl">Today keyIn</small>
 			</div>
-		</v-card-text>
 
-		<v-card-text class="mt-2">
+			<v-spacer></v-spacer>
+			<v-btn icon small class="me-n6 mt-n1">
+				<v-icon size="22">
+					{{ icons.mdiDotsVertical }}
+				</v-icon>
+			</v-btn>
+		</v-card-title>
+
+		<v-card-text class="pb-3 pt-5">
+			<!-- List -->
 			<v-list two-line subheader>
 				<!-- List Item: Profit -->
 				<v-list-item class="pa-0">
@@ -32,7 +41,7 @@
 					</v-list-item-content>
 					<!-- item 2------->
 					<v-list-item-avatar class="" size="40" rounded>
-						<v-icon size="30" color="info">
+						<v-icon size="30" color="success">
 							{{ icons.mdiBeaker }}
 						</v-icon>
 					</v-list-item-avatar>
@@ -47,7 +56,7 @@
 				<v-list-item class="pa-0">
 					<!-- item 3------->
 					<v-list-item-avatar class="" size="40" rounded>
-						<v-icon size="30" color="warning">
+						<v-icon size="30" color="success">
 							{{ icons.mdiAutorenew }}
 						</v-icon>
 					</v-list-item-avatar>
@@ -60,7 +69,7 @@
 
 					<!-- item 4------->
 					<v-list-item-avatar class="" size="40" rounded>
-						<v-icon size="30" color="error">
+						<v-icon size="30" color="success">
 							{{ icons.mdiSeatIndividualSuite }}
 						</v-icon>
 					</v-list-item-avatar>
@@ -75,7 +84,7 @@
 				<v-list-item class="pa-0">
 					<!-- item 5------->
 					<v-list-item-avatar class="" size="40" rounded>
-						<v-icon size="30" color="primary">
+						<v-icon size="30" color="success">
 							{{ icons.mdiWeatherWindyVariant }}
 						</v-icon>
 					</v-list-item-avatar>
@@ -115,7 +124,7 @@
 
 					<!-- item 6------->
 					<v-list-item-avatar class="" size="40" rounded>
-						<v-icon size="30" color="#F08080">
+						<v-icon size="30" color="success">
 							{{ icons.mdiAlphaEBox }}
 						</v-icon>
 					</v-list-item-avatar>
@@ -127,11 +136,15 @@
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
+			<!-- Action Button -->
+			<v-btn block color="primary"> View Report </v-btn>
 		</v-card-text>
 	</v-card>
 </template>
 
 <script>
+import VueRolling from 'vue-roller';
+
 import {
 	mdiDotsVertical,
 	mdiTrendingUp,
@@ -151,23 +164,82 @@ import {
 	mdiNumeric10BoxMultiple,
 	mdiAlphaEBox,
 } from '@mdi/js';
-import VueRolling from 'vue-roller';
-import number_format from '../../utils/number_format.js';
 
-import salesApi from '../../api/salesApi';
+import salesApi from '../../../api/salesApi';
 
 export default {
-	components: { VueRolling },
+	components: {
+		VueRolling,
+	},
+
+	methods: {
+		async callApiEKeyInData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getEKeyInData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+
+		async callApiTodayEkeyinData() {
+			try {
+				const userInfo = this.$store.state.userInfo;
+				return await salesApi.getTodayEkeyinData(userInfo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+	},
+
+	beforeDestroy() {
+		clearInterval(this.polling);
+	},
+
+	created() {
+		this.callApiEKeyInData().then(request => {
+			this.rollerKeyin = request.data.data[0].TOTAL_SALES;
+		});
+
+		this.callApiTodayEkeyinData().then(request => {
+			this.todayEeyin = request.data.data;
+		});
+		this.pollData = setInterval(() => {
+			this.callApiEKeyInData().then(request => {
+				this.rollerKeyin = request.data.data[0].TOTAL_SALES;
+			});
+
+			this.callApiTodayEkeyinData().then(request => {
+				this.todayEeyin = request.data.data;
+			});
+		}, 30000);
+	},
 
 	data() {
-		//const $vuetify = getVuetify();
-		const newEkeyIn = 0;
-		const newDataList = ['', '', '', '', '', ''];
+		const checkNull = value => {
+			var rtnVal = 0;
+			try {
+				this.todayEeyin.forEach(function (v) {
+					if (value == v.STK_CTGRY_ID) {
+						rtnVal = v.P_TOTAL_CNT;
+					}
+				});
+			} catch (error) {
+				rtnVal = 0;
+			}
+
+			return rtnVal;
+		};
+
+		const rollerKeyin = 0;
 		const pollData = null;
 		return {
+			checkNull,
+			tvalue: {},
+			chartData: [],
+			todayEeyin: [],
+			rollerKeyin,
 			pollData,
-			newDataList,
-			newEkeyIn,
 			icons: {
 				mdiDotsVertical,
 				mdiTrendingUp,
@@ -189,96 +261,5 @@ export default {
 			},
 		};
 	},
-
-	methods: {
-		checkNull(value) {
-			var rtnVal = 0;
-			try {
-				this.newDataList.forEach(function (v) {
-					if (value == v.STK_CTGRY_ID) {
-						rtnVal = v.P_TOTAL_CNT;
-					}
-				});
-			} catch (error) {
-				rtnVal = 0;
-			}
-
-			return rtnVal;
-		},
-		number_format,
-		async callApiEKeyInData() {
-			try {
-				const userInfo = this.$store.state.userInfo;
-
-				return await salesApi.getEKeyInData(userInfo);
-			} catch (error) {
-				console.log(error);
-			}
-		},
-
-		async callApiTodayEkeyinData() {
-			try {
-				const userInfo = this.$store.state.userInfo;
-
-				return await salesApi.getTodayEkeyinData(userInfo);
-			} catch (error) {
-				console.log(error);
-			}
-		},
-	},
-
-	beforeDestroy() {
-		clearInterval(this.polling);
-	},
-
-	created() {
-		this.callApiEKeyInData().then(request => {
-			console.log(request);
-			this.newEkeyIn = request.data.data[0].TOTAL_SALES;
-		});
-
-		this.callApiTodayEkeyinData().then(request => {
-			const newList = [];
-			request.data.data.filter(function (item) {
-				if (item.INDX != [1]) {
-					newList.push(item);
-				}
-			});
-
-			this.newDataList = newList;
-		});
-
-		this.pollData = setInterval(() => {
-			this.callApiEKeyInData().then(request => {
-				console.log(request);
-				this.newEkeyIn = request.data.data[0].TOTAL_SALES;
-			});
-		}, 30000);
-
-		setInterval(() => {
-			this.callApiTodayEkeyinData().then(request => {
-				const newList = [];
-				request.data.data.filter(function (item) {
-					if (item.INDX != [1]) {
-						newList.push(item);
-					}
-				});
-
-				this.newDataList = newList;
-			});
-		}, 30000);
-	},
 };
 </script>
-
-<style lang="scss" scoped>
-.statistics-table {
-	border-top: solid 1px rgba(89, 98, 94, 0.14);
-	.badge-sm {
-		width: 0.875rem;
-		height: 0.875rem;
-		border-radius: 70%;
-		margin: 4px;
-	}
-}
-</style>

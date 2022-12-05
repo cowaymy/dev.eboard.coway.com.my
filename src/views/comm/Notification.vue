@@ -19,11 +19,14 @@ import baseApi from '../../api/index.js';
 export default {
 	props: {
 		autoplay: Boolean,
+		noteType: String,
 	},
 	data() {
 		return {
 			timer: null,
 			index: 0,
+			polling: null,
+			type: this.noteType,
 			// 원본 메시지
 			// 분해한 메시지
 			original: [],
@@ -53,7 +56,12 @@ export default {
 		async callApiNootificationData() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-				userInfo.type = 'SAL';
+
+				userInfo.notificationsType = this.noteType;
+
+				console.log('-----------------------');
+				console.log('TYPE', this.type);
+				console.log('-----------------------');
 
 				var dataList = [];
 				this.original.pop();
@@ -78,9 +86,13 @@ export default {
 	created() {
 		this.callApiNootificationData();
 
-		setInterval(() => {
+		this.polling = setInterval(() => {
 			this.callApiNootificationData();
 		}, 60000);
+	},
+
+	beforeDestroy() {
+		clearInterval(this.polling);
 	},
 };
 </script>

@@ -1,9 +1,10 @@
 <template>
 	<v-card flat class="pa-3">
-		<v-form class="multi-col-validation">
+		<v-form class="multi-col-validation" @submit.prevent="submitForm">
 			<v-row>
 				<v-col cols="12" md="6">
 					<v-text-field
+						v-model="subject"
 						label="Subject"
 						dense
 						hide-details
@@ -12,7 +13,7 @@
 				</v-col>
 
 				<v-col cols="12" md="6">
-					<v-autocomplete
+					<!-- <v-autocomplete
 						v-model="values"
 						:items="items"
 						outlined
@@ -21,17 +22,22 @@
 						small-chips
 						label="Notification Channel"
 						multiple
-					></v-autocomplete>
+					></v-autocomplete> -->
 				</v-col>
 
 				<v-col cols="12">
-					<v-textarea label="Contents" outlined rows="3"></v-textarea>
+					<v-textarea
+						v-model="contents"
+						label="Contents"
+						outlined
+						rows="3"
+					></v-textarea>
 				</v-col>
 
 				<v-col cols="12" md="6">
 					<v-dialog
 						ref="dialog"
-						v-model="modal"
+						v-model="smodal"
 						:return-value.sync="date"
 						persistent
 						width="290px"
@@ -48,7 +54,7 @@
 						</template>
 
 						<v-date-picker v-model="date" scrollable color="primary">
-							<v-btn text color="primary" @click="modal = false">
+							<v-btn text color="primary" @click="smodal = false">
 								Cancel
 							</v-btn>
 							<v-btn text color="primary" @click="$refs.dialog.save(date)">
@@ -61,7 +67,7 @@
 				<v-col cols="12" md="6">
 					<v-dialog
 						ref="dialog2"
-						v-model="modal1"
+						v-model="emodal"
 						:return-value.sync="enddate"
 						persistent
 						width="290px"
@@ -78,7 +84,7 @@
 						</template>
 
 						<v-date-picker v-model="enddate" scrollable color="primary">
-							<v-btn text color="primary" @click="modal1 = false">
+							<v-btn text color="primary" @click="emodal = false">
 								Cancel
 							</v-btn>
 							<v-btn text color="primary" @click="$refs.dialog2.save(enddate)">
@@ -89,23 +95,44 @@
 				</v-col>
 
 				<v-col cols="12" md="6">
-					<label>Use </label>
+					<label class="text-1xl font-weight-semibold">Target </label>
+					<v-treeview
+						v-model="selection"
+						:items="items"
+						:selection-type="selectionType"
+						selectable
+						return-object
+					></v-treeview>
+				</v-col>
+				<v-divider vertical></v-divider>
+
+				<v-col cols="12" md="6">
+					<template v-if="!selection.length"> No nodes selected. </template>
+					<template v-else>
+						<div v-for="node in selection" :key="node.id">
+							{{ node.name }}
+						</div>
+					</template>
+				</v-col>
+
+				<v-col cols="12" md="6">
+					<label class="text-1xl font-weight-semibold">Use </label>
 					<v-switch
-						v-model="switch1"
-						:label="`${switch1.toString()}`"
+						v-model="UseYn"
+						:label="`${useYn.toString()}`"
 						hide-details
 					></v-switch>
 				</v-col>
 
 				<v-col cols="12">
-					<label>Notification Type</label>
-					<v-radio-group v-model="radios" mandatory row>
+					<label class="text-1xl font-weight-semibold">Notification Type</label>
+					<v-radio-group v-model="nType" mandatory row>
 						<v-radio label="Emergency" value="Y"></v-radio>
 						<v-radio label="Normal" value="N"></v-radio>
 					</v-radio-group>
 				</v-col>
 				<v-col offset-md="6" cols="12">
-					<v-btn color="primary"> Submit </v-btn>
+					<v-btn color="primary" type="submit"> Submit </v-btn>
 				</v-col>
 			</v-row>
 		</v-form>
@@ -114,6 +141,10 @@
 
 <script>
 import { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar } from '@mdi/js';
+
+import bus from '../../utils/bus';
+import comApi from '../../api/index';
+
 export default {
 	props: {
 		notificationData: {
@@ -123,32 +154,96 @@ export default {
 	},
 	data(props) {
 		const optionsLocale = JSON.parse(JSON.stringify(props.notificationData));
-		const switch1 = true;
-		const items = ['ALL', 'SALES', 'CODY', 'DST', 'CCP'];
-		const values = [];
-		const value = '';
+		const useYn = true;
+
+		const items = [
+			{
+				id: 1,
+				name: 'ALL',
+				children: [
+					{
+						id: 'SAL',
+						name: 'SALES',
+						children: [
+							{ id: 'SAL_GM', name: 'GM' },
+							{ id: 'SAL_SM', name: 'SM' },
+							{ id: 'SAL_HM', name: 'HM' },
+							{ id: 'SAL_HP', name: 'HP' },
+						],
+					},
+					{
+						id: 'CODY_ALL',
+						name: 'CODY',
+						children: [
+							{ id: 'CODY_GCM', name: 'GCM' },
+							{ id: 'CODY_SCM', name: 'SCM' },
+							{ id: 'CODY_CM', name: 'CM' },
+							{ id: 'CODY_CODY', name: 'Cody' },
+						],
+					},
+				],
+			},
+		];
 
 		const date = new Date().toISOString().substr(0, 10);
 		const enddate = new Date().toISOString().substr(0, 10);
 
-		const modal = '';
-		const modal1 = '';
-
-		const radios = 'Emergency';
+		const smodal = '';
+		const emodal = '';
+		const nType = 'Emergency';
+		const subject = '';
+		const contents = '';
 		return {
+			selectionType: 'leaf',
+			selection: [],
 			items,
-			value,
-			values,
 			optionsLocale,
 			date,
 			enddate,
-
-			modal,
-			modal1,
-			radios,
-			switch1,
+			smodal,
+			emodal,
+			nType,
+			useYn,
+			subject,
+			contents,
 			icons: { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar },
 		};
+	},
+
+	methods: {
+		submitForm() {
+			try {
+				let target = '';
+				this.selection.forEach(function (v) {
+					target += v.name + '^';
+				});
+
+				const notiObj = {
+					subject: this.subject,
+					contents: this.contents,
+					sdate: this.date,
+					edate: this.enddate,
+					ntype: this.nType,
+					yuseyn: this.useYn ? 'Y' : 'N',
+					target: target,
+				};
+				//start spinner
+				bus.$emit('start:spinner');
+
+				const result = comApi.saveNotification(notiObj);
+
+				if (result.success) {
+					this.$toasted.show('hello billo');
+				} else {
+					this.$toasted.show(result.message);
+				}
+			} catch (error) {
+				console.log('=========>' + error);
+				bus.$emit('end:spinner');
+			} finally {
+				bus.$emit('end:spinner');
+			}
+		},
 	},
 };
 </script>

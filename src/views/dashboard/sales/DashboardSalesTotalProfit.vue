@@ -13,154 +13,13 @@
 				></VueApexCharts>
 			</v-col>
 			<v-col cols="12" sm="5">
-				<v-card elevation="0">
-					<!-- Title/Header -->
-					<v-card-title class="align-start pt-0 flex-nowrap">
-						<div>
-							<p class="mb-0 font-weight-semibold primary--text text-5xl">
-								<VueRolling
-									:text="totalsales.value"
-									:isNumberFormat="true"
-									:transition="4"
-								></VueRolling>
-							</p>
-							<small class="font-weight-semibold text-xl">Today keyIn</small>
-						</div>
-
-						<v-spacer></v-spacer>
-						<v-btn icon small class="me-n6 mt-n1">
-							<v-icon size="22">
-								{{ icons.mdiDotsVertical }}
-							</v-icon>
-						</v-btn>
-					</v-card-title>
-
-					<v-card-text class="pb-3 pt-5">
-						<!-- List -->
-						<v-list two-line subheader>
-							<!-- List Item: Profit -->
-							<v-list-item class="pa-0">
-								<!-- item 1------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiWaterOutline }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('54') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>Water purifier</v-list-item-subtitle>
-								</v-list-item-content>
-								<!-- item 2------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiBeaker }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('400') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>POE</v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
-							<!-- List Item: Income -->
-							<v-list-item class="pa-0">
-								<!-- item 3------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiAutorenew }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('55') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>Air purifier</v-list-item-subtitle>
-								</v-list-item-content>
-
-								<!-- item 4------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiSeatIndividualSuite }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('5706') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>Mattress</v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
-							<!-- List Item: Expense -->
-							<v-list-item class="pa-0">
-								<!-- item 5------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiWeatherWindyVariant }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('56') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>Bidet</v-list-item-subtitle>
-								</v-list-item-content>
-
-								<!-- item 6------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiNumeric10BoxMultiple }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('5707') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>Other</v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
-							<v-list-item class="pa-0">
-								<!-- item 1------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiFanAuto }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('AI') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>Air Cond</v-list-item-subtitle>
-								</v-list-item-content>
-
-								<!-- item 6------->
-								<v-list-item-avatar class="" size="40" rounded>
-									<v-icon size="30" color="success">
-										{{ icons.mdiAlphaEBox }}
-									</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-semibold text-3xl">
-										{{ checkNull('99999') }}
-									</v-list-item-title>
-									<v-list-item-subtitle>eMALL</v-list-item-subtitle>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list>
-						<!-- Action Button -->
-						<v-btn block color="primary"> View Report </v-btn>
-					</v-card-text>
-				</v-card>
-			</v-col>
+				<DashboardCardSalesUnitTodayKeyIn></DashboardCardSalesUnitTodayKeyIn
+			></v-col>
 		</v-row>
 	</v-card>
 </template>
 
 <script>
-import VueRolling from 'vue-roller';
-
 import VueApexCharts from 'vue-apexcharts';
 // eslint-disable-next-line object-curly-newline
 import {
@@ -186,10 +45,12 @@ import {
 //import { kFormatter } from '@core/utils/filter';
 import salesApi from '../../../api/salesApi';
 
+import DashboardCardSalesUnitTodayKeyIn from './DashboardCardSalesUnitTodayKeyIn.vue';
+
 export default {
 	components: {
 		VueApexCharts,
-		VueRolling,
+		DashboardCardSalesUnitTodayKeyIn,
 	},
 
 	methods: {

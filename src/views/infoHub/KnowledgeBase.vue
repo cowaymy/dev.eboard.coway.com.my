@@ -1,17 +1,27 @@
 <template>
 	<section id="knowledge-base">
+		<v-alert border="left" color="black" dark elevation="1">
+			<div class="nocard">admin e-TrustBoard</div>
+
+			<div align="right">
+				<DigitalClock />
+			</div>
+		</v-alert>
+
 		<!-- seach banner  -->
 		<v-card
 			flat
 			class="knowledge-base-bg d-flex align-center justify-center text-center mb-7"
 		>
 			<v-card-text>
-				<p class="kb-title text-2xl font-weight-semibold primary--text mb-2">
+
+				<!-- <p class="kb-title text-2xl font-weight-semibold primary--text mb-2">
 					Hello, how can we help?
 				</p>
 				<p class="mb-7">
 					or choose a category to quickly find the help you need
-				</p>
+
+				</p> -->
 
 				<v-form class="kb-search-input mx-auto">
 					<v-text-field
@@ -87,12 +97,16 @@ import { mdiMagnify } from '@mdi/js';
 import StatisticsCardHQMain from '../../components/statistics-card/StatisticsCardHQMain_Salse.vue';
 import StatisticsCardHQMain_Cody from '../../components/statistics-card/StatisticsCardHQMain_Cody.vue';
 import LinkToSSO from '../../components/comm/LinkToSSO';
+
+import DigitalClock from '../../views/comm/DigitalClock.vue';
+
 export default {
 	components: {
 		//LinkToBottomButtonVue,
 		StatisticsCardHQMain,
 		StatisticsCardHQMain_Cody,
 		LinkToSSO,
+		DigitalClock,
 	},
 	data() {
 		const knowledgeBaseSearchQuery = '';
