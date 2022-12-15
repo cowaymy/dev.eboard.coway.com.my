@@ -41,7 +41,7 @@
 			<v-spacer></v-spacer>
 			<p></p>
 			<p style="text-align: right" class="text-xs text--secondary mb-0">
-				<strong> {{ subtitle }}</strong>
+				<strong> {{ fun_numFormat(subtitle) }}</strong>
 			</p>
 
 			<template v-if="moreshow">
@@ -79,6 +79,12 @@ export default {
 		change: { type: String, default: '' },
 		moreshow: { type: String, default: '' },
 		isDialogBestVisible: { type: boolean, default: '' },
+	},
+	methods: {
+		fun_numFormat(number) {
+			number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			return number;
+		},
 	},
 	data() {
 		const isDialogVisible = false;

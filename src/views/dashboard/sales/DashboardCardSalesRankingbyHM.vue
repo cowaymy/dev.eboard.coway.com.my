@@ -12,36 +12,49 @@
 			</v-btn>
 		</v-card-title>
 
-		<v-card-text>
-			<v-list>
-				<v-list-item-group
-					v-model="salesByCountries.myrank"
-					active-class="border"
-					color="indigo"
-				>
-					<v-list-item
-						v-for="(data, index) in salesByCountries"
-						:key="data.name"
-						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
-					>
-						<v-avatar
-							:color="salesByCountries.myrank === index ? 'error' : ''"
-							size="30"
-							:class="`${data.color} white--text font-weight-medium me-3`"
-						>
-							<span class="text-base">{{ data.rank }}</span>
-						</v-avatar>
+		<v-card-actions>
+			<v-btn color="success" text> Explore </v-btn>
 
-						<div class="d-flex align-center flex-grow-1 flex-wrap">
-							<div class="me-2">
-								<div class="font-weight-semibold">
-									<span class="text--primary text-xl me-1">
-										{{ data.sales }}
-									</span>
-									<span class="text--primary text-x5 me-1">
-										({{ data.orgcode }})
-									</span>
-									<!-- 
+			<v-spacer></v-spacer>
+
+			<v-btn icon color="success" @click="show = !show">
+				<v-icon>{{ show ? icons.mdiChevronUp : icons.mdiChevronDown }}</v-icon>
+			</v-btn>
+		</v-card-actions>
+
+		<v-expand-transition>
+			<div v-show="show">
+				<v-divider></v-divider>
+				<v-card-text>
+					<v-list>
+						<v-list-item-group
+							v-model="salesByCountries.myrank"
+							active-class="border"
+							color="indigo"
+						>
+							<v-list-item
+								v-for="(data, index) in salesByCountries"
+								:key="data.name"
+								:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
+							>
+								<v-avatar
+									:color="salesByCountries.myrank === index ? 'error' : ''"
+									size="30"
+									:class="`${data.color} white--text font-weight-medium me-3`"
+								>
+									<span class="text-base">{{ data.rank }}</span>
+								</v-avatar>
+
+								<div class="d-flex align-center flex-grow-1 flex-wrap">
+									<div class="me-2">
+										<div class="font-weight-semibold">
+											<span class="text--primary text-xl me-1">
+												{{ data.sales }}
+											</span>
+											<span class="text--primary text-x5 me-1">
+												({{ data.orgcode }})
+											</span>
+											<!-- 
 								<v-icon
 									size="20"
 									:color="data.change.charAt(0) === '+' ? 'success' : 'error'"
@@ -61,31 +74,33 @@
 									}`"
 									>{{ data.change.slice(1) }}</span
 								> -->
+										</div>
+
+										<v-list-item-subtitle class="font-weight-semibold text-xs">
+											{{ data.name }}
+										</v-list-item-subtitle>
+									</div>
+
+									<v-spacer></v-spacer>
+
+									<div>
+										<h4 class="font-weight-semibold"></h4>
+										<span class="text-xs">{{ data.change }} %</span>
+										<v-progress-linear
+											height="6"
+											rounded
+											class="project-progress mt-1"
+											:color="resolveUserProgressVariant(data.change)"
+											:value="data.change"
+										></v-progress-linear>
+									</div>
 								</div>
-
-								<v-list-item-subtitle class="font-weight-semibold text-xs">
-									{{ data.name }}
-								</v-list-item-subtitle>
-							</div>
-
-							<v-spacer></v-spacer>
-
-							<div>
-								<h4 class="font-weight-semibold"></h4>
-								<span class="text-xs">{{ data.change }} %</span>
-								<v-progress-linear
-									height="6"
-									rounded
-									class="project-progress mt-1"
-									:color="resolveUserProgressVariant(data.change)"
-									:value="data.change"
-								></v-progress-linear>
-							</div>
-						</div>
-					</v-list-item>
-				</v-list-item-group>
-			</v-list>
-		</v-card-text>
+							</v-list-item>
+						</v-list-item-group>
+					</v-list>
+				</v-card-text>
+			</div>
+		</v-expand-transition>
 	</v-card>
 </template>
 
@@ -117,6 +132,7 @@ export default {
 		});
 
 		this.salesByCountries = cData;
+		this.show = true;
 	},
 
 	data() {
@@ -127,6 +143,7 @@ export default {
 			salesByCountries,
 			selectedItem,
 			selIdx,
+			show: false,
 			icons: {
 				mdiDotsVertical,
 				mdiChevronUp,

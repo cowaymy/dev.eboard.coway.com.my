@@ -129,6 +129,13 @@ const router = new VueRouter({
 			component: () => import('../views/infoHub/KnowledgeBase.vue'),
 			meta: { requiresAuth: true },
 		},
+
+		{
+			path: '/NotificationList',
+			name: 'NotificationList',
+			component: () => import('../views/comm/NotificationList.vue'),
+			meta: { requiresAuth: true },
+		},
 	],
 });
 

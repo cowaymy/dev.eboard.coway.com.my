@@ -53,6 +53,10 @@ export default {
 		DashboardCardSalesUnitTodayKeyIn,
 	},
 
+	beforeDestroy() {
+		clearInterval(this.polling);
+	},
+
 	methods: {
 		async callApiEKeyInData() {
 			try {
@@ -115,7 +119,7 @@ export default {
 
 			//console.log(this.todayEeyin);
 		});
-		setInterval(() => {
+		this.polling = setInterval(() => {
 			this.callApiEKeyInData().then(request => {
 				this.totalsales = {
 					value: request.data.data[0].TOTAL_SALES,
@@ -127,7 +131,7 @@ export default {
 
 				//console.log(request.data.data);
 			});
-		}, 30000);
+		}, 300000);
 	},
 
 	data() {
@@ -215,6 +219,7 @@ export default {
 			chartData: [],
 			totalsales: {},
 			todayEeyin: [],
+			polling: null,
 			icons: {
 				mdiDotsVertical,
 				mdiTrendingUp,

@@ -159,6 +159,9 @@ export default {
 			},
 		};
 	},
+	created() {
+		console.log(process.env.VUE_APP_API_URL);
+	},
 	computed: {
 		isFormValid() {
 			var isValid = true; //validEmail(this.username);

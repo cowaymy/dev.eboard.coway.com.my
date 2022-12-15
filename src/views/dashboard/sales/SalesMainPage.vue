@@ -13,7 +13,6 @@
 			><div align="center">
 				<v-alert
 					v-model="alert"
-					dismissible
 					color="#00BFFF"
 					border="left"
 					elevation="2"

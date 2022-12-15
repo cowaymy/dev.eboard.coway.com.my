@@ -109,8 +109,15 @@
 				<v-col cols="12" md="6">
 					<template v-if="!selection.length"> No nodes selected. </template>
 					<template v-else>
-						<div v-for="node in selection" :key="node.id">
-							{{ node.name }}
+						<div>
+							<v-chip-group
+								column
+								active-class="primary accent-4  font-weight-semibold"
+							>
+								<v-chip v-for="node in selection" :key="node.id">
+									{{ node.name }}
+								</v-chip>
+							</v-chip-group>
 						</div>
 					</template>
 				</v-col>
@@ -118,7 +125,7 @@
 				<v-col cols="12" md="6">
 					<label class="text-1xl font-weight-semibold">Use </label>
 					<v-switch
-						v-model="UseYn"
+						v-model="useYn"
 						:label="`${useYn.toString()}`"
 						hide-details
 					></v-switch>
@@ -132,7 +139,9 @@
 					</v-radio-group>
 				</v-col>
 				<v-col offset-md="6" cols="12">
-					<v-btn color="primary" type="submit"> Submit </v-btn>
+					<v-btn color="primary" type="submit" :disabled="btIsActive">
+						Submit
+					</v-btn>
 				</v-col>
 			</v-row>
 		</v-form>
@@ -144,6 +153,10 @@ import { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar } from '@mdi/js';
 
 import bus from '../../utils/bus';
 import comApi from '../../api/index';
+import Toasted from 'vue-toasted';
+import Vue from 'vue';
+
+Vue.use(Toasted);
 
 export default {
 	props: {
@@ -206,12 +219,13 @@ export default {
 			useYn,
 			subject,
 			contents,
+			btIsActive: false,
 			icons: { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar },
 		};
 	},
 
 	methods: {
-		submitForm() {
+		async submitForm() {
 			try {
 				let target = '';
 				this.selection.forEach(function (v) {
@@ -230,12 +244,26 @@ export default {
 				//start spinner
 				bus.$emit('start:spinner');
 
-				const result = comApi.saveNotification(notiObj);
+				const result = await comApi.saveNotification(notiObj);
 
-				if (result.success) {
-					//this.$toasted.show('hello billo');
+				if (result.data.success) {
+					this.$toasted
+						.success('It has been processed', {
+							icon: 'check',
+							position: 'bottom-right',
+							action: {
+								text: 'Close',
+								onClick: (e, toastObject) => {
+									this.btIsActive = true;
+									toastObject.goAway(0);
+								},
+							},
+						})
+						.goAway(2500);
+
+					this.btIsActive = true;
 				} else {
-					//this.$toasted.show(result.message);
+					this.$toasted.show(result.message);
 				}
 			} catch (error) {
 				console.log('=========>' + error);

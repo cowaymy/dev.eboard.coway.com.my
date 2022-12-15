@@ -13,7 +13,6 @@
 			><div align="center">
 				<v-alert
 					v-model="alert"
-					dismissible
 					color="#00BFFF"
 					border="left"
 					elevation="2"
@@ -55,9 +54,6 @@
 		<v-col cols="12" md="4">
 			<v-row>
 				<v-col cols="12">
-					<StatisticsCardSide />
-				</v-col>
-				<v-col cols="12">
 					<!-- <StatisticsCardRadialBarChart
 						:stat-title="salesRadialChart.statTitle"
 						:statistics="salesRadialChart.statistics"
@@ -70,6 +66,9 @@
 					<DashboardTopGMChart />
 				</v-col> -->
 			</v-row>
+			<v-col cols="12">
+				<StatisticsCardSide />
+			</v-col>
 		</v-col>
 
 		<!--/ vertical statistics card -->

@@ -14,8 +14,7 @@
 			class="knowledge-base-bg d-flex align-center justify-center text-center mb-7"
 		>
 			<v-card-text>
-
-				<!-- <p class="kb-title text-2xl font-weight-semibold primary--text mb-2">
+				<!-- <p class="kb-title text-2xl font-weight-semibold primary--text mb-2"></p>
 					Hello, how can we help?
 				</p>
 				<p class="mb-7">
@@ -76,6 +75,14 @@
 					</v-card>
 				</v-col>
 
+				<v-col md="4" sm="6" cols="12">
+					<v-card>
+						<v-card-title>
+							<iframe :src="src" frame-id="my-ifram" name="my-frame" />
+						</v-card-title>
+					</v-card>
+				</v-col>
+
 				<!-- no result found -->
 				<v-col v-show="!filteredKB.length" cols="12" class="text-center">
 					<h4 class="mt-4">Search result not found!!</h4>
@@ -88,6 +95,11 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VueIframe from 'vue-iframes';
+
+Vue.use(VueIframe);
+
 /* eslint-disable implicit-arrow-linebreak */
 import { mdiMagnify } from '@mdi/js';
 //import { computed, ref } from '@vue/composition-api';
@@ -101,6 +113,7 @@ import LinkToSSO from '../../components/comm/LinkToSSO';
 import DigitalClock from '../../views/comm/DigitalClock.vue';
 
 export default {
+	name: 'MyIframe',
 	components: {
 		//LinkToBottomButtonVue,
 		StatisticsCardHQMain,
@@ -110,8 +123,12 @@ export default {
 	},
 	data() {
 		const knowledgeBaseSearchQuery = '';
+
 		return {
 			knowledgeBaseSearchQuery,
+			myIframe: null,
+			// src: 'http://10.101.1.138:8900/userdefine/dashboard?key=bad402f5-2927-4310-8744-a1b336777f71',
+			src: 'http://10.101.1.138:8900/login/redirect?token=YKPPnVCtxLr',
 			filteredKB: [],
 			icons: { mdiMagnify },
 		};
@@ -166,6 +183,9 @@ export default {
 					desc: '',
 				},
 			];
+		},
+		onLoad(frame) {
+			this.myIframe = frame.contentWindow;
 		},
 	},
 };

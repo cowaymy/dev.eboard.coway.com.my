@@ -68,6 +68,7 @@ export default {
 		change: { type: String, default: '' },
 		moreshow: { type: String, default: '' },
 	},
+
 	data() {
 		const isDialogVisible = false;
 		const notifications = false;
