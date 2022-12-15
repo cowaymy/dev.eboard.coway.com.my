@@ -95,11 +95,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import VueIframe from 'vue-iframes';
-
-Vue.use(VueIframe);
-
 /* eslint-disable implicit-arrow-linebreak */
 import { mdiMagnify } from '@mdi/js';
 //import { computed, ref } from '@vue/composition-api';
@@ -129,6 +124,7 @@ export default {
 			myIframe: null,
 			// src: 'http://10.101.1.138:8900/userdefine/dashboard?key=bad402f5-2927-4310-8744-a1b336777f71',
 			src: 'http://10.101.1.138:8900/login/redirect?token=YKPPnVCtxLr',
+			//src: 'https://10.101.1.138:8900/login/sso?id=sales&password=sales&redirect=/userdefine/dashboard?key=1fon8rl1u.9j8&layout=iframe',
 			filteredKB: [],
 			icons: { mdiMagnify },
 		};
