@@ -29,7 +29,7 @@
 		<v-card-text class="text--primary mt-3">
 			<div style="text-align: center">
 				<span class="font-weight-semibold text-5xl mb-3">
-					{{ checkNull(statistics.toString()) }}
+					{{ fun_numFormat(checkNull(statistics.toString())) }}
 				</span>
 				<!-- <span
 					class="percentage text-xs mb-2"
@@ -41,7 +41,7 @@
 			<v-spacer></v-spacer>
 			<p></p>
 			<p style="text-align: right" class="text-xs text--secondary mb-0">
-				<strong> {{ fun_numFormat(subtitle) }}</strong>
+				<strong> {{ subtitle }}</strong>
 			</p>
 
 			<template v-if="moreshow">
@@ -82,8 +82,9 @@ export default {
 	},
 	methods: {
 		fun_numFormat(number) {
-			number.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			return number;
+			const neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			console.log(neFor);
+			return neFor;
 		},
 	},
 	data() {

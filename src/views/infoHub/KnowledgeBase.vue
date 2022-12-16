@@ -78,7 +78,7 @@
 				<v-col md="4" sm="6" cols="12">
 					<v-card>
 						<v-card-title>
-							<iframe :src="src" frame-id="my-ifram" name="my-frame" />
+							<!-- <iframe :src="src" frame-id="my-ifram" name="my-frame" /> -->
 						</v-card-title>
 					</v-card>
 				</v-col>
@@ -123,7 +123,7 @@ export default {
 			knowledgeBaseSearchQuery,
 			myIframe: null,
 			// src: 'http://10.101.1.138:8900/userdefine/dashboard?key=bad402f5-2927-4310-8744-a1b336777f71',
-			src: 'http://10.101.1.138:8900/login/redirect?token=YKPPnVCtxLr',
+			src: 'http://10.101.1.138:8900/login/redirect?token=zoFjTOiM3HZ',
 			//src: 'https://10.101.1.138:8900/login/sso?id=sales&password=sales&redirect=/userdefine/dashboard?key=1fon8rl1u.9j8&layout=iframe',
 			filteredKB: [],
 			icons: { mdiMagnify },

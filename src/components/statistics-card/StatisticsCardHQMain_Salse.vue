@@ -164,8 +164,10 @@ export default {
 		const newEkeyIn = 0;
 		const newDataList = ['', '', '', '', '', ''];
 		const pollData = null;
+		const pollTodyData = null;
 		return {
 			pollData,
+			pollTodyData,
 			newDataList,
 			newEkeyIn,
 			icons: {
@@ -209,7 +211,7 @@ export default {
 		async callApiEKeyInData() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-
+				console.log('callApiEKeyInData API 호출 ');
 				return await salesApi.getEKeyInData(userInfo);
 			} catch (error) {
 				console.log(error);
@@ -219,7 +221,7 @@ export default {
 		async callApiTodayEkeyinData() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-
+				console.log('callApiTodayEkeyinData API 호출 ');
 				return await salesApi.getTodayEkeyinData(userInfo);
 			} catch (error) {
 				console.log(error);
@@ -229,16 +231,20 @@ export default {
 
 	beforeDestroy() {
 		clearInterval(this.polling);
+		clearInterval(this.pollTodyData);
 	},
 
 	created() {
 		this.callApiEKeyInData().then(request => {
 			console.log(request);
+			console.log('callApiEKeyInData API 수신 완료 ');
 			this.newEkeyIn = request.data.data[0].TOTAL_SALES;
 		});
 
 		this.callApiTodayEkeyinData().then(request => {
 			const newList = [];
+			console.log(request);
+			console.log('callApiTodayEkeyinData API 수신 완료 ');
 			request.data.data.filter(function (item) {
 				if (item.INDX != [1]) {
 					newList.push(item);
@@ -255,9 +261,11 @@ export default {
 			});
 		}, 30000);
 
-		setInterval(() => {
+		this.pollTodyData = setInterval(() => {
 			this.callApiTodayEkeyinData().then(request => {
 				const newList = [];
+
+				console.log(request.data.data);
 				request.data.data.filter(function (item) {
 					if (item.INDX != [1]) {
 						newList.push(item);

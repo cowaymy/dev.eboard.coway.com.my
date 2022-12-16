@@ -193,6 +193,7 @@ export default {
 		async callApiEKeyInData() {
 			try {
 				const userInfo = this.$store.state.userInfo;
+				console.log('callApiEKeyInData API 호출 ');
 				return await salesApi.getEKeyInData(userInfo);
 			} catch (error) {
 				console.log(error);
@@ -202,6 +203,7 @@ export default {
 		async callApiTodayEkeyinData() {
 			try {
 				const userInfo = this.$store.state.userInfo;
+				console.log('callApiTodayEkeyinData API 호출 ');
 				return await salesApi.getTodayEkeyinData(userInfo);
 			} catch (error) {
 				console.log(error);
@@ -216,10 +218,12 @@ export default {
 
 	created() {
 		this.callApiEKeyInData().then(request => {
+			console.log('callApiEKeyInData API 수신 완료 ');
 			this.rollerKeyin = request.data.data[0].TOTAL_SALES;
 		});
 
 		this.callApiTodayEkeyinData().then(request => {
+			console.log('callApiTodayEkeyinData API 수신 완료 ');
 			this.todayEeyin = request.data.data;
 		});
 		this.pollData = setInterval(() => {
@@ -230,7 +234,7 @@ export default {
 			this.callApiTodayEkeyinData().then(request => {
 				this.todayEeyin = request.data.data;
 			});
-		}, 300000);
+		}, 60000);
 	},
 
 	data() {

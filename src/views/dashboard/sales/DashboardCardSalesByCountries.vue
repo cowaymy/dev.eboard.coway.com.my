@@ -49,7 +49,7 @@
 									<div class="me-2">
 										<div class="font-weight-semibold">
 											<span class="text--primary text-xl me-1">
-												{{ data.sales }}
+												{{ fun_numFormat(data.sales) }}
 											</span>
 											<span class="text--primary text-x5 me-1">
 												({{ data.orgcode }})
@@ -109,6 +109,10 @@ import { mdiDotsVertical, mdiChevronUp, mdiChevronDown } from '@mdi/js';
 
 import salesApi from '../../../api/salesApi';
 export default {
+	beforeDestroy() {
+		clearInterval(this.polling);
+	},
+
 	created() {
 		var cData = [];
 
@@ -132,16 +136,49 @@ export default {
 		});
 
 		this.salesByCountries = cData;
+		this.show = true;
+
+		this.pollData = setInterval(() => {
+			this.show = false;
+			this.cData = [];
+			this.salesByCountries.splice(0);
+			this.cData.splice(0);
+
+			this.callApiRinkForGMData().then(
+				request =>
+					request.data.data.forEach(function (v, index) {
+						//console.log(v);
+						var newValue = {
+							rank: v.RNK,
+							name: `(${v.MEM_CODE})${v.NAME}`.substring(0, 25),
+							sales: v.NETSALES,
+							color: v.RNK == '1' ? 'warning' : 'secondary',
+							change: v.TARGET,
+							orgcode: v.ORG_CODE,
+						};
+						cData.push(newValue);
+						if (v.MEM_CODE == user) {
+							cData.myrank = index;
+						}
+					}),
+
+				(this.show = true),
+			);
+
+			this.salesByCountries = cData;
+		}, 300000);
 	},
 
 	data() {
 		const salesByCountries = [];
 		const selectedItem = -1;
 		const selIdx = -1;
+		const polling = null;
 		return {
 			salesByCountries,
 			selectedItem,
 			selIdx,
+			polling,
 			show: true,
 			icons: {
 				mdiDotsVertical,
@@ -158,6 +195,12 @@ export default {
 			if (progrss > 50 && progrss <= 75) return 'success';
 			if (progrss > 75) return 'error';
 			return 'secondary';
+		},
+
+		fun_numFormat(number) {
+			const neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			//console.log(neFor);
+			return neFor;
 		},
 
 		async callApiRinkForGMData() {

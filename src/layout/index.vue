@@ -128,7 +128,7 @@ export default {
 			items: [
 				{ icon: 'fas fa-chalkboard-teacher', text: '', route: 'main' },
 				{ icon: 'fas fa-cog', text: 'userInfo', route: '/accsetting' },
-				{ icon: 'fas fa-cog', text: 'userInfo', route: '/NotificationList' },
+				{ icon: 'fas fa-dove', text: 'userInfo', route: '/NotificationList' },
 			],
 		};
 	},
