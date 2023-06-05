@@ -3,7 +3,7 @@
 		<v-row>
 
 			<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Display">
-				<StatisticsCardVertical v-bind="i" /> </StatisticsCardVertical>
+				<StatisticsCardVertical v-bind="i" />
 			</v-col>
 			<template v-if="true">
 				<v-dialog

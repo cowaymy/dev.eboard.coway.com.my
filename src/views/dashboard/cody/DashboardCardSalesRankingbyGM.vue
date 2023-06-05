@@ -3,19 +3,13 @@
 		<v-card-title class="align-start">
 			<span style="word-break: break-word">
 				{{
-					this.i.Type == 'HS_RATE'
-						? 'Com HS Rate'
-						: this.i.Type == 'MAT_SAL'
-						? 'HC Net Sales'
-						: this.i.Type == 'HA_NET'
-						? 'HA Net Sales'
-						: this.i.Type == 'TOTAL_KEYIN'
-						? 'Sales Keyin'
-						: this.i.Type == 'RC_RATE'
-						? 'RC Rate'
-						: this.i.Type == 'NET_SAL'
-						? 'Net Sales'
-						: this.i.Type
+					this.j == 'HS_RATE'? 'Com HS Rate'
+						: this.j == 'MAT_SAL' ? 'HC Net Sales'
+						: this.j == 'HA_NET' ? 'HA Net Sales'
+						: this.j == 'TOTAL_KEYIN' ? 'Sales Keyin'
+						: this.j == 'RC_RATE' ? 'RC Rate'
+						: this.j == 'NET_SAL' ? 'Net Sales'
+						: this.j
 				}}
 				Ranking by {{ this.i.Position }}
 			</span>
@@ -24,18 +18,20 @@
 
 		<v-card-text>
 			<v-list>
-				<v-list-item-group
-					v-model="selectedItem"
-					active-class="border"
-					color="indigo"
-				>
+				<v-list-item-group color="indigo">
 					<v-list-item
-						v-for="(data, index) in this.i.Mem_data"
+					    v-for="(data, index) in this.i.Mem_data"
+						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''} ${data.selected == 0 ? 'border' : ''}`"
+						:style="`background-color: ${
+								data.selected == 0 ? '#f2f1f3' : 'white'} !important;`"
 						:key="data.name"
-						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''}`"
+						color="#fff"
+						@click="$event =>fetchCurrentMemberInfo(data, index)"
 					>
+
+
 						<v-avatar
-							:color="selectedItem === index ? 'error' : ''"
+							:color="data.selected == 0 ? 'error' : ''"
 							size="30"
 							:class="`white text font-weight-medium me-3`"
 							:style="`background-color: ${
@@ -68,7 +64,6 @@
 									({{ data.Org_code }}) {{ data.Ranking_membername }}
 								</v-list-item-subtitle>
 							</div>
-
 							<v-spacer></v-spacer>
 						</div>
 					</v-list-item>
@@ -81,20 +76,18 @@
 <script>
 import { mdiDotsVertical, mdiChevronUp, mdiChevronDown } from '@mdi/js';
 import number_format from '../../../utils/number_format.js';
+import codyApi from '../../../api/codyApi';
+import bus from '../../../utils/bus.js';
 export default {
-	props: ['i'],
+	props: ['i','j','getFilterCurRankingData','getCategoryIndex'],
 	created() {
 		var cData = [];
 		this.salesByCountries = cData;
 	},
-
 	data() {
-		const selectedItem = -1;
 		const salesByCountries = [];
-
 		return {
 			salesByCountries,
-			selectedItem,
 			icons: {
 				mdiDotsVertical,
 				mdiChevronUp,
@@ -105,6 +98,28 @@ export default {
 
 	methods: {
 		number_format,
+		fetchCurrentMemberInfo(data, index) {
+			let ranking_lvl = data.Ranking_level;
+			let mem_id = data.mem_id;
+			let category = this.j;
+			try {
+				bus.$emit('start:spinner');
+				if(Number(data.Ranking_level) !=4){
+					const param = {ranking_lvl,mem_id,category};
+					codyApi.getFilterCurRankingData(param)
+					.then(r => {
+						this.getFilterCurRankingData(r);
+						this.getCategoryIndex(category, ranking_lvl, index)
+					});
+				}
+			} catch (error) {
+				console.log(error);
+				this.sheet = true;
+				this.logMaessage = error.message;
+			} finally {
+				bus.$emit('end:spinner');
+			}
+		}
 	},
 };
 </script>
