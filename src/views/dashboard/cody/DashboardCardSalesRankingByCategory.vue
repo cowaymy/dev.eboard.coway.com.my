@@ -1,7 +1,7 @@
  <template>
     <v-card elevation="1">
             <v-card-title class="align-start" cols="12">
-                <v-col v-for="(i) in this.d">
+                <v-col cols="12" v-for="(i) in this.d">
                     <DashboardCardSalesRankingbyGM 
                     :i="i" 
                     :j="j"  
