@@ -1,7 +1,5 @@
 <template>
 	<v-app id="inspire">
-		<div id="pwa">this is pwa</div>
-		<div id="browser">this is browser</div>
 		<!-- style="background: #dcdcdc"-->
 		<v-navigation-drawer
 			dark
