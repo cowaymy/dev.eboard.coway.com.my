@@ -14,6 +14,12 @@ function getCurRankingData(userData) {
 	});
 	return obj;
 }
+function getFilterCurRankingData(userData) {
+	var obj = newInstance.get('/cody/getFilterCurRankingData', {
+		params: userData,
+	});
+	return obj;
+}
 
 function updateCodyMenu(user_config) {
 	const options = {
@@ -58,6 +64,7 @@ function trickToLevel0(userData) {
 }
 export default {
 	getCurRankingData,
+	getFilterCurRankingData,
 	getCurMonthData,
 	updateCodyMenu,
 	getCodyBestRecord,

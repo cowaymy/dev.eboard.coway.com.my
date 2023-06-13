@@ -66,8 +66,13 @@
 				</v-col>
 			</v-row>
 		</v-col>
-		<v-col cols="12" md="3" v-for="i in Ranking_Data">
-			<DashboardCardSalesRankingbyGM :i="i" />
+		<v-col cols="12" v-for="j in Categories">
+			<DashboardCardSalesRankingByCategory
+				:j="j"
+				:getCategoryIndex="getCategoryIndex"
+				:getFilterCurRankingData="getFilterCurRankingData"
+				:d="Ranking_Data.filter(x => x.Type == j)"
+			/>
 		</v-col>
 	</v-row>
 </template>
@@ -94,6 +99,7 @@ import DashboardSalesTotalProfit from './DashboardSalesTotalProfit.vue';
 import DashboardSalesStatisticsTotalSales from './DashboardSalesStatisticsTotalSales.vue';
 import number_format from '../../../utils/number_format.js';
 import Notification from '../../comm/Notification.vue';
+import DashboardCardSalesRankingByCategory from './DashboardCardSalesRankingByCategory.vue';
 export default {
 	targetSales: {},
 	curmontData: {},
@@ -125,9 +131,36 @@ export default {
 		DigitalClock,
 		DashboardCodyDialogue,
 		Notification,
+		DashboardCardSalesRankingByCategory,
 	},
 
 	methods: {
+		getFilterCurRankingData(filterRankingData) {
+			this.Ranking_Data.forEach((data, index) => {
+				filterRankingData.data.user.forEach((dataFilter, indexFilter) => {
+					if (dataFilter.Level == data.Level && dataFilter.Type == data.Type) {
+						this.Ranking_Data[index].Mem_data = dataFilter.Mem_data;
+					}
+				});
+			});
+		},
+		getCategoryIndex(category, level, index) {
+			this.Ranking_Data = this.Ranking_Data.map((eachLvlData, i) => {
+				const copy = { ...eachLvlData };
+				copy.Mem_data = copy.Mem_data.map((memData, memIndex) => {
+					if (
+						copy.Type == category &&
+						copy.Level == level &&
+						memIndex == index
+					) {
+						return { ...memData, selected: 0 };
+					} else {
+						return { ...memData, selected: -1 };
+					}
+				});
+				return copy;
+			});
+		},
 		callSalesHQMainApi() {
 			try {
 				//start spinner
@@ -162,6 +195,8 @@ export default {
 	data() {
 		return {
 			Ranking_Data: [],
+			Categories: [],
+			FilterData: [],
 			Personal_Data: { Personal_Data_Display: [], Personal_Data_Option: [] },
 			logMaessage: '',
 			sheet: false,
@@ -209,11 +244,9 @@ export default {
 			} else {
 				change += mm + ' Mins ago';
 			}
-			console.log(response.data.user[0]);
 			const user_config = response.data.user[0].user_config.split(',');
 
 			let Data_Temp = [];
-			console.log(response.data.user[0]);
 			this.eKeyInData = {
 				statTitle: 'Complete Hs Rate',
 				icon: mdiClipboardEditOutline,
@@ -336,7 +369,7 @@ export default {
 
 			this.targetSales = {
 				mem_lvl: response.data.user[0].MEM_LVL,
-				target: response.data.user[0].SAL_TARGET,
+				target: response.data.user[0].SAL_TARGET || 0,
 				achieved: response.data.user[0].Net_SAL,
 				To_achieved:
 					response.data.user[0].SAL_TARGET - response.data.user[0].Net_SAL,
@@ -367,10 +400,19 @@ export default {
 					response.data.user[0].prev_ranking_figure,
 				),
 			};
-		}),
-			this.callRankingAPI().then(response => {
-				this.Ranking_Data = response.data.user;
+		});
+
+		this.callRankingAPI().then(response => {
+			this.Ranking_Data = response.data.user;
+			this.Ranking_Data.forEach(data => {
+				data.Mem_data.forEach(memData => {
+					memData['selected'] = -1;
+				});
 			});
+			this.Categories = response.data.user.reduce((acc, curr) => {
+				return acc.indexOf(curr.Type) != -1 ? acc : [...acc, curr.Type];
+			}, []);
+		});
 	},
 };
 </script>

@@ -8,6 +8,7 @@ import store from '@/store/index';
 
 import toasted from 'vue-toasted';
 Vue.use(toasted);
+import './registerServiceWorker';
 Vue.config.productionTip = false;
 
 new Vue({

@@ -11,6 +11,9 @@ import Layout from './layout/index.vue';
 export default {
 	name: 'App',
 	components: { Layout },
+	created() {
+		console.log(this)
+	}
 };
 </script>
 
@@ -22,5 +25,23 @@ export default {
 	text-align: center;
 	color: #2c3e50;
 	margin-top: 60px;
+}
+
+@media all and (display-mode: standalone) {
+	.pwa {
+		display: block;
+	}
+	.browser {
+		display: none;
+	}
+}
+
+@media all and (display-mode: browser) {
+	.pwa {
+		display: none;
+	}
+	.browser {
+		display: block;
+	}
 }
 </style>

@@ -1,9 +1,13 @@
 <template>
 	<div style="position: relative">
 		<v-row>
-
-			<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Display">
-				<StatisticsCardVertical v-bind="i" /> </StatisticsCardVertical>
+			<v-col
+				cols="12"
+				sm="6"
+				md="3"
+				v-for="i in Personal_Data.Personal_Data_Display"
+			>
+				<StatisticsCardVertical v-bind="i" />
 			</v-col>
 			<template v-if="true">
 				<v-dialog
@@ -42,18 +46,23 @@
 									class="my-auto"
 									@click="isDialogVisible = false"
 									@click.native="saveMenu"
-									>
+								>
 									Save
 								</v-btn>
 							</v-toolbar-items>
 						</v-toolbar>
 
-							<v-col cols="12"><p></p></v-col>
-							<draggable v-model="Personal_Data.Personal_Data_Option" class="row" >
-								<v-col cols="12" sm="6" md="3" v-for="i in Personal_Data.Personal_Data_Option">
-									<StatisticsCardVertical v-bind="i" />
-								</v-col>
-							</draggable>
+						<v-col cols="12"><p></p></v-col>
+						<draggable v-model="Personal_Data.Personal_Data_Option" class="row">
+							<v-col
+								cols="12"
+								sm="6"
+								md="3"
+								v-for="i in Personal_Data.Personal_Data_Option"
+							>
+								<StatisticsCardVertical v-bind="i" />
+							</v-col>
+						</draggable>
 					</v-card>
 				</v-dialog>
 			</template>
@@ -90,14 +99,22 @@ export default {
 		NetSalesOptions: { type: Object },
 		ActiveHpOptions: { type: Object },
 		RejoinOptions: { type: Object },
-		Personal_Data: {Personal_Data_Display: [],Personal_Data_Option: []},
+		Personal_Data: { Personal_Data_Display: [], Personal_Data_Option: [] },
 	},
 	methods: {
 		saveMenu() {
 			try {
 				//start spinner
 				bus.$emit('start:spinner');
-				let user_data = {mem_id: this.$store.state.userInfo.memId ,user_config:this.Personal_Data.Personal_Data_Option.reduce(function (a, b) {return (a.statTitle || a) + "," + b.statTitle})}
+				let user_data = {
+					mem_id: this.$store.state.userInfo.memId,
+					user_config: this.Personal_Data.Personal_Data_Option.reduce(function (
+						a,
+						b,
+					) {
+						return (a.statTitle || a) + ',' + b.statTitle;
+					}),
+				};
 				codyApi.updateCodyMenu(user_data);
 				window.location.reload();
 			} catch (error) {
