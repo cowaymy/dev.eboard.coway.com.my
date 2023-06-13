@@ -24,6 +24,18 @@ function updateCodyMenu(user_config) {
 	return obj;
 }
 
+function getCodyBestRecord(userData) {
+	return newInstance.get('/apps/comm/bestRecord', {
+		params: trickToLevel0(userData),
+	});
+}
+
+function getCodyBestRecordList(userData) {
+	return newInstance.get('/apps/comm/bestRecordList', {
+		params: trickToLevel0(userData),
+	});
+}
+
 function trickToLevel0(userData) {
 	const options = {};
 
@@ -48,4 +60,6 @@ export default {
 	getCurRankingData,
 	getCurMonthData,
 	updateCodyMenu,
+	getCodyBestRecord,
+	getCodyBestRecordList,
 };

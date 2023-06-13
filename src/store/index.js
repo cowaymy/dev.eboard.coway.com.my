@@ -18,6 +18,7 @@ export default new Vuex.Store({
 		userInfo: getUserFromCookie() || {},
 		token: getAuthFromCookie() || '',
 		userName: getUserFromCookie().userName || '',
+		newNotifiCnt: 0,
 	},
 	getters: {
 		isLogin(state) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
 		// },
 	},
 	mutations: {
+		setNotifiCnt(state, cnt) {
+			state.newNotifiCnt = cnt;
+		},
 		setUserInfo(state, user) {
 			console.log(user);
 			state.userInfo = user;
@@ -46,6 +50,7 @@ export default new Vuex.Store({
 			(state.token = ''), (state.userName = '');
 			deleteCookie('auth');
 			deleteCookie('user');
+			state.newNotifiCnt = 0;
 		},
 	},
 
@@ -63,6 +68,19 @@ export default new Vuex.Store({
 				//set cookies
 				saveAuthToCookie(result.data.token);
 				saveUserToCookie(result.data.user[0]);
+			}
+
+			return result.data;
+		},
+
+		async GETNOTIFI({ commit }, userData) {
+			const result = await userApi.getNewNotification(userData);
+			console.log('====>');
+			console.log(result.data);
+			console.log('====>');
+
+			if (result.data.success) {
+				commit('setNotifiCnt', result.data.dataList[0].CNT);
 			}
 
 			return result.data;

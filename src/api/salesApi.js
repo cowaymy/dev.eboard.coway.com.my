@@ -55,6 +55,18 @@ function getTargetData(userData) {
 	});
 }
 
+function getSalesBestRecord(userData) {
+	return newInstance.get('/comm/bestRecord', {
+		params: trickToLevel0(userData),
+	});
+}
+
+function getSalesBestRecordList(userData) {
+	return newInstance.get('/comm/bestRecordList', {
+		params: trickToLevel0(userData),
+	});
+}
+
 function trickToLevel0(userData) {
 	const options = {};
 
@@ -111,4 +123,6 @@ export default {
 	getRinkForHMData,
 	getRinkForHPData,
 	getTargetData,
+	getSalesBestRecord,
+	getSalesBestRecordList,
 };

@@ -26,7 +26,7 @@
 						<b></b>
 						<b></b>
 						<v-list-item-icon>
-							<v-icon v-text="item.icon"></v-icon>
+							<v-icon> {{ item.icon }}</v-icon>
 						</v-list-item-icon>
 					</v-list-item>
 				</v-list-item-group>
@@ -52,21 +52,40 @@
 			app
 			v-if="(this.$route.name != 'login') & (this.$route.name != 'ssoLogin')"
 		>
-			&nbsp; <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+			<span> &nbsp;</span>&nbsp;
+			<v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title>eTtrust ePapan</v-toolbar-title>
 			<v-spacer></v-spacer>
+
 			<!--login -->
 			<template v-if="isUserLogin">
-				<span>{{ userInfo.nickname }}</span>
-				<v-btn icon dark>
-					<v-icon color="black"> far fa-bell</v-icon>
-				</v-btn>
+				<span>{{ userInfo.userName }}</span>
+				<AppBarNotification></AppBarNotification>
+				<!-- <v-btn icon dark>
+					<template v-if="this.$store.state.newNotifiCnt != 0">
+						<v-badge
+							color="error"
+							:content="this.$store.state.newNotifiCnt"
+							offset-x="10"
+							offset-y="10"
+						>
+							<router-link to="/userInfo">
+								<v-icon color="black"> far fa-bell</v-icon>
+							</router-link>
+						</v-badge></template
+					>
+					<template v-else>
+						<v-icon color="black"> far fa-bell</v-icon>
+					</template>
+				</v-btn> -->
 				<router-link to="/userInfo">
 					<span text color="#878a94"> </span>
 					<v-avatar size="30" class="ml-2">
-						<v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+						<v-img :src="userImage"> </v-img>
 					</v-avatar>
 				</router-link>
+
+				<span> &nbsp;</span>
 			</template>
 
 			<!--not login -->
@@ -117,22 +136,40 @@
 
 <script>
 import Spinner from '../components/comm/Spinner.vue';
+import {
+	mdiMonitorDashboard,
+	mdiAccount,
+	mdiQrcodeScan,
+	mdiCogRefresh,
+	mdiTwitter,
+} from '@mdi/js';
 import bus from '../utils/bus.js';
+import AppBarNotification from '../components/appBar/AppBarNotification.vue';
 
 export default {
 	data: function () {
 		return {
+			messages: 0,
 			selectedItem: 0,
 			drawer: null,
 			spinnerStatus: false,
+			userImage: '',
+			// 'http://localhost:3000/img/viewImg?imgPath=images/comm/' +
+			// this.$store.state.userInfo.imgPath,
 			items: [
-				{ icon: 'fas fa-chalkboard-teacher', text: '', route: 'main' },
-				{ icon: 'fas fa-cog', text: 'userInfo', route: '/accsetting' },
-				{ icon: 'fas fa-dove', text: 'userInfo', route: '/NotificationList' },
+				{ icon: mdiMonitorDashboard, text: '', route: 'main' },
+				{ icon: mdiCogRefresh, text: 'userInfo', route: '/accsetting' },
+				{ icon: mdiTwitter, text: 'userInfo', route: '/NotificationList' },
+				{
+					icon: mdiQrcodeScan,
+					text: 'Sacn QR',
+					route: '/AttendScanQR',
+				},
 			],
+			mdiAccount,
 		};
 	},
-	components: { Spinner },
+	components: { Spinner, AppBarNotification },
 	created() {
 		bus.$on('start:spinner', this.startSpinner);
 		bus.$on('end:spinner', this.endSpinner);
@@ -200,6 +237,8 @@ export default {
 				route = this.mainRoute;
 			}
 
+			console.log('route ==>' + route);
+			console.log('history  current ==>' + this.$router.history.current.path);
 			if (route != this.$router.history.current.path) {
 				console.log('in here');
 				this.$router.push(route);

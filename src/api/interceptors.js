@@ -1,9 +1,13 @@
 import axios from 'axios';
 import store from '../store';
+import Toasted from 'vue-toasted';
+import Vue from 'vue';
+
+Vue.use(Toasted);
 
 export function createInstance() {
 	const instance = axios.create({
-		baseURL: process.env.VUE_APP_API_URL,
+		baseURL: 'http://172.16.252.101:3000', //process.env.VUE_APP_API_URL,
 	});
 
 	instance.interceptors.request.use(
@@ -30,7 +34,21 @@ export function createInstance() {
 		function (error) {
 			// Any status codes that falls outside the range of 2xx cause this function to trigger
 			// Do something with response error
-			return Promise.reject(error);
+
+			Vue.toasted
+				.error('There is an API issue [' + error + ']', {
+					icon: 'error',
+					position: 'bottom-right',
+					action: {
+						text: 'Close',
+						onClick: (e, toastObject) => {
+							toastObject.goAway(0);
+						},
+					},
+				})
+				.goAway(3500);
+
+			//return Promise.reject('1');
 		},
 	);
 

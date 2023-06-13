@@ -134,7 +134,7 @@
 				<v-col cols="12">
 					<label class="text-1xl font-weight-semibold">Notification Type</label>
 					<v-radio-group v-model="nType" mandatory row>
-						<v-radio label="Emergency" value="Y"></v-radio>
+						<v-radio label="Emergency" value="E"></v-radio>
 						<v-radio label="Normal" value="N"></v-radio>
 					</v-radio-group>
 				</v-col>
@@ -153,10 +153,6 @@ import { mdiChartTimelineVariant, mdiEmailOutline, mdiCalendar } from '@mdi/js';
 
 import bus from '../../utils/bus';
 import comApi from '../../api/index';
-import Toasted from 'vue-toasted';
-import Vue from 'vue';
-
-Vue.use(Toasted);
 
 export default {
 	props: {
@@ -171,27 +167,27 @@ export default {
 
 		const items = [
 			{
-				id: 1,
+				id: 'ALL',
 				name: 'ALL',
 				children: [
 					{
 						id: 'SAL',
 						name: 'SALES',
 						children: [
-							{ id: 'SAL_GM', name: 'GM' },
-							{ id: 'SAL_SM', name: 'SM' },
-							{ id: 'SAL_HM', name: 'HM' },
-							{ id: 'SAL_HP', name: 'HP' },
+							{ id: 'GM', name: 'GM' },
+							{ id: 'SM', name: 'SM' },
+							{ id: 'HM', name: 'HM' },
+							{ id: 'HP', name: 'HP' },
 						],
 					},
 					{
-						id: 'CODY_ALL',
+						id: 'COD',
 						name: 'CODY',
 						children: [
-							{ id: 'CODY_GCM', name: 'GCM' },
-							{ id: 'CODY_SCM', name: 'SCM' },
-							{ id: 'CODY_CM', name: 'CM' },
-							{ id: 'CODY_CODY', name: 'Cody' },
+							{ id: 'GCM', name: 'GCM' },
+							{ id: 'SCM', name: 'SCM' },
+							{ id: 'CM', name: 'CM' },
+							{ id: 'CODY', name: 'CODY' },
 						],
 					},
 				],
@@ -229,17 +225,18 @@ export default {
 			try {
 				let target = '';
 				this.selection.forEach(function (v) {
-					target += v.name + '^';
+					console.log(v);
+					target += '^' + v.id;
 				});
 
 				const notiObj = {
-					subject: this.subject,
-					contents: this.contents,
-					sdate: this.date,
-					edate: this.enddate,
-					ntype: this.nType,
-					yuseyn: this.useYn ? 'Y' : 'N',
-					target: target,
+					SUBJECT: this.subject,
+					CONTENTS: this.contents,
+					STD_DATE: this.date,
+					END_DATE: this.enddate,
+					TYPE: this.nType,
+					STATUS: this.useYn ? 'A' : 'P',
+					TARGET: target,
 				};
 				//start spinner
 				bus.$emit('start:spinner');

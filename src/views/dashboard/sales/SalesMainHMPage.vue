@@ -316,7 +316,7 @@ export default {
 					icon: mdiClipboardEditOutline,
 					color: 'success',
 					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_KEYIN,
+					statistics: response.data.data[0].SAL_KEYIN + '',
 					//change: response.data.user[0].PE_SAL_KEYIN,
 				}),
 				(this.NetSalesData = {
@@ -324,7 +324,7 @@ export default {
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'error',
 					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_NET_SALES,
+					statistics: response.data.data[0].SAL_NET_SALES + '',
 					//change: response.data.user[0].PE_SAL_NET_SALES,
 				}),
 				(this.ActiveHpData = {
@@ -332,7 +332,7 @@ export default {
 					icon: mdiCheckboxMultipleMarkedOutline,
 					color: 'primary',
 					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_ACTIVE_HP,
+					statistics: response.data.data[0].SAL_ACTIVE_HP + '',
 					//change: response.data.user[0].PE_SAL_ACTIVE_HP,
 				}),
 				(this.SHIData = {
@@ -340,7 +340,7 @@ export default {
 					icon: mdiTrendingUp,
 					color: 'warning',
 					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_SHI,
+					statistics: response.data.data[0].SAL_SHI + '',
 					//change: response.data.user[0].PE_SAL_SHI,
 					moreshow: 'true',
 				})

@@ -13,7 +13,7 @@
 				>
 					<div>
 						<div class="text-5xl font-weight-semibold primary--text mb-2 ;">
-							{{ data.bestRecord }}
+							{{ fun_numFormat(data.bestRecord) }}
 							<!-- <VueRolling
 								:text="data.bestRecord"
 								:isNumberFormat="false"
@@ -73,7 +73,7 @@
 </template>
 <script>
 //import VueRolling from 'vue-roller';
-import baseApi from '../../../api/index.js';
+import salesApi from '../../../api/salesApi';
 import DashboardDialog from '../../comm/DialogBottomScreen.vue';
 
 export default {
@@ -83,10 +83,21 @@ export default {
 		async callApiBestRecord() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-				return await baseApi.getBestRecord(userInfo);
+				return await salesApi.getSalesBestRecord(userInfo);
 			} catch (error) {
 				console.log(error);
 			}
+		},
+
+		fun_numFormat(number) {
+			let neFor = 0;
+			try {
+				neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			} catch (e) {
+				//console.log(e);
+			}
+			//console.log(neFor);
+			return neFor;
 		},
 	},
 

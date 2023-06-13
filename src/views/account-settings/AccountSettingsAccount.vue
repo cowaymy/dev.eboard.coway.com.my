@@ -2,7 +2,7 @@
 	<v-card flat class="pa-3 mt-2">
 		<v-card-text class="d-flex">
 			<v-avatar rounded size="120" class="me-6">
-				<v-img :src="accountDataLocale.avatarImg"></v-img>
+				<v-img :src="userImage"></v-img>
 			</v-avatar>
 
 			<!-- upload photo -->
@@ -23,9 +23,9 @@
 					type="file"
 					accept=".jpeg,.png,.jpg,GIF"
 					:hidden="true"
+					@change="fileChange"
 				/>
 
-				<v-btn color="error" outlined class="mt-5"> Reset </v-btn>
 				<p class="text-sm mt-5">Allowed JPG, GIF or PNG. Max size of 800K</p>
 			</div>
 		</v-card-text>
@@ -133,11 +133,59 @@
 import { mdiAlertOutline, mdiCloudUploadOutline } from '@mdi/js';
 //import { ref } from '@vue/composition-api';
 
+import bus from '../../utils/bus';
+import comApi from '../../api/index';
+
 export default {
 	props: {
 		accountData: {
 			type: Object,
 			default: () => {},
+		},
+	},
+
+	methods: {
+		fileChange: function (e) {
+			console.log(e.target.files); //files는 배열로 들어온다.
+			this.file = e.target.files[0];
+			this.uploadImage(this.file);
+		},
+
+		async uploadImage(vFile) {
+			let form = new FormData();
+			let image = vFile;
+			form.append('name', this.$store.state.userName);
+			form.append('userImage', image);
+
+			//start spinner
+			bus.$emit('start:spinner');
+			const result = await comApi.fileUpLoad(form);
+
+			if (result.data.success) {
+				this.$toasted
+					.success('It has been processed', {
+						icon: 'check',
+						position: 'bottom-right',
+						action: {
+							text: 'Close',
+							onClick: (e, toastObject) => {
+								toastObject.goAway(0);
+							},
+						},
+					})
+					.goAway(2500);
+
+				this.userImage =
+					'http://localhost:3000/img/viewImg?imgPath=images/comm/' +
+					result.data.dataList.filename;
+
+				this.$store.state.userInfo.imgPath = result.data.dataList.filename;
+			}
+			bus.$emit('end:spinner');
+			console.log(result);
+		},
+		clickInputTag: function () {
+			this.$refs['image'].click();
 		},
 	},
 	data(props) {
@@ -153,6 +201,10 @@ export default {
 			status,
 			accountDataLocale,
 			resetForm,
+			file: '',
+			userImage:
+				'http://localhost:3000/img/viewImg?imgPath=images/comm/' +
+				this.$store.state.userInfo.imgPath,
 			icons: {
 				mdiAlertOutline,
 				mdiCloudUploadOutline,

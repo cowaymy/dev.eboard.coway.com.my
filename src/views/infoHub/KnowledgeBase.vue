@@ -78,8 +78,29 @@
 				<v-col md="4" sm="6" cols="12">
 					<v-card>
 						<v-card-title>
-							<!-- <iframe :src="src" frame-id="my-ifram" name="my-frame" /> -->
+							<div>
+								<p class="text-3xl font-weight-semibold text--primary mb-2">
+									{{ attend.branchName }}
+								</p>
+								<span class="text-base font-weight-semibold">
+									{{ attend.mainDeptName }}
+								</span>
+							</div>
 						</v-card-title>
+
+						<v-card-text>
+							<div align="center">
+								<qrcode-vue
+									:value="attend.qrdata"
+									:size="attend.qrsize"
+									level="H"
+								/>
+							</div>
+						</v-card-text>
+
+						<v-card-text align="center">
+							<span class="text-base font-weight-semibold"> Attendance</span>
+						</v-card-text>
 					</v-card>
 				</v-col>
 
@@ -97,8 +118,6 @@
 <script>
 /* eslint-disable implicit-arrow-linebreak */
 import { mdiMagnify } from '@mdi/js';
-//import { computed, ref } from '@vue/composition-api';
-//import { computed, ref } from '@vue/composition-api';
 
 //import LinkToBottomButtonVue from '../comm/LinkToBottomButton.vue';
 import StatisticsCardHQMain from '../../components/statistics-card/StatisticsCardHQMain_Salse.vue';
@@ -106,6 +125,11 @@ import StatisticsCardHQMain_Cody from '../../components/statistics-card/Statisti
 import LinkToSSO from '../../components/comm/LinkToSSO';
 
 import DigitalClock from '../../views/comm/DigitalClock.vue';
+
+//import VueQrcode from 'vue-qrcode';
+import QrcodeVue from 'qrcode.vue';
+
+var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 export default {
 	name: 'MyIframe',
@@ -115,23 +139,36 @@ export default {
 		StatisticsCardHQMain_Cody,
 		LinkToSSO,
 		DigitalClock,
+		QrcodeVue,
 	},
 	data() {
 		const knowledgeBaseSearchQuery = '';
 
 		return {
 			knowledgeBaseSearchQuery,
+
 			myIframe: null,
-			// src: 'http://10.101.1.138:8900/userdefine/dashboard?key=bad402f5-2927-4310-8744-a1b336777f71',
-			src: 'http://10.101.1.138:8900/login/redirect?token=zoFjTOiM3HZ',
-			//src: 'https://10.101.1.138:8900/login/sso?id=sales&password=sales&redirect=/userdefine/dashboard?key=1fon8rl1u.9j8&layout=iframe',
+			src: 'https://jennifer.my.coway.com/login/sso?id=sales&password=sales&redirect=/userdefine/dashboard?key=658cf2bf-d5f4-4abe-99f8-d95be4cc6f8b',
+			//src: 'https://jennifer.my.coway.com/login/redirect?token=zoFjTOiM3HZ',
+			//src: 'http://10.101.1.138:8900/login/sso?id=sales&password=sales&redirect?token=ZGn6xuRsC31',
 			filteredKB: [],
 			icons: { mdiMagnify },
+			attend: {
+				date: null,
+				time: null,
+				branchName: this.$store.state.userInfo.branchName,
+				mainDeptName: this.$store.state.userInfo.mainDeptName,
+				qrsize: 300,
+				qrdata: null,
+				userName: this.userName,
+			},
 		};
 	},
 
 	created() {
 		this.filteredKB = this.fun_kbContentData();
+		setInterval(this.fun_generateQrCode, 10000);
+		this.fun_generateQrCode();
 	},
 	computed: {
 		filteredNames() {
@@ -148,7 +185,18 @@ export default {
 		},
 	},
 
+	mounted() {},
 	methods: {
+		fun_generateQrCode() {
+			this.attend.qrdata = '';
+
+			this.fun_updateTime();
+
+			var dataApis =
+				'http://172.16.252.101:3000/aten/saveAttendance?data=' +
+				JSON.stringify(this.attend);
+			this.attend.qrdata = dataApis;
+		},
 		fun_filteredKB() {
 			const knowledgeBaseSearchQueryLower =
 				this.knowledgeBaseSearchQuery.toLowerCase();
@@ -180,8 +228,26 @@ export default {
 				},
 			];
 		},
-		onLoad(frame) {
-			this.myIframe = frame.contentWindow;
+
+		fun_updateTime() {
+			var cd = new Date();
+
+			this.attend.time =
+				this.zeroPadding(cd.getHours(), 2) +
+				this.zeroPadding(cd.getMinutes(), 2) +
+				this.zeroPadding(cd.getSeconds(), 2);
+			this.attend.date =
+				this.zeroPadding(cd.getDate(), 2) +
+				this.zeroPadding(cd.getMonth() + 1, 2) +
+				this.zeroPadding(cd.getFullYear(), 4);
+		},
+
+		zeroPadding(num, digit) {
+			var zero = '';
+			for (var i = 0; i < digit; i++) {
+				zero += '0';
+			}
+			return (zero + num).slice(-digit);
 		},
 	},
 };
@@ -242,5 +308,43 @@ export default {
 		box-shadow: 0 0 0 0 rgb(239 235 243 / 10%);
 		cursor: pointer;
 	}
+}
+
+#camera {
+	text-align: center;
+	color: #2c3e50;
+}
+#video {
+	background-color: #000000;
+}
+#canvas {
+	display: none;
+}
+li {
+	display: inline;
+	padding: 5px;
+}
+.validation-success,
+.validation-failure,
+.validation-pending {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.4rem;
+	padding: 10px;
+
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+}
+.validation-success {
+	color: green;
+}
+.validation-failure {
+	color: red;
 }
 </style>

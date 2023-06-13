@@ -36,6 +36,11 @@
 					:notification-data="accountSettingData.notification"
 				></account-settings-notification>
 			</v-tab-item>
+			<template v-if="isOfficeAdmin()">
+				<v-tab-item id="pwa">
+					<AccountSettingAttendScanQRCodeSetting></AccountSettingAttendScanQRCodeSetting>
+				</v-tab-item>
+			</template>
 		</v-tabs-items>
 	</v-card>
 </template>
@@ -47,6 +52,7 @@ import {
 	mdiInformationOutline,
 	mdiBookmarkOutline,
 	mdiBellOutline,
+	mdiQrcodeEdit,
 } from '@mdi/js';
 
 // demos
@@ -55,6 +61,7 @@ import AccountSettingsSecurity from './AccountSettingsSecurity.vue';
 import AccountSettingsInfo from './AccountSettingsInfo.vue';
 //import AccountSettingsBilling from './AccountSettingsBilling.vue';
 import AccountSettingsNotification from './AccountSettingsNotification.vue';
+import AccountSettingAttendScanQRCodeSetting from './AccountSettingAttendScanQRCodeSetting.vue';
 
 //console.log('=======>' + this.$store.state.userInfo);
 
@@ -68,8 +75,10 @@ export default {
 			{ title: 'Account', icon: mdiAccountOutline },
 			{ title: 'Security', icon: mdiLockOpenOutline },
 			{ title: 'Info', icon: mdiInformationOutline },
-			// { title: 'Billing', icon: mdiBookmarkOutline },
 			{ title: 'Notifications', icon: mdiBellOutline },
+			this.isOfficeAdmin()
+				? { title: 'Attendance Settings', icon: mdiQrcodeEdit }
+				: { title: '', icon: '' },
 		];
 
 		// account settings data
@@ -114,6 +123,7 @@ export default {
 				mdiInformationOutline,
 				mdiBookmarkOutline,
 				mdiBellOutline,
+				mdiQrcodeEdit,
 			},
 		};
 	},
@@ -124,6 +134,7 @@ export default {
 		AccountSettingsInfo,
 		//AccountSettingsBilling,
 		AccountSettingsNotification,
+		AccountSettingAttendScanQRCodeSetting,
 	},
 
 	computed: {
@@ -131,5 +142,33 @@ export default {
 			return this.$store.state.userInfo;
 		},
 	},
+
+	methods: {
+		isOfficeAdmin() {
+			console.log(this.$store.state.userInfo);
+			if (
+				this.$store.state.userInfo.userTypeId == 4 ||
+				this.$store.state.userInfo.userTypeId == 6
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+	},
 };
 </script>
+
+<style scoped>
+@media all and (display-mode: standalone) {
+	#pwa {
+		display: block;
+	}
+}
+
+@media all and (display-mode: browser) {
+	#pwa {
+		display: none;
+	}
+}
+</style>

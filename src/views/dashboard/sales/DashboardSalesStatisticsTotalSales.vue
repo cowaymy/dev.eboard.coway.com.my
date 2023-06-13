@@ -1,6 +1,6 @@
 <template>
 	<v-card elevation="1">
-		<div class="d-flex justify-space-between">
+		<div>
 			<div>
 				<v-card-title>
 					<v-avatar color="white" size="38">
@@ -8,22 +8,24 @@
 							{{ icons.mdiBullseyeArrow }}
 						</v-icon>
 					</v-avatar>
-					&nbsp; Target Sales
+					Target Sales
 				</v-card-title>
-				<v-card-text class="text-no-wrap mt-4">
-					<p class="font-weight-semibold text-1xl mb-0">
-						Target Sales : {{ totalsales.TARGET_AMT }}
-					</p>
-					<P></P>
-				</v-card-text>
 			</div>
-
-			<VueApexCharts
-				id="chart-stats-total-sales"
-				height="140"
-				:options="chartOptions"
-				:series="chartSeries"
-			/>
+			<v-card-text>
+				<VueApexCharts
+					id="chart-stats-total-sales"
+					height="100%"
+					width="300"
+					:options="chartOptions"
+					:series="chartSeries"
+				/>
+				<div class="font-weight-semibold text-1xl mb-0">
+					Target Sales :
+					<span class="font-weight-semibold text-2xl primary--text mb-0">
+						{{ fun_numFormat(totalsales.TARGET_AMT) }}
+					</span>
+				</div>
+			</v-card-text>
 		</div>
 	</v-card>
 </template>
@@ -48,77 +50,82 @@ export default {
 				console.log(error);
 			}
 		},
+		fun_numFormat(number) {
+			const neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			//console.log(neFor);
+			return neFor;
+		},
 	},
 
 	created() {
-		var cData = [];
 		this.callApiTargetData().then(request => {
-			console.log(request);
 			request.data.data.forEach(function (v) {
-				// var newValue = {
-				// 	data: [v.RATE],
-				// };
-
-				cData.push(v.RATE);
-				//cData.push(100 - parseFloat(v.RATE));
+				console.log(v.RATE);
+				//cData = v.RATE;
 			});
 			this.totalsales = request.data.data[0];
 		});
-
-		this.chartSeries = cData;
-
-		console.log(this.chartSeries);
-		console.log(this.totalsales);
 	},
 
 	data() {
-		const chartSeries = [];
+		//const chartSeries = [81];
+
+		const chartSeries = [90];
 
 		const chartOptions = {
 			chart: {
-				offsetY: 2,
-				type: 'radialBar',
-
-				sparkline: {
-					enabled: true,
-				},
-				animations: {
-					enabled: true,
-				},
+				type: 'bar',
 			},
-
-			colors: ['#56C6F6'],
-			plotOptions: {
-				radialBar: {
-					hollow: {
-						margin: 15,
-						size: '70%',
-					},
-
-					dataLabels: {
-						showOn: 'always',
-						name: {
-							offsetY: -10,
-							show: true,
-							color: '#888',
-							fontSize: '23px',
-						},
-						value: {
-							color: '#111',
-							fontSize: '30px',
-							show: true,
-						},
-					},
-				},
+			dataLabels: {
+				enabled: false,
 			},
-			labels: ['Total'],
+			xaxis: {
+				categories: ['achieved  sales'],
+			},
 		};
+
+		// const chartOptions = {
+		// 	chart: {
+		// 		offsetY: 2,
+		// 		type: 'radialBar',
+		// 		sparkline: {
+		// 			enabled: true,
+		// 		},
+		// 		animations: {
+		// 			enabled: true,
+		// 		},
+		// 	},
+		// 	colors: ['#56C6F6'],
+		// 	plotOptions: {
+		// 		radialBar: {
+		// 			hollow: {
+		// 				margin: 15,
+		// 				size: '70%',
+		// 			},
+
+		// 			dataLabels: {
+		// 				showOn: 'always',
+		// 				name: {
+		// 					offsetY: -10,
+		// 					show: true,
+		// 					color: '#888',
+		// 					fontSize: '23px',
+		// 				},
+		// 				value: {
+		// 					color: '#111',
+		// 					fontSize: '30px',
+		// 					show: true,
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// 	labels: ['Total'],
+		// };
 
 		return {
 			chartSeries,
 			chartOptions,
 			totalsales: {},
-			// icons
 			icons: {
 				mdiChevronUp,
 				mdiBullseyeArrow,

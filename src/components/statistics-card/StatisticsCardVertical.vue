@@ -29,7 +29,7 @@
 		<v-card-text class="text--primary mt-3">
 			<div style="text-align: center">
 				<span class="font-weight-semibold text-5xl mb-3">
-					{{ fun_numFormat(checkNull(statistics.toString())) }}
+					{{ fun_numFormat(checkNull(statistics)) }}
 				</span>
 				<!-- <span
 					class="percentage text-xs mb-2"
@@ -83,7 +83,6 @@ export default {
 	methods: {
 		fun_numFormat(number) {
 			const neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			console.log(neFor);
 			return neFor;
 		},
 	},
@@ -107,7 +106,6 @@ export default {
 		};
 
 		const checkNull = value => {
-			console.log(value);
 			if (value == undefined || value == null || value == 'null') {
 				return 0;
 			}

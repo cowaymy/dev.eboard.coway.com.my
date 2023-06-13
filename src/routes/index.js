@@ -136,6 +136,38 @@ const router = new VueRouter({
 			component: () => import('../views/comm/NotificationList.vue'),
 			meta: { requiresAuth: true },
 		},
+
+		{
+			path: '/AttendScanQR',
+			name: 'AttendScanQR',
+			component: () => import('../views/comm/AttendScanQRCode.vue'),
+			meta: { requiresAuth: true },
+		},
+		{
+			path: '/AttendScanQRResult',
+			name: 'AttendScanQRResult',
+			component: () => import('../views/comm/AttendScanQRCodeResult.vue'),
+			props: true,
+			meta: { requiresAuth: false },
+		},
+		{
+			path: '/AttendScanQRSettingResult',
+			name: 'AttendScanQRSettingResult',
+			component: () =>
+				import(
+					'../views/account-settings/AccountSettingASQRCodeSettingResult.vue'
+				),
+			props: true,
+			meta: { requiresAuth: false },
+		},
+
+		{
+			path: '/AttendHistory',
+			name: 'AttendHistory',
+			component: () => import('../views/comm/calendar/Calendar.vue'),
+			props: true,
+			meta: { requiresAuth: false },
+		},
 	],
 });
 

@@ -98,3 +98,16 @@ export function checkNull(str) {
 	}
 	return str;
 }
+
+export function getMonthName() {
+	return new Date().toLocaleDateString('en-US', { month: 'short' });
+}
+// Format: dd/mm/yyyy
+export function getDateOnly() {
+	return new Date().toLocaleDateString('en-GB');
+}
+
+// Format: dd/mm/yyyy
+export function getDate() {
+	return new Date().getDate();
+}

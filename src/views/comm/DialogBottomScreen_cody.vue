@@ -51,7 +51,7 @@
 	</v-row>
 </template>
 <script>
-import saleApi from '../../api/salesApi.js';
+import codyApi from '../../api/codyApi.js';
 import { mdiMagnify } from '@mdi/js';
 
 export default {
@@ -64,7 +64,7 @@ export default {
 		async callApiBestRecordList() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-				return await saleApi.getSalesBestRecordList(userInfo);
+				return await codyApi.getCodyBestRecordList(userInfo);
 			} catch (error) {
 				console.log(error);
 			}

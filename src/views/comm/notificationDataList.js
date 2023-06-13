@@ -1,4 +1,3 @@
-import store from '@/store';
 import {
 	mdiAccountCheckOutline,
 	mdiAccountOutline,
@@ -10,11 +9,26 @@ import {
 	mdiPencilOutline,
 } from '@mdi/js';
 
-export default function useUsersList() {
-	const userListTable = [];
+import baseApi from '../../api/index.js';
+
+export default function notificationDataList() {
+	let dataListTable = [];
+
+	const setDataListTable = dataList => {
+		console.log(dataList);
+		dataListTable.value = dataList;
+
+		console.log(dataListTable);
+		// totalUserListTable = 11;
+		// dataTotalLocal.value = 3;
+
+		// 		dataListTable.value = filteredData;
+		// 		totalUserListTable.value = total;
+		// 		dataTotalLocal.value = dataTotal;
+	};
 
 	const tableColumns = [
-		{ text: 'ID', value: 'id' },
+		{ text: 'ID', value: 'ID' },
 		{
 			text: 'Target',
 			value: 'target',
@@ -40,39 +54,66 @@ export default function useUsersList() {
 	const targetFilter = null;
 	const planFilter = null;
 	const statusFilter = null;
-	const totalUserListTable = 0;
+	let totalUserListTable = 0;
 	const loading = false;
 	const options = {
 		sortBy: ['id'],
 		sortDesc: [true],
 	};
-	const userTotalLocal = [];
+	const dataTotalLocal = [];
 	const selectedRows = [];
 
 	// fetch data
-	const fetchUsers = () => {
-		store
-			.dispatch('app-user/fetchUsers', {
-				q: searchQuery.value,
-				options: options.value,
-				status: statusFilter.value,
-				role: targetFilter.value,
-				plan: planFilter.value,
-			})
-			.then(response => {
-				const { filteredData, total, userTotal } = response.data;
-
-				userListTable.value = filteredData;
-				totalUserListTable.value = total;
-				userTotalLocal.value = userTotal;
-
-				// remove loading state
-				loading.value = false;
-			})
-			.catch(error => {
-				console.log(error);
-			});
+	const fetchDataList = async param => {
+		const dataList = await baseApi.getNotificationDataList(param);
+		setDataListTable(dataList.data.dataList);
 	};
+
+	//fetchDataList().then(dataList => console.log(dataList));
+	// dataList.then(result => {
+	// 	console.log(result);
+	// });
+
+	//console.log(dataList);
+	// const newDataList = [];
+	// try {
+	// 	console.log('in ....fetchDataList');
+	// 	console.log(param);
+	// 	//const userInfo = this.$store.state.userInfo;
+
+	// 	baseApi.getNotificationDataList(param).then(request => {
+	// 		console.log(request);
+
+	// 		this.newDataList = request.data.dataList;
+	// 		this.loading = false;
+	// 	});
+
+	// 	return newDataList;
+	// } catch (error) {
+	// 	console.log(error);
+	// }
+
+	// store
+	// 	.dispatch('app-user/fetchUsers', {
+	// 		q: searchQuery.value,
+	// 		options: options.value,
+	// 		status: statusFilter.value,
+	// 		role: targetFilter.value,
+	// 		plan: planFilter.value,
+	// 	})
+	// 	.then(response => {
+	// 		const { filteredData, total, dataTotal } = response.data;
+
+	// 		dataListTable.value = filteredData;
+	// 		totalUserListTable.value = total;
+	// 		dataTotalLocal.value = dataTotal;
+
+	// 		// remove loading state
+	// 		loading.value = false;
+	// 	})
+	// 	.catch(error => {
+	// 		console.log(error);
+	// 	});
 
 	// *===============================================---*
 	// *--------- UI ---------------------------------------*
@@ -120,7 +161,7 @@ export default function useUsersList() {
 	};
 
 	return {
-		userListTable,
+		dataListTable,
 		tableColumns,
 		searchQuery,
 		targetFilter,
@@ -129,9 +170,9 @@ export default function useUsersList() {
 		totalUserListTable,
 		loading,
 		options,
-		userTotalLocal,
+		dataTotalLocal,
 		selectedRows,
-		fetchUsers,
+		fetchDataList,
 		resolveUserRoleVariant,
 		resolveUserRoleIcon,
 		resolveUserStatusVariant,

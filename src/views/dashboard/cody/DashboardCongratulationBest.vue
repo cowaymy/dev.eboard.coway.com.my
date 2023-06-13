@@ -71,8 +71,8 @@
 </template>
 <script>
 import VueRolling from 'vue-roller';
-import baseApi from '../../../api/index.js';
-import DashboardDialog from '../../comm/DialogBottomScreen.vue';
+import codyApi from '../../../api/codyApi.js';
+import DashboardDialog from '../../comm/DialogBottomScreen_cody.vue';
 
 export default {
 	components: { VueRolling, DashboardDialog },
@@ -81,7 +81,7 @@ export default {
 		async callApiBestRecord() {
 			try {
 				const userInfo = this.$store.state.userInfo;
-				return await baseApi.getBestRecord(userInfo);
+				return await codyApi.getCodyBestRecord(userInfo);
 			} catch (error) {
 				console.log(error);
 			}

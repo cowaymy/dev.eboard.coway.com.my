@@ -184,9 +184,9 @@ export default {
 				//call lgoin api
 				const data = await this.$store.dispatch('LOGIN', userdata);
 
-				console.log(data);
-
 				if (data.success) {
+					const userInfo = this.$store.state.userInfo;
+					//const dataNotifi = await this.$store.dispatch('GETNOTIFI', userInfo);
 					//go to main page
 					this.$router.push(this.getNextRoute(data.user[0]));
 				} else {
