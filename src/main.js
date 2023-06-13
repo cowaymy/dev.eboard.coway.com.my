@@ -5,6 +5,7 @@ import './style/styles.scss';
 import ChartPlugins from './plugins/ChartPlugins.js';
 import router from '@/routes/index';
 import store from '@/store/index';
+import './registerServiceWorker';
 Vue.config.productionTip = false;
 
 new Vue({

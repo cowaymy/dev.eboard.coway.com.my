@@ -3,12 +3,18 @@
 		<v-card-title class="align-start">
 			<span style="word-break: break-word">
 				{{
-					this.j == 'HS_RATE'? 'Com HS Rate'
-						: this.j == 'MAT_SAL' ? 'HC Net Sales'
-						: this.j == 'HA_NET' ? 'HA Net Sales'
-						: this.j == 'TOTAL_KEYIN' ? 'Sales Keyin'
-						: this.j == 'RC_RATE' ? 'RC Rate'
-						: this.j == 'NET_SAL' ? 'Net Sales'
+					this.j == 'HS_RATE'
+						? 'Com HS Rate'
+						: this.j == 'MAT_SAL'
+						? 'HC Net Sales'
+						: this.j == 'HA_NET'
+						? 'HA Net Sales'
+						: this.j == 'TOTAL_KEYIN'
+						? 'Sales Keyin'
+						: this.j == 'RC_RATE'
+						? 'RC Rate'
+						: this.j == 'NET_SAL'
+						? 'Net Sales'
 						: this.j
 				}}
 				Ranking by {{ this.i.Position }}
@@ -20,16 +26,17 @@
 			<v-list>
 				<v-list-item-group color="indigo">
 					<v-list-item
-					    v-for="(data, index) in this.i.Mem_data"
-						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''} ${data.selected == 0 ? 'border' : ''}`"
+						v-for="(data, index) in this.i.Mem_data"
+						:class="`d-flex align-center px-0 ${index > 0 ? 'mt-4' : ''} ${
+							data.selected == 0 ? 'border' : ''
+						}`"
 						:style="`background-color: ${
-								data.selected == 0 ? '#f2f1f3' : 'white'} !important;`"
+							data.selected == 0 ? '#f2f1f3' : 'white'
+						} !important;`"
 						:key="data.name"
 						color="#fff"
-						@click="$event =>fetchCurrentMemberInfo(data, index)"
+						@click="$event => fetchCurrentMemberInfo(data, index)"
 					>
-
-
 						<v-avatar
 							:color="data.selected == 0 ? 'error' : ''"
 							size="30"
@@ -79,7 +86,7 @@ import number_format from '../../../utils/number_format.js';
 import codyApi from '../../../api/codyApi';
 import bus from '../../../utils/bus.js';
 export default {
-	props: ['i','j','getFilterCurRankingData','getCategoryIndex'],
+	props: ['i', 'j', 'getFilterCurRankingData', 'getCategoryIndex'],
 	created() {
 		var cData = [];
 		this.salesByCountries = cData;
@@ -104,12 +111,11 @@ export default {
 			let category = this.j;
 			try {
 				bus.$emit('start:spinner');
-				if(Number(data.Ranking_level) !=4){
-					const param = {ranking_lvl,mem_id,category};
-					codyApi.getFilterCurRankingData(param)
-					.then(r => {
+				if (Number(data.Ranking_level) != 4) {
+					const param = { ranking_lvl, mem_id, category };
+					codyApi.getFilterCurRankingData(param).then(r => {
 						this.getFilterCurRankingData(r);
-						this.getCategoryIndex(category, ranking_lvl, index)
+						this.getCategoryIndex(category, ranking_lvl, index);
 					});
 				}
 			} catch (error) {
@@ -119,7 +125,7 @@ export default {
 			} finally {
 				bus.$emit('end:spinner');
 			}
-		}
+		},
 	},
 };
 </script>

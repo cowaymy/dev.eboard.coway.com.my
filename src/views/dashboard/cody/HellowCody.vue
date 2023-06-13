@@ -2,7 +2,7 @@
 	<v-row>
 		<v-col cols="12" md="12">
 			<v-alert border="left" color="black" dark elevation="1">
-				<div class="nocard">Cody e-TrustBoard	</div>
+				<div class="nocard">Cody e-TrustBoard</div>
 				<div align="right">
 					<DigitalClock />
 				</div>
@@ -67,11 +67,12 @@
 			</v-row>
 		</v-col>
 		<v-col cols="12" v-for="j in Categories">
-			<DashboardCardSalesRankingByCategory 
-			:j="j" 
-			:getCategoryIndex="getCategoryIndex"
-			:getFilterCurRankingData="getFilterCurRankingData" 
-			:d="Ranking_Data.filter((x) => x.Type == j)" />
+			<DashboardCardSalesRankingByCategory
+				:j="j"
+				:getCategoryIndex="getCategoryIndex"
+				:getFilterCurRankingData="getFilterCurRankingData"
+				:d="Ranking_Data.filter(x => x.Type == j)"
+			/>
 		</v-col>
 	</v-row>
 </template>
@@ -134,28 +135,32 @@ export default {
 	},
 
 	methods: {
-		getFilterCurRankingData(filterRankingData){
+		getFilterCurRankingData(filterRankingData) {
 			this.Ranking_Data.forEach((data, index) => {
-				filterRankingData.data.user.forEach((dataFilter,indexFilter) => {
+				filterRankingData.data.user.forEach((dataFilter, indexFilter) => {
 					if (dataFilter.Level == data.Level && dataFilter.Type == data.Type) {
 						this.Ranking_Data[index].Mem_data = dataFilter.Mem_data;
 					}
 				});
 			});
 		},
-		getCategoryIndex(category, level, index){
-            this.Ranking_Data = this.Ranking_Data.map((eachLvlData, i) => {
-				const copy = {...eachLvlData};
+		getCategoryIndex(category, level, index) {
+			this.Ranking_Data = this.Ranking_Data.map((eachLvlData, i) => {
+				const copy = { ...eachLvlData };
 				copy.Mem_data = copy.Mem_data.map((memData, memIndex) => {
-					if(copy.Type == category && copy.Level == level && memIndex == index){
-						return {...memData, selected: 0}
+					if (
+						copy.Type == category &&
+						copy.Level == level &&
+						memIndex == index
+					) {
+						return { ...memData, selected: 0 };
 					} else {
-						return {...memData, selected: -1}
+						return { ...memData, selected: -1 };
 					}
 				});
-				return copy
-            });
-        },
+				return copy;
+			});
+		},
 		callSalesHQMainApi() {
 			try {
 				//start spinner
@@ -225,7 +230,6 @@ export default {
 		};
 	},
 	created() {
-
 		this.callSalesHQMainApi().then(response => {
 			const date1 = new Date(response.data.user[0].upd_dt);
 			const date2 = new Date();
@@ -396,17 +400,17 @@ export default {
 					response.data.user[0].prev_ranking_figure,
 				),
 			};
-		})
+		});
 
 		this.callRankingAPI().then(response => {
 			this.Ranking_Data = response.data.user;
-			this.Ranking_Data.forEach((data) => {
-				data.Mem_data.forEach((memData)=>{
-					memData["selected"] = -1;
-				})
-			})
+			this.Ranking_Data.forEach(data => {
+				data.Mem_data.forEach(memData => {
+					memData['selected'] = -1;
+				});
+			});
 			this.Categories = response.data.user.reduce((acc, curr) => {
-				return acc.indexOf(curr.Type) != -1 ? acc : [...acc, curr.Type]
+				return acc.indexOf(curr.Type) != -1 ? acc : [...acc, curr.Type];
 			}, []);
 		});
 	},
