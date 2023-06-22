@@ -21,15 +21,20 @@ export default {
 		},
 	},
 	actions: {
-		fetchEvents() {
+		fetchEvents({ commit }, _date) {
 			console.log(store);
 			const userInfo = store.state.userInfo;
 
-			console.log(calendarApi);
+			console.log('=========>', _date);
+
+			const pramData = {
+				userName: userInfo.userName,
+				reqDate: _date,
+			};
 
 			return new Promise((resolve, reject) => {
 				calendarApi
-					.fetchAttendEvents(userInfo)
+					.fetchAttendEvents(pramData)
 					.then(response => resolve(response))
 					.catch(error => reject(error));
 			});

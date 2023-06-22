@@ -324,8 +324,17 @@ export default {
 
 		fetchEvents() {
 			console.log('fetchevents ==>', this.$refs.calendar);
+
+			let yyyy = this.$refs.calendar.parsedValue.year.toString();
+			let mon = this.$refs.calendar.parsedValue.month.toString();
+
+			console.log(mon.length);
+
+			let cmon = mon.length == 1 ? '0'.concat(mon) : mon;
+
+			const parsedValue = yyyy.concat(cmon);
 			store
-				.dispatch(`${CALENDAR_APP_STORE_MODULE_NAME}/fetchEvents`)
+				.dispatch(`${CALENDAR_APP_STORE_MODULE_NAME}/fetchEvents`, parsedValue)
 				.then(response => {
 					console.log(response.data.dataList);
 					const _events = response.data.dataList;

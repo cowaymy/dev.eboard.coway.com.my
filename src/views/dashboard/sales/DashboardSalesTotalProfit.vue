@@ -101,9 +101,11 @@ export default {
 		this.chartData = cData;
 
 		this.callApiEKeyInData().then(request => {
-			this.totalsales = {
-				value: Number(request.data.data[0].TOTAL_SALES),
-			};
+			if (request.data != undefined) {
+				this.totalsales = {
+					value: Number(request.data.data[0].TOTAL_SALES),
+				};
+			}
 		});
 
 		this.callApiTodayEkeyinData().then(request => {

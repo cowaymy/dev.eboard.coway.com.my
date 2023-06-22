@@ -3,17 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
     "dev": "vue-cli-service serve --mode development --port 8080",
     "serve": "vue-cli-service serve --mode production --port 8080",
     "build": "vue-cli-service build --mode production --port 8080",
-=======
-    "serve": "vue-cli-service serve --mode prd --port 8080",
-    "build": "vue-cli-service build --mode prd --port 8080",
->>>>>>> 18a6b06355457b46b25b84b57e2c7b91160849b0
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "dev": "vue-cli-service serve --mode dev --port 8080"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@mdi/js": "^6.5.95",
@@ -29,11 +23,8 @@
     "lodash-es": "^4.17.21",
     "node-schedule": "^2.1.0",
     "path": "^0.12.7",
-<<<<<<< HEAD
     "qrcode.vue": "^1.7.0",
-=======
     "register-service-worker": "^1.7.2",
->>>>>>> 18a6b06355457b46b25b84b57e2c7b91160849b0
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.2",
     "vue-iframes": "^0.0.20",

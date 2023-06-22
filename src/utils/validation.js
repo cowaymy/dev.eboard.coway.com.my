@@ -6,108 +6,119 @@
  * @param {string} path
  * @returns {Boolean}
  */
-export function isExternal(path) {
+module.exports.isExternal = function (path) {
 	return /^(https?:|mailto:|tel:)/.test(path);
-}
+};
 
 /**
  * @param {string} str
  * @returns {Boolean}
  */
-export function validUsername(str) {
+module.exports.validUsername = function (str) {
 	const valid_map = ['admin', 'editor'];
 	return valid_map.indexOf(str.trim()) >= 0;
-}
+};
 
 /**
  * @param {string} url
  * @returns {Boolean}
  */
-export function validURL(url) {
+module.exports.validURL = function (url) {
 	const reg =
 		/^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
 	return reg.test(url);
-}
+};
 
 /**
  * @param {string} str
  * @returns {Boolean}
  */
-export function validLowerCase(str) {
+module.exports.validLowerCase = function (str) {
 	const reg = /^[a-z]+$/;
 	return reg.test(str);
-}
+};
 
 /**
  * @param {string} str
  * @returns {Boolean}
  */
-export function validUpperCase(str) {
+module.exports.validUpperCase = function (str) {
 	const reg = /^[A-Z]+$/;
 	return reg.test(str);
-}
+};
 
 /**
  * @param {string} str
  * @returns {Boolean}
  */
-export function validAlphabets(str) {
+module.exports.validAlphabets = function (str) {
 	const reg = /^[A-Za-z]+$/;
 	return reg.test(str);
-}
+};
 
 /**
  * @param {string} email
  * @returns {Boolean}
  */
-export function validEmail(email) {
+module.exports.validEmail = function (email) {
 	const reg =
 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return reg.test(email);
-}
+};
 
 /**
  * @param {string} str
  * @returns {Boolean}
  */
-export function isString(str) {
+module.exports.isString = function (str) {
 	if (typeof str === 'string' || str instanceof String) {
 		return true;
 	}
 	return false;
-}
+};
 
 /**
  * @param {Array} arg
  * @returns {Boolean}
  */
-export function isArray(arg) {
+module.exports.isArray = function (arg) {
 	if (typeof Array.isArray === 'undefined') {
 		return Object.prototype.toString.call(arg) === '[object Array]';
 	}
 	return Array.isArray(arg);
-}
+};
 
 /**
  * @param {string} str
  * @returns {}
  */
-export function checkNull(str) {
+module.exports.checkNull = function (str) {
 	if (typeof str === 'undefined' || str === null) {
 		return 0;
 	}
 	return str;
-}
+};
 
-export function getMonthName() {
+/**
+ * @param {string} str
+ * @returns {}
+ */
+module.exports.isEmptyResult = function (obj) {
+	if (typeof obj === 'undefined' || obj === null || obj == '') {
+		return true;
+	}
+	return false;
+};
+
+module.exports.getMonthName = function () {
 	return new Date().toLocaleDateString('en-US', { month: 'short' });
-}
+};
 // Format: dd/mm/yyyy
-export function getDateOnly() {
+module.exports.getDateOnly = function () {
 	return new Date().toLocaleDateString('en-GB');
-}
+};
 
 // Format: dd/mm/yyyy
-export function getDate() {
+module.exports.getDate = function () {
 	return new Date().getDate();
-}
+};

@@ -108,14 +108,15 @@ export default {
 	},
 
 	created() {
-		this.callApiBestRecord().then(
-			request =>
-				(this.data = {
+		this.callApiBestRecord().then(request => {
+			if (request.data.data[0] != undefined) {
+				this.data = {
 					bestRecord: request.data.data[0].BEST_RECORD,
 					userNo: this.$store.state.userInfo.userFullName,
 					userName: this.$store.state.userInfo.userName,
-				}),
-		);
+				};
+			}
+		});
 	},
 };
 </script>

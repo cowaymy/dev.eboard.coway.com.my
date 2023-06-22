@@ -64,7 +64,10 @@
 						:chart-series="salesRadialChart.series"
 					>
 					</StatisticsCardRadialBarChart> -->
-					<DashboardSalesStatisticsTotalSales />
+					<DashboardSalesStatisticsTotalSales
+						:isDoneTartgetApi="isDoneTartgetApi"
+						:isDoneCurMonthApi="isDoneCurMonthApi"
+					/>
 				</v-col>
 				<!-- <v-col cols="12" sm="6">
 					<DashboardTopGMChart />
@@ -140,12 +143,11 @@ import {
 	mdiHelpCircleOutline,
 	mdiTrendingUp,
 	mdiAccountCheckOutline,
-	mdiMapMarkerRadius,
 } from '@mdi/js';
+import store from '@/store';
 
 import DigitalClock from '../../comm/DigitalClock.vue';
-import bus from '../../../utils/bus.js';
-import salesApi from '../../../api/salesApi';
+import salesApiStoreModule from './salesApiStoreModule';
 
 import StatisticsCardVertical from '../../../components/statistics-card/StatisticsCardVertical.vue';
 import StatisticsCardSide from '../../../components/statistics-card/StatisticsCardSide.vue';
@@ -162,6 +164,7 @@ import DashboardCardSalesRankingbyHM from './DashboardCardSalesRankingbyHM.vue';
 import DashboardSalesTotalProfit from './DashboardSalesTotalProfit.vue';
 import DashboardSalesStatisticsTotalSales from './DashboardSalesStatisticsTotalSales.vue';
 import Notification from '../../comm/Notification.vue';
+const SASLE_APP_STORE_MODULE_NAME = 'app_salseEpapan';
 
 //
 
@@ -197,97 +200,74 @@ export default {
 		//bus.$emit('end:spinner');
 	},
 	methods: {
-		async callApiSalesHQMainApi() {
-			//start spinner
-			try {
-				const userInfo = this.$store.state.userInfo;
-				return await salesApi.getCurMonthData(userInfo);
-			} catch (error) {
-				console.log(error);
-				this.sheet = true;
-				this.logMaessage = error.message;
-			} finally {
-				bus.$emit('end:spinner');
-			}
+		fetchCurMonthData() {
+			console.log('fetchCurMonthData ==>');
+			store
+				.dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchCurMonthData`)
+				.then(response => {
+					(this.eKeyInData = {
+						statTitle: 'Key In',
+						icon: mdiClipboardEditOutline,
+						color: 'success',
+						subtitle: response.data.data[0].LST_UP_TIME,
+						statistics: response.data.data[0].SAL_KEYIN + '',
+						//change: response.data.user[0].PE_SAL_KEYIN,
+					}),
+						(this.NetSalesData = {
+							statTitle: 'Net Sales',
+							icon: mdiCheckboxMultipleMarkedOutline,
+							color: 'error',
+							subtitle: response.data.data[0].LST_UP_TIME,
+							statistics: response.data.data[0].SAL_NET_SALES + '',
+							//change: response.data.user[0].PE_SAL_NET_SALES,
+						}),
+						(this.ActiveHpData = {
+							statTitle: 'Active HP',
+							icon: mdiCheckboxMultipleMarkedOutline,
+							color: 'primary',
+							subtitle: response.data.data[0].LST_UP_TIME,
+							statistics: response.data.data[0].SAL_ACTIVE_HP + '',
+							//change: response.data.user[0].PE_SAL_ACTIVE_HP,
+						}),
+						(this.SHIData = {
+							statTitle: 'SHI',
+							icon: mdiTrendingUp,
+							color: 'warning',
+							subtitle: response.data.data[0].LST_UP_TIME,
+							statistics: response.data.data[0].SAL_SHI + '',
+							//change: response.data.user[0].PE_SAL_SHI,
+							moreshow: 'true',
+						});
+
+					this.isDoneCurMonthApi = true;
+				})
+				.catch(error => {
+					console.error(error);
+					console.error(error.response);
+				});
 		},
 
-		callSalesHQMainApi2() {
-			console.log('this is test data.....');
-			//start spinner
-			//bus.$emit('start:spinner');
-			try {
-				this.salesSide = {
-					statTitle: 'Hi Leo, You are here!!',
-					icon: mdiMapMarkerRadius,
-					color: 'red',
-					subtitle: 'updated 10 minutes ago',
-					statistics: '15',
-					series: [
-						{
-							type: 'sales',
-							curmvalue: '20%',
-							pevmvalue: '19%',
-							curmsg: ' Sales Ranking now',
-							pevmsg: ' Sales Ranking',
-							curm: 'April',
-							pevm: 'March',
-						},
-						{
-							type: 'join',
-							curmvalue: '25%',
-							pevmvalue: '12%',
-							curmsg: ' who join the same batch with you',
-							pevmsg: ' who join the same batch with you',
-							curm: 'April',
-							pevm: 'March',
-						},
-						{
-							type: 'age',
-							curmvalue: '28%',
-							pevmvalue: '29%',
-							curmsg: ' who join the same age with you',
-							pevmsg: ' who join the same age with you',
-							curm: 'April',
-							pevm: 'March',
-						},
-						{
-							type: 'among',
-							curmvalue: '30%',
-							pevmvalue: '49%',
-							curmsg: ' who among GM group with you',
-							pevmsg: ' who among GM group with you',
-							curm: 'April',
-							pevm: 'March',
-						},
-					],
-				};
-
-				this.curmontData = salesApi.getCurMonthData();
-			} catch (error) {
-				console.log(error);
-				this.sheet = true;
-				this.logMaessage = error.message;
-			} finally {
-				//bus.$emit('end:spinner');
-			}
-		},
-
-		async callApiTargetData() {
-			//start spinner
-			//bus.$emit('start:spinner');
-			try {
-				const userInfo = this.$store.state.userInfo;
-				return await salesApi.getTargetData(userInfo);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				//bus.$emit('end:spinner');
-			}
+		fetchTargetData() {
+			console.log('fetchTargetData ==>');
+			store
+				.dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchTargetData`)
+				.then(response => {
+					this.isDoneTartgetApi = true;
+				})
+				.catch(error => {
+					console.error(error);
+					console.error(error.response);
+				});
 		},
 	},
 
 	data() {
+		if (!store.hasModule(SASLE_APP_STORE_MODULE_NAME)) {
+			store.registerModule(SASLE_APP_STORE_MODULE_NAME, salesApiStoreModule);
+		}
 		return {
+			isDoneCurMonthApi: false,
+			isDoneTartgetApi: false,
 			logMaessage: '',
 			sheet: false,
 			mdiHelpCircleOutline,
@@ -303,91 +283,8 @@ export default {
 		};
 	},
 	created() {
-		//bus.$emit('start:spinner');
-		// this.callApiTargetData().then(request => {
-		// 	this.salesRadialChart = {
-		// 		statTitle: 'Total Sales Target',
-		// 		statistics: 'Net Sales',
-		// 		color: 'primary',
-		// 		chartSeries: request.data.data,
-		// 	};
-		// });
-		this.callApiSalesHQMainApi().then(
-			response => (
-				(this.eKeyInData = {
-					statTitle: 'Key In',
-					icon: mdiClipboardEditOutline,
-					color: 'success',
-					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_KEYIN + '',
-					//change: response.data.user[0].PE_SAL_KEYIN,
-				}),
-				(this.NetSalesData = {
-					statTitle: 'Net Sales',
-					icon: mdiCheckboxMultipleMarkedOutline,
-					color: 'error',
-					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_NET_SALES + '',
-					//change: response.data.user[0].PE_SAL_NET_SALES,
-				}),
-				(this.ActiveHpData = {
-					statTitle: 'Active HP',
-					icon: mdiCheckboxMultipleMarkedOutline,
-					color: 'primary',
-					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_ACTIVE_HP + '',
-					//change: response.data.user[0].PE_SAL_ACTIVE_HP,
-				}),
-				(this.SHIData = {
-					statTitle: 'SHI',
-					icon: mdiTrendingUp,
-					color: 'warning',
-					subtitle: response.data.data[0].LST_UP_TIME,
-					statistics: response.data.data[0].SAL_SHI + '',
-					//change: response.data.user[0].PE_SAL_SHI,
-					moreshow: 'true',
-				})
-			),
-		);
-		// setInterval(() => {
-		// 	this.callApiSalesHQMainApi().then(
-		// 		response => (
-		// 			(this.eKeyInData = {
-		// 				statTitle: 'Key In',
-		// 				icon: mdiClipboardEditOutline,
-		// 				color: 'success',
-		// 				subtitle: response.data.user[0].LST_UP_TIME,
-		// 				statistics: response.data.user[0].SAL_KEYIN,
-		// 				//change: response.data.user[0].PE_SAL_KEYIN,
-		// 			}),
-		// 			(this.NetSalesData = {
-		// 				statTitle: 'Net Sales',
-		// 				icon: mdiCheckboxMultipleMarkedOutline,
-		// 				color: 'error',
-		// 				subtitle: response.data.user[0].LST_UP_TIME,
-		// 				statistics: response.data.user[0].SAL_NET_SALES,
-		// 				//change: response.data.user[0].PE_SAL_NET_SALES,
-		// 			}),
-		// 			(this.ActiveHpData = {
-		// 				statTitle: 'Active HP',
-		// 				icon: mdiCheckboxMultipleMarkedOutline,
-		// 				color: 'primary',
-		// 				subtitle: response.data.user[0].LST_UP_TIME,
-		// 				statistics: response.data.user[0].SAL_ACTIVE_HP,
-		// 				//change: response.data.user[0].PE_SAL_ACTIVE_HP,
-		// 			}),
-		// 			(this.SHIData = {
-		// 				statTitle: 'SHI',
-		// 				icon: mdiTrendingUp,
-		// 				color: 'warning',
-		// 				subtitle: response.data.user[0].LST_UP_TIME,
-		// 				statistics: response.data.user[0].SAL_SHI,
-		// 				//change: response.data.user[0].PE_SAL_SHI,
-		// 				moreshow: 'true',
-		// 			})
-		// 		),
-		// 	);
-		// }, 30000);
+		this.fetchCurMonthData();
+		this.fetchTargetData();
 	},
 };
 </script>

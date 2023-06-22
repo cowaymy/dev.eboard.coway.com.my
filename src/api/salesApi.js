@@ -56,13 +56,13 @@ function getTargetData(userData) {
 }
 
 function getSalesBestRecord(userData) {
-	return newInstance.get('/comm/bestRecord', {
+	return newInstance.get('/apps/comm/bestRecord', {
 		params: trickToLevel0(userData),
 	});
 }
 
 function getSalesBestRecordList(userData) {
-	return newInstance.get('/comm/bestRecordList', {
+	return newInstance.get('/apps/comm/bestRecordList', {
 		params: trickToLevel0(userData),
 	});
 }
@@ -70,7 +70,7 @@ function getSalesBestRecordList(userData) {
 function trickToLevel0(userData) {
 	const options = {};
 
-	if ('4' == userData.userTypeId) {
+	if ('4' == userData.userTypeId || '6' == userData.userTypeId) {
 		options.memCode = '503581';
 		options.memId = '78068';
 		options.memberLevel = '0';

@@ -84,11 +84,10 @@ export default {
 		},
 	},
 	created() {
-		this.callApiNootificationData();
-
-		this.polling = setInterval(() => {
-			this.callApiNootificationData();
-		}, 60000);
+		// this.callApiNootificationData();
+		// this.polling = setInterval(() => {
+		// 	this.callApiNootificationData();
+		// }, 60000);
 	},
 
 	beforeDestroy() {

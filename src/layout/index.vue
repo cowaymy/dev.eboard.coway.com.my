@@ -20,7 +20,7 @@
 						:key="i"
 						active-class="border"
 						:ripple="false"
-						class="ml-2 my-3"
+						:class="newClass(item.route)"
 						@click="gotoMenu(item.route)"
 					>
 						<b></b>
@@ -153,13 +153,19 @@ export default {
 			selectedItem: 0,
 			drawer: null,
 			spinnerStatus: false,
-			userImage: '',
-			// 'http://localhost:3000/img/viewImg?imgPath=images/comm/' +
-			// this.$store.state.userInfo.imgPath,
+			userImage: `https://epapan.malaysia.coway.do/img/viewImg?imgPath=images/comm/${this.$store.state.userInfo.imgPath}`,
 			items: [
-				{ icon: mdiMonitorDashboard, text: '', route: 'main' },
-				{ icon: mdiCogRefresh, text: 'userInfo', route: '/accsetting' },
-				{ icon: mdiTwitter, text: 'userInfo', route: '/NotificationList' },
+				{ icon: mdiMonitorDashboard, text: '', route: 'main', style: '' },
+				{
+					icon: mdiCogRefresh,
+					text: 'userInfo',
+					route: '/accsetting',
+				},
+				{
+					icon: mdiTwitter,
+					text: 'userInfo',
+					route: '/NotificationList',
+				},
 				{
 					icon: mdiQrcodeScan,
 					text: 'Sacn QR',
@@ -227,6 +233,16 @@ export default {
 	},
 
 	methods: {
+		newClass(item) {
+			console.log(item);
+
+			if (item == '/AttendScanQR') {
+				return 'ml-2 my-3 pwa';
+			} else {
+				return 'ml-2 my-3';
+			}
+		},
+
 		logoutUser() {
 			this.$store.commit('clearUserInfo');
 			this.$router.push('/');
@@ -344,5 +360,17 @@ export default {
 	max-width: 1440px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+@media all and (display-mode: standalone) {
+	#pwa {
+		display: block;
+	}
+}
+
+@media all and (display-mode: browser) {
+	#pwa {
+		display: none;
+	}
 }
 </style>

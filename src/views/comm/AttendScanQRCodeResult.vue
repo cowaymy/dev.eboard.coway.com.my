@@ -111,16 +111,22 @@ export default {
 				this.resultMessage = data.message;
 				this.proIcon = mdiCheckCircle;
 
-				console.log('쿠키 생성.....신규 쿠키:', data.dataList.attendtoken);
+				console.log('결과 쿠키값 :  ', data.dataList.attendtoken);
+				if (
+					data.dataList.attendtoken != undefined &&
+					data.dataList.attendtoken != 'undefined'
+				) {
+					console.log('쿠키 생성.....신규 쿠키:', data.dataList.attendtoken);
 
-				//delete cookie
-				deleteAtendCookie(this.$store.state.userInfo.userName);
+					//delete cookie
+					deleteAtendCookie(this.$store.state.userInfo.userName);
 
-				//create new cookie
-				saveAttendToCookie(
-					this.$store.state.userInfo.userName,
-					data.dataList.attendtoken,
-				);
+					//create new cookie
+					saveAttendToCookie(
+						this.$store.state.userInfo.userName,
+						data.dataList.attendtoken,
+					);
+				}
 			} else {
 				this.proColor = 'error';
 				this.proText = 'Failed';

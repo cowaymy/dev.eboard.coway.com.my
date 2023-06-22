@@ -84,7 +84,7 @@ export default {
 	},
 	methods: {
 		goToAttendHisty() {
-			console.log('1231');
+			//console.log('1231');
 		},
 		initProgress() {
 			if (this.resultCode == 'process') {

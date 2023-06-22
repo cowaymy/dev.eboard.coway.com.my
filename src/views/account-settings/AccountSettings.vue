@@ -37,7 +37,7 @@
 				></account-settings-notification>
 			</v-tab-item>
 			<template v-if="isOfficeAdmin()">
-				<v-tab-item id="pwa">
+				<v-tab-item>
 					<AccountSettingAttendScanQRCodeSetting></AccountSettingAttendScanQRCodeSetting>
 				</v-tab-item>
 			</template>

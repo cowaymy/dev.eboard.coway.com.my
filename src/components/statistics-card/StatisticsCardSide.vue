@@ -93,17 +93,17 @@ export default {
 			mdiDotsVertical,
 			items: [
 				{
-					src: 'https://www.coway.com.my/img/general-slider/coway-bamboo-plus-POE-22A.jpg',
+					src: 'https://www.coway.com.my/files/campaign/brand_renewal2023/coway-malaysia-change-your-life-mira-2023.jpg',
 				},
 				{
-					src: 'https://www.coway.com.my/img/general-slider/coway-we-stand-as-one.jpg',
+					src: 'https://www.coway.com.my/files/Products/cooling/air-conditioner/coway-malaysia-air-conditioner-cool-comfort-meets-pure-protection.jpg',
 				},
 				{
-					src: 'https://www.coway.com.my/img/general-slider/coway-double-hepa-filter.jpg',
+					src: 'https://www.coway.com.my/files/Products/massage-chair/massage-chair/coway-quiet-and-silence-massage-chair-for-a-blissful-rest.jpg',
 				},
 
 				{
-					src: 'https://www.cowayrun.com.my/images/coway-img-47-v5_2days_r.png',
+					src: 'https://www.coway.com.my/img/banner/coway-run-2023-early-bird-sales.jpg',
 				},
 			],
 		};
