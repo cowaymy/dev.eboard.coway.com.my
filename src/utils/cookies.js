@@ -5,14 +5,14 @@ function saveAuthToCookie(value) {
 function saveAttendToCookie(key, value) {
 	if (typeof Storage !== 'undefined') {
 		// Code for localStorage/sessionStorage.
-		localStorage.setItem(`atend_${key}`, value);
+		localStorage.setItem(`coway_attend`, value);
 	} else {
 		// Sorry! No Web Storage support..
 	}
 
 	var expire = new Date();
 	expire.setDate(expire.getDate() + 1000);
-	document.cookie = `atend_${key}=${value};`;
+	document.cookie = `coway_attend=${value};`;
 }
 
 function saveUserToCookie(value) {
@@ -25,8 +25,8 @@ function getAuthFromCookie() {
 	);
 }
 
-function getAttendFromCookie(key) {
-	return localStorage.getItem(`atend_${key}`);
+function getAttendFromCookie() {
+	return localStorage.getItem(`coway_attend`);
 	// return document.cookie.replace(
 	// 	/(?:(?:^|.*;\s*)atend_`${key}`\s*=\s*([^;]*).*$)|^.*$/,
 	// 	'$1',
@@ -50,8 +50,8 @@ function deleteCookie(value) {
 	document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 }
 
-function deleteAtendCookie(value) {
-	localStorage.removeItem(`attend_${value}`);
+function deleteAtendCookie() {
+	localStorage.removeItem(`coway_attend`);
 
 	//document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 }

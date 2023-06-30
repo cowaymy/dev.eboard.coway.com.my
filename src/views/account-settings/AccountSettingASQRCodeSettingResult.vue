@@ -131,6 +131,7 @@ export default {
 					userName: this.$store.state.userInfo.userName,
 					userBranchId: this.$store.state.userInfo.userBranchId,
 					userBranchName: this.$store.state.userInfo.branchName,
+					userBranchCode: this.$store.state.userInfo.code,
 				};
 				const { data } = await baseApi.updateAttendQRBranchData(payload);
 

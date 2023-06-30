@@ -13,4 +13,19 @@ async function fetchAttendEvents(userData) {
 	);
 }
 
-export default { fetchAttendEvents };
+async function fetchAttendBranchName(id) {
+	return newInstance.get(`/apps/calendar/attendBranchName/${id}`);
+}
+
+async function fetchAttendAllowLactionFroHp(data) {
+	console.log('fetchAttendAllowLactionFroHp=====>', data);
+	return newInstance.get(
+		`/apps/calendar/checkAttendanceAllowLocationForHp/${data.id}/scanDevice/${data.deviceId}`,
+	);
+}
+
+export default {
+	fetchAttendEvents,
+	fetchAttendBranchName,
+	fetchAttendAllowLactionFroHp,
+};

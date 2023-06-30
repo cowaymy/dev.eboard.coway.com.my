@@ -2,6 +2,11 @@ const path = require('path');
 const { mergeSassVariables } = require('@vuetify/cli-plugin-utils');
 
 module.exports = {
+	pwa: {
+		iconPaths: {
+			favicon32: './src/assets/logo.png',
+		},
+	},
 	transpileDependencies: ['vuetify'],
 	configureWebpack: {
 		resolve: {

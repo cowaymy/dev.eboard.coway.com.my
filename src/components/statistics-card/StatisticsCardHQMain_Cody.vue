@@ -114,12 +114,12 @@ export default {
 		const newEkeyIn = '';
 		const graphSales = {};
 
-		const pollData = null;
+		const polling_cody = null;
 
 		return {
 			graphSales,
 			newEkeyIn,
-			pollData,
+			polling_cody,
 			icons: {
 				mdiDotsVertical,
 				mdiTrendingUp,
@@ -183,7 +183,9 @@ export default {
 	},
 
 	beforeDestroy() {
-		clearInterval(this.polling);
+		clearInterval(this.polling_cody);
+
+		console.log('this.polling  out  cody 후 id   id :::::', this.polling_cody);
 	},
 
 	created() {
@@ -200,7 +202,7 @@ export default {
 			this.newEkeyIn = response.data.user[0].Today_Keyin + '';
 		});
 
-		this.pollData = setInterval(() => {
+		this.polling_cody = setInterval(() => {
 			this.callSalesHQMainApi().then(response => {
 				this.graphSales = {
 					new_sal:
@@ -213,6 +215,8 @@ export default {
 				this.newEkeyIn = response.data.user[0].Today_Keyin + '';
 			});
 		}, 30000);
+
+		console.log('this.polling cody id   id :::::', this.polling_cody);
 	},
 };
 </script>

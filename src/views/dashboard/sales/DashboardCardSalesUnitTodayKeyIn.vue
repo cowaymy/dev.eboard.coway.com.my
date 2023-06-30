@@ -213,7 +213,7 @@ export default {
 	},
 
 	beforeDestroy() {
-		clearInterval(this.polling);
+		clearInterval(this.pollData);
 	},
 
 	created() {

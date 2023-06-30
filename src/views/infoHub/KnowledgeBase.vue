@@ -75,35 +75,6 @@
 					</v-card>
 				</v-col>
 
-				<v-col md="4" sm="6" cols="12">
-					<v-card>
-						<v-card-title>
-							<div>
-								<p class="text-3xl font-weight-semibold text--primary mb-2">
-									{{ attend.branchName }}
-								</p>
-								<span class="text-base font-weight-semibold">
-									{{ attend.mainDeptName }}
-								</span>
-							</div>
-						</v-card-title>
-
-						<v-card-text>
-							<div align="center">
-								<qrcode-vue
-									:value="attend.qrdata"
-									:size="attend.qrsize"
-									level="H"
-								/>
-							</div>
-						</v-card-text>
-
-						<v-card-text align="center">
-							<span class="text-base font-weight-semibold"> Attendance</span>
-						</v-card-text>
-					</v-card>
-				</v-col>
-
 				<!-- no result found -->
 				<v-col v-show="!filteredKB.length" cols="12" class="text-center">
 					<h4 class="mt-4">Search result not found!!</h4>
@@ -127,7 +98,6 @@ import LinkToSSO from '../../components/comm/LinkToSSO';
 import DigitalClock from '../../views/comm/DigitalClock.vue';
 
 //import VueQrcode from 'vue-qrcode';
-import QrcodeVue from 'qrcode.vue';
 
 var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -139,7 +109,6 @@ export default {
 		StatisticsCardHQMain_Cody,
 		LinkToSSO,
 		DigitalClock,
-		QrcodeVue,
 	},
 	data() {
 		const knowledgeBaseSearchQuery = '';
@@ -167,8 +136,6 @@ export default {
 
 	created() {
 		this.filteredKB = this.fun_kbContentData();
-		setInterval(this.fun_generateQrCode, 10000);
-		this.fun_generateQrCode();
 	},
 	computed: {
 		filteredNames() {
@@ -187,16 +154,6 @@ export default {
 
 	mounted() {},
 	methods: {
-		fun_generateQrCode() {
-			this.attend.qrdata = '';
-
-			this.fun_updateTime();
-
-			var dataApis =
-				'http://172.16.252.101:3000/aten/saveAttendance?data=' +
-				JSON.stringify(this.attend);
-			this.attend.qrdata = dataApis;
-		},
 		fun_filteredKB() {
 			const knowledgeBaseSearchQueryLower =
 				this.knowledgeBaseSearchQuery.toLowerCase();
@@ -227,27 +184,6 @@ export default {
 					desc: '',
 				},
 			];
-		},
-
-		fun_updateTime() {
-			var cd = new Date();
-
-			this.attend.time =
-				this.zeroPadding(cd.getHours(), 2) +
-				this.zeroPadding(cd.getMinutes(), 2) +
-				this.zeroPadding(cd.getSeconds(), 2);
-			this.attend.date =
-				this.zeroPadding(cd.getDate(), 2) +
-				this.zeroPadding(cd.getMonth() + 1, 2) +
-				this.zeroPadding(cd.getFullYear(), 4);
-		},
-
-		zeroPadding(num, digit) {
-			var zero = '';
-			for (var i = 0; i < digit; i++) {
-				zero += '0';
-			}
-			return (zero + num).slice(-digit);
 		},
 	},
 };
