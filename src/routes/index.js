@@ -168,6 +168,15 @@ const router = new VueRouter({
 			props: true,
 			meta: { requiresAuth: false },
 		},
+
+		{
+			path: '/AttendHistoryList',
+			name: 'AttendHistoryList',
+			component: () =>
+				import('../views/comm/calendar/CalendarAttendanceHistory.vue'),
+			props: true,
+			meta: { requiresAuth: false },
+		},
 	],
 });
 

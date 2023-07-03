@@ -142,6 +142,7 @@ import {
 	mdiQrcodeScan,
 	mdiCogRefresh,
 	mdiTwitter,
+	mdiCalendarClockOutline,
 } from '@mdi/js';
 import bus from '../utils/bus.js';
 import AppBarNotification from '../components/appBar/AppBarNotification.vue';
@@ -166,6 +167,13 @@ export default {
 					text: 'userInfo',
 					route: '/NotificationList',
 				},
+
+				{
+					icon: mdiCalendarClockOutline,
+					text: 'attendHistoryList',
+					route: '/AttendHistoryList',
+				},
+
 				{
 					icon: mdiQrcodeScan,
 					text: 'Sacn QR',

@@ -1,5 +1,5 @@
 //import axios from 'axios';
-
+import bus from '../../../utils/bus.js';
 import calendarApi from '../../../api/calendarApi';
 import store from '@/store';
 
@@ -23,6 +23,10 @@ export default {
 	actions: {
 		fetchEvents({ commit }, _date) {
 			console.log(store);
+
+			//start spinner
+			bus.$emit('start:spinner');
+
 			const userInfo = store.state.userInfo;
 
 			console.log('=========>', _date);
@@ -36,7 +40,10 @@ export default {
 				calendarApi
 					.fetchAttendEvents(pramData)
 					.then(response => resolve(response))
-					.catch(error => reject(error));
+					.catch(error => reject(error))
+					.finally(() => {
+						bus.$emit('end:spinner');
+					});
 			});
 		},
 		// addEvent(ctx, { event }) {
