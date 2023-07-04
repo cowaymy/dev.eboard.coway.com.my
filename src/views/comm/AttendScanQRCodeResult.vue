@@ -187,6 +187,8 @@ export default {
 					scanDate: obj.date,
 					scanTime: obj.currentTime,
 					scanDevice: obj.deviceId,
+					scanQRType: 'A0001',
+					scanQRTypeDesc: 'QR',
 					scanUserToken: getAttendFromCookie(
 						this.$store.state.userInfo.userName,
 					),

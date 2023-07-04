@@ -53,6 +53,50 @@
 			</v-card>
 		</v-col>
 		<v-col cols="12" md="12">
+			<v-btn
+				:color="setTagColor('A0005')"
+				class="me-3"
+				@click="fetchEvents('A0005')"
+			>
+				<v-icon class="me-1">
+					{{ setTag('A0005') }}
+				</v-icon>
+				<span> Waived</span>
+			</v-btn>
+
+			<v-btn
+				:color="setTagColor('A0004')"
+				class="me-3"
+				@click="fetchEvents('A0004')"
+			>
+				<v-icon class="me-1">
+					{{ setTag('A0004') }}
+				</v-icon>
+				<span> RFA</span>
+			</v-btn>
+			<v-btn
+				:color="setTagColor('A0002')"
+				class="me-3"
+				@click="fetchEvents('A0002')"
+			>
+				<v-icon class="me-1">
+					{{ setTag('A0002') }}
+				</v-icon>
+				<span> Holiday</span>
+			</v-btn>
+
+			<v-btn
+				:color="setTagColor('A0001')"
+				class="me-3"
+				@click="fetchEvents('A0001')"
+			>
+				<v-icon class="me-1">
+					{{ setTag('A0001') }}
+				</v-icon>
+				<span> QR</span>
+			</v-btn>
+		</v-col>
+		<v-col cols="12" md="12">
 			<v-card>
 				<v-card-title class="align-start">
 					<span style="color: info; font-weight: bold"
@@ -64,11 +108,11 @@
 				<v-card-text>
 					<v-list class="pt-0">
 						<v-list-item
-							v-for="(data, index) in events"
-							:key="data.start"
+							v-for="(item, index) in events"
+							:key="item.start"
 							:class="`d-flex align-center px-0 ${index > 0 ? 'mt-3' : ''}`"
 						>
-							<v-list-item-avatar size="38" color="success">
+							<v-list-item-avatar size="38" color="info">
 								<v-icon size="18" color="error">
 									{{ icons.mdiCheckBold }}
 								</v-icon>
@@ -80,8 +124,8 @@
 								<div class="me-2">
 									<v-list-item-title class="text-xs">
 										<span style="color: info; font-weight: bold">
-											( {{ data.title_id }} )</span
-										>{{ data.title }}
+											( {{ item.title_id }} )</span
+										>{{ item.title }}
 									</v-list-item-title>
 
 									<div class="d-flex align-center">
@@ -89,15 +133,26 @@
 											{{ icons.mdiCalendarClockOutline }}
 										</v-icon>
 										<v-list-item-subtitle>
-											{{ splitData(data.start, 'T')[0] }} |
+											<span style="font-weight: bold">
+												{{ splitData(item.start, 'T')[0] }}</span
+											>
+											|
 											<span style="color: blue; font-weight: bold">
-												{{ splitData(data.start, 'T')[1] }}</span
+												{{ splitData(item.start, 'T')[1] }}</span
 											>
 										</v-list-item-subtitle>
 									</div>
 								</div>
-
 								<v-spacer></v-spacer>
+
+								<v-chip
+									class="ma-2"
+									:color="setTagColor(item.attend_type_code)"
+									label
+									text-color="white"
+								>
+									<v-icon start> {{ setTag(item.attend_type_code) }} </v-icon>
+								</v-chip>
 							</div>
 						</v-list-item>
 					</v-list>
@@ -114,6 +169,12 @@ import {
 	mdiMagnifyPlusOutline,
 	mdiCalendarClockOutline,
 	mdiCheckBold,
+	mdiLabelMultiple,
+	mdiMessageAlertOutline,
+	mdiQrcodeScan,
+	mdiAirplaneTakeoff,
+	mdiClipboardEditOutline,
+	mdiCalendarHeart,
 } from '@mdi/js';
 
 import store from '@/store';
@@ -138,20 +199,40 @@ export default {
 				mdiMagnifyPlusOutline,
 				mdiCalendarClockOutline,
 				mdiCheckBold,
+				mdiLabelMultiple,
+				mdiMessageAlertOutline,
+				mdiQrcodeScan,
+				mdiAirplaneTakeoff,
+				mdiClipboardEditOutline,
+				mdiCalendarHeart,
 			},
 		};
 	},
 
+	computed: {},
+
 	methods: {
-		fetchEvents() {
+		fetchEvents(_type) {
 			const parsedValue = this.date.replace(/-/g, '');
 			store
 				.dispatch(`${CALENDAR_APP_STORE_MODULE_NAME}/fetchEvents`, parsedValue)
 				.then(response => {
 					console.log(response.data.dataList);
 					const _events = response.data.dataList;
+					if (_type === undefined) {
+						this.events = [..._events];
+					} else {
+						const eObj = [];
 
-					this.events = [..._events];
+						response.data.dataList.forEach(element => {
+							if (element.attend_type_code == _type) {
+								console.log(element);
+								eObj.push(element);
+							}
+
+							this.events = [...eObj];
+						});
+					}
 				})
 				.catch(error => {
 					console.error(error);
@@ -159,10 +240,55 @@ export default {
 				});
 		},
 
+		keyEvents(type) {
+			console.log('---------------------------');
+			console.log(type);
+
+			console.log('---------------------------');
+
+			return this.events.filter(item => {
+				console.log(item),
+					item.attend_type_code.toLowerCase().includes('A0004');
+			});
+		},
 		splitData(data, type) {
 			if (data === undefined) return '';
 
 			return data.split(type);
+		},
+
+		setTag(typeCode) {
+			let tagIcon = mdiMessageAlertOutline;
+			if (typeCode == 'A0001') {
+				tagIcon = mdiQrcodeScan;
+			} else if (typeCode == 'A0002' || typeCode == 'A0003') {
+				tagIcon = mdiAirplaneTakeoff;
+			} else if (typeCode == 'A0004') {
+				tagIcon = mdiClipboardEditOutline;
+			} else if (typeCode == 'A0005') {
+				tagIcon = mdiCalendarHeart;
+			} else {
+				tagIcon = mdiMessageAlertOutline;
+			}
+
+			return tagIcon;
+		},
+
+		setTagColor(typeCode) {
+			let tagIcon = 'secondary';
+			if (typeCode == 'A0001') {
+				tagIcon = 'info';
+			} else if (typeCode == 'A0002' || typeCode == 'A0003') {
+				tagIcon = 'warning';
+			} else if (typeCode == 'A0004') {
+				tagIcon = 'success';
+			} else if (typeCode == 'A0005') {
+				tagIcon = 'error';
+			} else {
+				tagIcon = 'secondary';
+			}
+
+			return tagIcon;
 		},
 	},
 };

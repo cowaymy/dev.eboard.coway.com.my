@@ -75,7 +75,6 @@
 					</v-card>
 				</v-col>
 
-				<!-- no result found -->
 				<v-col v-show="!filteredKB.length" cols="12" class="text-center">
 					<h4 class="mt-4">Search result not found!!</h4>
 				</v-col>
@@ -141,7 +140,6 @@ export default {
 		filteredNames() {
 			return this.filteredKB.filter(
 				item =>
-					// eslint-disable-next-line operator-linebreak
 					item.title
 						.toLowerCase()
 						.includes(this.knowledgeBaseSearchQuery.toLowerCase()) ||
@@ -154,17 +152,17 @@ export default {
 
 	mounted() {},
 	methods: {
-		fun_filteredKB() {
-			const knowledgeBaseSearchQueryLower =
-				this.knowledgeBaseSearchQuery.toLowerCase();
+		// fun_filteredKB() {
+		// 	const knowledgeBaseSearchQueryLower =
+		// 		this.knowledgeBaseSearchQuery.toLowerCase();
 
-			return this.fun_kbContentData().filter(
-				item =>
-					// eslint-disable-next-line operator-linebreak
-					item.title.toLowerCase().includes(knowledgeBaseSearchQueryLower) ||
-					item.desc.toLowerCase().includes(knowledgeBaseSearchQueryLower),
-			);
-		},
+		// 	return this.fun_kbContentData().filter(
+		// 		item =>
+		// 			// eslint-disable-next-line operator-linebreak
+		// 			item.title.toLowerCase().includes(knowledgeBaseSearchQueryLower) ||
+		// 			item.desc.toLowerCase().includes(knowledgeBaseSearchQueryLower),
+		// 	);
+		// },
 
 		fun_kbContentData() {
 			return [
