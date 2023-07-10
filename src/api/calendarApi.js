@@ -13,6 +13,17 @@ async function fetchAttendEvents(userData) {
 	);
 }
 
+async function fetchAttendHistoryEvents(userData) {
+	// let options = {
+	// 	reqDate: userData.reqDate,
+	// 	id: userData.userName,
+	// };
+
+	return newInstance.get(
+		`/apps/calendar/attendHistoryEvents/${userData.userName}/reqDate/${userData.reqDate}`,
+	);
+}
+
 async function fetchAttendBranchName(id) {
 	return newInstance.get(`/apps/calendar/attendBranchName/${id}`);
 }
@@ -28,4 +39,5 @@ export default {
 	fetchAttendEvents,
 	fetchAttendBranchName,
 	fetchAttendAllowLactionFroHp,
+	fetchAttendHistoryEvents,
 };

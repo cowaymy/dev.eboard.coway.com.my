@@ -46,6 +46,33 @@ export default {
 					});
 			});
 		},
+
+		fetchHistoryEvents({ commit }, _date) {
+			console.log(store);
+
+			//start spinner
+			bus.$emit('start:spinner');
+
+			const userInfo = store.state.userInfo;
+
+			console.log('=========>', _date);
+
+			const pramData = {
+				userName: userInfo.userName,
+				reqDate: _date,
+			};
+
+			return new Promise((resolve, reject) => {
+				calendarApi
+					.fetchAttendHistoryEvents(pramData)
+					.then(response => resolve(response))
+					.catch(error => reject(error))
+					.finally(() => {
+						bus.$emit('end:spinner');
+					});
+			});
+		},
+
 		// addEvent(ctx, { event }) {
 		// 	return new Promise((resolve, reject) => {
 		// 		axios

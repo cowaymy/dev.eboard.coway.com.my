@@ -53,48 +53,49 @@
 			</v-card>
 		</v-col>
 		<v-col cols="12" md="12">
-			<v-btn
+			<v-chip
+				size="x-small"
 				:color="setTagColor('A0005')"
-				class="me-3"
 				@click="fetchEvents('A0005')"
+				class="me-3"
 			>
 				<v-icon class="me-1">
 					{{ setTag('A0005') }}
 				</v-icon>
-				<span> Waived</span>
-			</v-btn>
+				<span>W</span>
+			</v-chip>
 
-			<v-btn
+			<v-chip
 				:color="setTagColor('A0004')"
-				class="me-3"
 				@click="fetchEvents('A0004')"
+				class="me-3"
 			>
 				<v-icon class="me-1">
 					{{ setTag('A0004') }}
 				</v-icon>
-				<span> RFA</span>
-			</v-btn>
-			<v-btn
+				<span> R</span>
+			</v-chip>
+			<v-chip
 				:color="setTagColor('A0002')"
-				class="me-3"
 				@click="fetchEvents('A0002')"
+				class="me-3"
 			>
 				<v-icon class="me-1">
 					{{ setTag('A0002') }}
 				</v-icon>
-				<span> Holiday</span>
-			</v-btn>
+				<span> H</span>
+			</v-chip>
 
-			<v-btn
+			<v-chip
 				:color="setTagColor('A0001')"
-				class="me-3"
 				@click="fetchEvents('A0001')"
+				class="me-3"
 			>
 				<v-icon class="me-1">
 					{{ setTag('A0001') }}
 				</v-icon>
 				<span> QR</span>
-			</v-btn>
+			</v-chip>
 		</v-col>
 		<v-col cols="12" md="12">
 			<v-card>
@@ -112,48 +113,78 @@
 							:key="item.start"
 							:class="`d-flex align-center px-0 ${index > 0 ? 'mt-3' : ''}`"
 						>
-							<v-list-item-avatar size="38" color="info">
-								<v-icon size="18" color="error">
-									{{ icons.mdiCheckBold }}
-								</v-icon>
-							</v-list-item-avatar>
+							<template v-if="item.isAttendance == 1">
+								<v-list-item-avatar size="38" color="info">
+									<v-icon size="18" color="error">
+										{{ icons.mdiCheckBold }}
+									</v-icon>
+								</v-list-item-avatar>
 
-							<div
-								class="d-flex align-center flex-grow-1 flex-wrap text-no-wrap"
-							>
-								<div class="me-2">
-									<v-list-item-title class="text-xs">
-										<span style="color: info; font-weight: bold">
-											( {{ item.title_id }} )</span
-										>{{ item.title }}
-									</v-list-item-title>
+								<div
+									class="d-flex align-center flex-grow-1 flex-wrap text-no-wrap"
+								>
+									<div class="me-2">
+										<v-list-item-title class="text-xs">
+											<span style="color: info; font-weight: bold">
+												( {{ item.title_id }} )</span
+											>{{ item.title }}
+										</v-list-item-title>
 
-									<div class="d-flex align-center">
-										<v-icon size="14" class="me-1">
-											{{ icons.mdiCalendarClockOutline }}
-										</v-icon>
-										<v-list-item-subtitle>
-											<span style="font-weight: bold">
-												{{ splitData(item.start, 'T')[0] }}</span
-											>
-											|
-											<span style="color: blue; font-weight: bold">
-												{{ splitData(item.start, 'T')[1] }}</span
-											>
-										</v-list-item-subtitle>
+										<div class="d-flex align-center">
+											<v-icon size="14" class="me-1">
+												{{ icons.mdiCalendarClockOutline }}
+											</v-icon>
+											<v-list-item-subtitle>
+												<span style="font-weight: bold">
+													{{ item.event_date }}</span
+												>
+												|
+												<span style="color: blue; font-weight: bold">
+													{{ splitData(item.start, 'T')[1] }}</span
+												>
+											</v-list-item-subtitle>
+										</div>
 									</div>
 								</div>
 								<v-spacer></v-spacer>
-
-								<v-chip
-									class="ma-2"
-									:color="setTagColor(item.attend_type_code)"
-									label
-									text-color="white"
+								<span>
+									<v-icon :color="setTagColor(item.attend_type_code)" start>
+										{{ setTag(item.attend_type_code) }}
+									</v-icon></span
 								>
-									<v-icon start> {{ setTag(item.attend_type_code) }} </v-icon>
-								</v-chip>
-							</div>
+							</template>
+							<template v-else>
+								<v-list-item-avatar size="38" color="secondary">
+									<v-icon size="18">
+										{{ icons.mdiCancel }}
+									</v-icon>
+								</v-list-item-avatar>
+
+								<div
+									class="d-flex align-center flex-grow-1 flex-wrap text-no-wrap"
+								>
+									<div class="me-2">
+										<v-list-item-title class="text-xs"> </v-list-item-title>
+
+										<div class="d-flex align-center">
+											<v-icon size="14" class="me-1">
+												{{ icons.mdiCalendarClockOutline }}
+											</v-icon>
+											<v-list-item-subtitle>
+												<span style="font-weight: bold">
+													{{ item.event_date }}</span
+												>
+											</v-list-item-subtitle>
+										</div>
+									</div>
+								</div>
+								<v-spacer></v-spacer>
+								<span>
+									<v-icon :color="setTagColor(item.attend_type_code)" start>
+										{{ setTag(item.attend_type_code) }}
+									</v-icon></span
+								>
+							</template>
 						</v-list-item>
 					</v-list>
 				</v-card-text>
@@ -175,6 +206,7 @@ import {
 	mdiAirplaneTakeoff,
 	mdiClipboardEditOutline,
 	mdiCalendarHeart,
+	mdiCancel,
 } from '@mdi/js';
 
 import store from '@/store';
@@ -205,6 +237,7 @@ export default {
 				mdiAirplaneTakeoff,
 				mdiClipboardEditOutline,
 				mdiCalendarHeart,
+				mdiCancel,
 			},
 		};
 	},
@@ -215,7 +248,10 @@ export default {
 		fetchEvents(_type) {
 			const parsedValue = this.date.replace(/-/g, '');
 			store
-				.dispatch(`${CALENDAR_APP_STORE_MODULE_NAME}/fetchEvents`, parsedValue)
+				.dispatch(
+					`${CALENDAR_APP_STORE_MODULE_NAME}/fetchHistoryEvents`,
+					parsedValue,
+				)
 				.then(response => {
 					console.log(response.data.dataList);
 					const _events = response.data.dataList;
@@ -252,7 +288,8 @@ export default {
 			});
 		},
 		splitData(data, type) {
-			if (data === undefined) return '';
+			console.log(data);
+			if (data === undefined || data == '' || data == null) return '';
 
 			return data.split(type);
 		},
