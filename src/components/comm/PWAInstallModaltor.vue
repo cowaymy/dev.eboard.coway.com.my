@@ -98,16 +98,15 @@ export default {
 		},
 
 		openDialog() {
-			alert('isPwa::', this.isPwa());
-			if (!this.isPwa()) {
-				this.dialog = true;
-			}
+			this.isPwa().then(r => {
+				if (r.length == 0) {
+					this.dialog = true;				
+				}
+			})
 		},
 
 		isPwa() {
-			navigator.getInstalledRelatedApps().then(r => {
-				return r.length == 0 ? false : true;
-			});
+			return navigator.getInstalledRelatedApps();
 		},
 	},
 };
