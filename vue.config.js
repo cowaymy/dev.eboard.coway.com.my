@@ -40,4 +40,14 @@ module.exports = {
 		overlay: false,
 		disableHostCheck: true,
 	},
+	pwa: {
+		manifestOptions: {
+			"scope": "/",
+			"start_url": "/",
+			"related_applications": [{
+				"platform": "webapp",
+				"url": "https://epapan.malaysia.coway.do/manifest.json",
+			}],
+		}
+	}
 };
