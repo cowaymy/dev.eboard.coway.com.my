@@ -81,7 +81,7 @@
 			</v-row>
 		</div>
 
-		<div><LinkToSSO></LinkToSSO></div>
+		<div><eMdaltor apptype="PWA"></eMdaltor></div>
 	</section>
 </template>
 
@@ -92,9 +92,11 @@ import { mdiMagnify } from '@mdi/js';
 //import LinkToBottomButtonVue from '../comm/LinkToBottomButton.vue';
 import StatisticsCardHQMain from '../../components/statistics-card/StatisticsCardHQMain_Salse.vue';
 import StatisticsCardHQMain_Cody from '../../components/statistics-card/StatisticsCardHQMain_Cody.vue';
-import LinkToSSO from '../../components/comm/LinkToSSO';
+//import LinkToSSO from '../../components/comm/LinkToSSO';
 
 import DigitalClock from '../../views/comm/DigitalClock.vue';
+
+import eMdaltor from '../../components/comm/PWAInstallModaltor.vue';
 
 //import VueQrcode from 'vue-qrcode';
 
@@ -106,15 +108,15 @@ export default {
 		//LinkToBottomButtonVue,
 		StatisticsCardHQMain,
 		StatisticsCardHQMain_Cody,
-		LinkToSSO,
 		DigitalClock,
+		eMdaltor,
 	},
 	data() {
 		const knowledgeBaseSearchQuery = '';
 
 		return {
 			knowledgeBaseSearchQuery,
-
+			open: false,
 			myIframe: null,
 			src: 'https://jennifer.my.coway.com/login/sso?id=sales&password=sales&redirect=/userdefine/dashboard?key=658cf2bf-d5f4-4abe-99f8-d95be4cc6f8b',
 			//src: 'https://jennifer.my.coway.com/login/redirect?token=zoFjTOiM3HZ',
@@ -150,7 +152,6 @@ export default {
 		},
 	},
 
-	mounted() {},
 	methods: {
 		// fun_filteredKB() {
 		// 	const knowledgeBaseSearchQueryLower =
