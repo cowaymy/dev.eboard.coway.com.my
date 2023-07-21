@@ -147,8 +147,7 @@ export default {
 		isOfficeAdmin() {
 			console.log(this.$store.state.userInfo);
 			if (
-				this.$store.state.userInfo.userTypeId == 4 ||
-				this.$store.state.userInfo.userTypeId == 6
+				this.$store.state.userInfo.userTypeId == 1 
 			) {
 				return true;
 			} else {

@@ -129,8 +129,8 @@ export default {
 					scanTime: obj.currentTime,
 					scanDevice: obj.deviceId,
 					userName: this.$store.state.userInfo.userName,
-					userBranchId: this.$store.state.userInfo.userBranchId,
-					userBranchName: this.$store.state.userInfo.branchName,
+					userBranchId: this.$store.state.userInfo.businessAreaId,
+					userBranchName: this.$store.state.userInfo.businessAreaDesc,
 					userBranchCode: this.$store.state.userInfo.code,
 				};
 				const { data } = await baseApi.updateAttendQRBranchData(payload);
