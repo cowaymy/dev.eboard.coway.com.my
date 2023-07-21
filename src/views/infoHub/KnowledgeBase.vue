@@ -80,8 +80,6 @@
 				</v-col>
 			</v-row>
 		</div>
-
-		<div><eMdaltor apptype="PWA"></eMdaltor></div>
 	</section>
 </template>
 
@@ -96,8 +94,6 @@ import StatisticsCardHQMain_Cody from '../../components/statistics-card/Statisti
 
 import DigitalClock from '../../views/comm/DigitalClock.vue';
 
-import eMdaltor from '../../components/comm/PWAInstallModaltor.vue';
-
 //import VueQrcode from 'vue-qrcode';
 
 var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -109,7 +105,6 @@ export default {
 		StatisticsCardHQMain,
 		StatisticsCardHQMain_Cody,
 		DigitalClock,
-		eMdaltor,
 	},
 	data() {
 		const knowledgeBaseSearchQuery = '';

@@ -97,9 +97,9 @@
 		</v-app-bar>
 
 		<v-main>
-			<!-- <div class="app-content-container boxed-container pa-6">
-				<slot></slot>
-			</div> -->
+			<div class="app-content-container boxed-container pa-6">
+				<eMdaltor open="true"></eMdaltor>
+			</div>
 
 			<template v-if="spinnerStatus">
 				<spinner :loading="spinnerStatus"> </spinner>
@@ -147,6 +147,8 @@ import {
 import bus from '../utils/bus.js';
 import AppBarNotification from '../components/appBar/AppBarNotification.vue';
 
+import eMdaltor from '../components/comm/PWAInstallModaltor.vue';
+
 export default {
 	data: function () {
 		return {
@@ -154,6 +156,7 @@ export default {
 			selectedItem: 0,
 			drawer: null,
 			spinnerStatus: false,
+
 			userImage: `https://epapan.malaysia.coway.do/img/viewImg?imgPath=images/comm/${this.$store.state.userInfo.imgPath}`,
 			items: [
 				{ icon: mdiMonitorDashboard, text: '', route: 'main', style: '' },
@@ -183,7 +186,7 @@ export default {
 			mdiAccount,
 		};
 	},
-	components: { Spinner, AppBarNotification },
+	components: { Spinner, AppBarNotification, eMdaltor },
 	created() {
 		bus.$on('start:spinner', this.startSpinner);
 		bus.$on('end:spinner', this.endSpinner);

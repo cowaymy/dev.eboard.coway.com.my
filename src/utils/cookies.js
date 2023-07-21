@@ -15,6 +15,19 @@ function saveAttendToCookie(key, value) {
 	document.cookie = `coway_attend=${value};`;
 }
 
+function savePWACookie(value) {
+	if (typeof Storage !== 'undefined') {
+		// Code for localStorage/sessionStorage.
+		localStorage.setItem(`coway_install_PWA`, value);
+	} else {
+		// Sorry! No Web Storage support..
+	}
+
+	var expire = new Date();
+	expire.setDate(expire.getDate() + 1000);
+	document.cookie = `coway_install_PWA=${value};`;
+}
+
 function saveUserToCookie(value) {
 	document.cookie = `user=${JSON.stringify(value)}`;
 }
@@ -27,6 +40,14 @@ function getAuthFromCookie() {
 
 function getAttendFromCookie() {
 	return localStorage.getItem(`coway_attend`);
+	// return document.cookie.replace(
+	// 	/(?:(?:^|.*;\s*)atend_`${key}`\s*=\s*([^;]*).*$)|^.*$/,
+	// 	'$1',
+	// );
+}
+
+function getPWAFromCookie() {
+	return localStorage.getItem(`coway_install_PWA`);
 	// return document.cookie.replace(
 	// 	/(?:(?:^|.*;\s*)atend_`${key}`\s*=\s*([^;]*).*$)|^.*$/,
 	// 	'$1',
@@ -56,6 +77,12 @@ function deleteAtendCookie() {
 	//document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
 }
 
+function deletePWACookie() {
+	localStorage.removeItem(`coway_install_PWA`);
+
+	//document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+}
+
 export {
 	saveAuthToCookie,
 	getAuthFromCookie,
@@ -65,4 +92,7 @@ export {
 	saveAttendToCookie,
 	deleteAtendCookie,
 	getAttendFromCookie,
+	getPWAFromCookie,
+	deletePWACookie,
+	savePWACookie,
 };

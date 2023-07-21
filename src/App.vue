@@ -12,8 +12,8 @@ export default {
 	name: 'App',
 	components: { Layout },
 	created() {
-		console.log(this)
-	}
+		console.log(this);
+	},
 };
 </script>
 

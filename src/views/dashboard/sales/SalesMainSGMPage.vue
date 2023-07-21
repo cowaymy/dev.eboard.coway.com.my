@@ -205,7 +205,7 @@ export default {
 	},
 	methods: {
 		fetchCurMonthData() {
-			console.log('fetchCurMonthData ==>');
+			//console.log('fetchCurMonthData ==>');
 			store
 				.dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchCurMonthData`)
 				.then(response => {
@@ -252,7 +252,7 @@ export default {
 		},
 
 		fetchTargetData() {
-			console.log('fetchTargetData ==>');
+			//console.log('fetchTargetData ==>');
 			store
 				.dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchTargetData`)
 				.then(response => {

@@ -1,5 +1,6 @@
 <template>
 	<v-row justify="space-around">
+		<v-btn color="secondary" @click="openDialog">From the top</v-btn>
 		<v-col cols="auto">
 			<v-dialog
 				v-model="dialog"
@@ -7,10 +8,16 @@
 				max-width="600"
 				overlay-opacity="20"
 			>
+				<v-banner v-if="true" color="info" dark class="text-left">
+					<template v-slot:actions>
+						<v-btn @click="clickCallback"> Install</v-btn>
+					</template>
+				</v-banner>
+
 				<template>
 					<v-card>
 						<v-toolbar class="p-2 ma-2 font-weight-semibold text-2xl"
-							>ADD HOME SCREEN
+							>ADD HOME SCREEN :: {{ deviceMod }} / {{ isInstallPWA }}
 							<v-spacer></v-spacer>
 							<v-btn icon @click="closeDialog">
 								<v-icon>{{ icons.mdiClose }}</v-icon>
@@ -54,6 +61,7 @@
 								</v-list-item>
 							</v-list>
 							<v-divider></v-divider>
+
 							<div class="pa-2 ma-2" style="line-height: 1.2">
 								<span class="font-brand" style="font-size: 15px"
 									><b
@@ -63,21 +71,13 @@
 								>
 							</div>
 
-							<template v-if="deviceMod">
-								<div class="pa-2 ma-2">
-									<img
-										style="width: 80%"
-										src="../../../public/img/pwa/pwa.png"
-									/>
-								</div>
-							</template>
+							<div class="pa-2 ma-2">
+								<img
+									style="width: 80%"
+									src="https://customer.mazda.com.my/images/add-to-home-iOS3.png"
+								/>
+							</div>
 						</v-card-text>
-						<v-card-actions>
-							<v-spacer></v-spacer>
-							<template v-if="!deviceMod">
-								<v-btn @click="clickCallback" color="info"> Install</v-btn>
-							</template>
-						</v-card-actions>
 					</v-card>
 				</template>
 			</v-dialog>
@@ -98,13 +98,12 @@ Vue.use(VuePwaInstall);
 export default {
 	props: {
 		apptype: { type: String },
-		open: { type: String },
 	},
 
 	data() {
 		return {
 			icons: { mdiClose },
-			dialog: open,
+			dialog: false,
 			deviceMod: this.isIos(),
 			isInstallPWA: getPWAFromCookie(),
 			deferredPrompt: null,
@@ -112,14 +111,15 @@ export default {
 	},
 	created() {
 		console.log('____________________');
-		console.log('open:::', this.open);
-		console.log('deviceMod is ios', this.isIos);
-		console.log('isInstallPWA', getPWAFromCookie());
+
 		console.log('____________________');
+
 		this.captureEvent();
 	},
 
-	mounted() {},
+	mounted() {
+		//this.captureEvent();
+	},
 	methods: {
 		closeDialog() {
 			this.dialog = false;
@@ -135,7 +135,6 @@ export default {
 					//checkcookie
 					//if (!getPWAFromCookie()) {
 					this.dialog = true;
-
 					//}
 				} else {
 					if (!getPWAFromCookie()) {

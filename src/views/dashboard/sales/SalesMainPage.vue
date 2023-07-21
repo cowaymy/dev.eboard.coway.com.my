@@ -212,7 +212,7 @@ export default {
 		},
 
 		callSalesHQMainApi2() {
-			console.log('this is test data.....');
+			//console.log('this is test data.....');
 			//start spinner
 			//bus.$emit('start:spinner');
 			try {

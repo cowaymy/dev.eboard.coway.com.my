@@ -56,7 +56,7 @@ import {
 } from '@mdi/js';
 
 import { getMonthName, getDate } from '../../utils/validation';
-import utils from '../../utils/utils';
+//import utils from '../../utils/utils';
 import baseApi from '../../api/index.js';
 import calendarApi from '../../api/calendarApi.js';
 
@@ -101,15 +101,10 @@ export default {
 
 	computed: {},
 	created() {
-		console.log('======>' + this.scandata);
-
 		this.initProgress();
 		this.updateAttendData();
 	},
 	methods: {
-		goToAttendHisty() {
-			console.log('1231');
-		},
 		initProgress() {
 			if (this.resultCode == 'process') {
 				this.proColor = 'secondary ';
@@ -148,13 +143,10 @@ export default {
 				// console.log(data.dataList.attendscandate.substr(4, 2));
 				// console.log(data.dataList.attendscandate.substr(6, 2));
 
-				console.log('결과 쿠키값 :  ', data.dataList.attendtoken);
 				if (
 					data.dataList.attendtoken != undefined &&
 					data.dataList.attendtoken != 'undefined'
 				) {
-					console.log('쿠키 생성.....신규 쿠키:', data.dataList.attendtoken);
-
 					//delete cookie
 					deleteAtendCookie(this.$store.state.userInfo.userName);
 
@@ -173,15 +165,11 @@ export default {
 		},
 
 		async updateAttendData() {
-			console.log(this.scandata.data);
-
 			//{"deviceId":"3f71f820c5781065","currentTime":"09:47:04" ,date:"yyyymmdd"}
 
 			try {
 				const param = this.scandata;
 				let obj = JSON.parse(param);
-
-				console.log(obj);
 
 				const payload = {
 					scanDate: obj.date,
@@ -199,11 +187,6 @@ export default {
 					id: this.$store.state.userInfo.userName,
 					deviceId: obj.deviceId,
 				});
-
-				console.log('-----------------------');
-				console.log('isAllow :::', data.data.dataList[0].isAllow);
-				console.log('data :::', data);
-				console.log('-----------------------');
 
 				if (data.data.dataList[0].isAllow >= 1) {
 					const { data } = await baseApi.updateAttendData(payload);
