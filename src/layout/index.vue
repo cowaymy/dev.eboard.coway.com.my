@@ -97,7 +97,7 @@
 		</v-app-bar>
 
 		<v-main>
-			<div class="app-content-container boxed-container pa-6">
+			<div v-if="$store.state.userInfo && $store.state.userInfo.userTypeId == '1'" class="app-content-container boxed-container pa-6">
 				<eMdaltor open="true"></eMdaltor>
 			</div>
 

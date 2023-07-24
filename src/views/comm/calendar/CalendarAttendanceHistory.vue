@@ -140,7 +140,7 @@
 												>
 												|
 												<span style="color: blue; font-weight: bold">
-													{{ splitData(item.start, 'T')[1] }}</span
+													{{ item.attend_type_code == "A0001" ? splitData(item.start, 'T')[1] : getType(item.attend_type_code) }}</span
 												>
 											</v-list-item-subtitle>
 										</div>
@@ -245,6 +245,17 @@ export default {
 	computed: {},
 
 	methods: {
+		getType(t) {
+			if (t == "A0002") {
+				return "Public Holiday"
+			} else if (t == "A0003") {
+				return "State Holiday"
+			} else if (t == "A0004") {
+				return "RFA"
+			} else if (t == "A0005") {
+				return "Waived"
+			}
+		},
 		fetchEvents(_type) {
 			const parsedValue = this.date.replace(/-/g, '');
 			store
@@ -261,7 +272,7 @@ export default {
 						const eObj = [];
 
 						response.data.dataList.forEach(element => {
-							if (element.attend_type_code == _type) {
+							if ((element.attend_type_code == _type) || (_type == "A0002" && element.attend_type_code == "A0003")) {
 								console.log(element);
 								eObj.push(element);
 							}
@@ -269,6 +280,7 @@ export default {
 							this.events = [...eObj];
 						});
 					}
+					console.log(this.events)
 				})
 				.catch(error => {
 					console.error(error);
