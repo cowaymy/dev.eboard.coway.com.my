@@ -7,8 +7,8 @@
 					<router-link to="/" class="d-flex align-center">
 						<v-img
 							:src="appLogo"
-							max-height="30px"
-							max-width="30px"
+							max-height="20vw"
+							max-width="20vw"
 							alt="logo"
 							contain
 							class="me-3"
