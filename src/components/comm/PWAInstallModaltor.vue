@@ -142,7 +142,7 @@ export default {
 						this.dialog = true;
 					}
 				}
-				this.dialog = true;
+				//this.dialog = true;
 			} catch (e) {
 				alert(e);
 			}
