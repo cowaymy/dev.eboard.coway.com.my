@@ -34,7 +34,7 @@
 			<div
 				style="
 					position: absolute;
-					bottom: 20px;
+					bottom: 120px;
 					mergin-left: auto;
 					margin-right: auto;
 					left: 0;

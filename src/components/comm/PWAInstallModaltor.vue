@@ -104,9 +104,9 @@ export default {
 	data() {
 		return {
 			icons: { mdiClose },
-			dialog: open,
+			dialog: this.open,
 			deviceMod: this.isIos(),
-			isInstallPWA: getPWAFromCookie(),
+			isInstallPWA: null,
 			deferredPrompt: null,
 		};
 	},
@@ -116,13 +116,19 @@ export default {
 		console.log('deviceMod is ios', this.isIos);
 		console.log('isInstallPWA', getPWAFromCookie());
 		console.log('____________________');
+
+		this.isInstallPWA = getPWAFromCookie();
 		this.captureEvent();
+
+		//this.openDialog();
 	},
 
 	mounted() {},
 	methods: {
 		closeDialog() {
+			console.log('close dialog [', this.dialog + ']');
 			this.dialog = false;
+			console.log('close dialog [', this.dialog + ']');
 		},
 
 		async install() {
@@ -138,8 +144,10 @@ export default {
 
 					//}
 				} else {
-					if (!getPWAFromCookie()) {
-						this.dialog = true;
+					console.log('in android [', this.isInstallPWA + ']');
+
+					if (this.isInstallPWA == 'true') {
+						this.closeDialog();
 					}
 				}
 				//this.dialog = true;
@@ -171,7 +179,6 @@ export default {
 				// ! Prevent Chrome 67 and earlier from automatically showing the prompt
 				e.preventDefault();
 				// Stash the event so it can be triggered later.
-
 				console.log('in beforeinstallprompt :::::', e);
 				this.deferredPrompt = e;
 			});
@@ -196,6 +203,23 @@ export default {
 				console.log(e);
 				console.log('pwa :::', getPWAFromCookie());
 				console.log('이미 설치 되어 있거나 지원하지 않는 브라우저 !!!');
+			}
+		},
+	},
+
+	watch: {
+		isInstallPWA(val) {
+			console.log('======');
+			console.log('[' + val + ']');
+			console.log('======');
+			if (val == 'true') {
+				console.log('val isInstallPWA ::::', val);
+				this.closeDialog();
+				console.log('close dialog::::', val);
+			} else {
+				console.log('val isInstallPWA ::::', val);
+				this.openDialog();
+				console.log('open  dialog::::', val);
 			}
 		},
 	},

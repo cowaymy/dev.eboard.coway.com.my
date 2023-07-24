@@ -76,25 +76,22 @@
 				</v-row>
 			</v-card-text>
 
-			<!-- <v-card-text>
-				<v-btn color="primary" class="me-3 mt-3"> Save changes </v-btn>
-				<v-btn
-					outlined
-					class="mt-3"
-					color="secondary"
-					type="reset"
-					@click.prevent="resetForm"
-				>
-					Cancel
+			<v-card-text>
+				<v-btn color="primary" class="me-3 mt-3" @click="openInstallPWA">
+					install PWA
 				</v-btn>
-			</v-card-text> -->
+			</v-card-text>
 		</v-form>
 	</v-card>
 </template>
 
 <script>
 //import { ref } from '@vue/composition-api';
+import { deletePWACookie } from '../../utils/cookies.js';
+import Toasted from 'vue-toasted';
+import Vue from 'vue';
 
+Vue.use(Toasted);
 export default {
 	props: {
 		informationData: {
@@ -109,7 +106,31 @@ export default {
 			optionsLocal.value = JSON.parse(JSON.stringify(props.informationData));
 		};
 
-		return { optionsLocal, resetForm };
+		const openPWA = false;
+		return { optionsLocal, resetForm, openPWA };
+	},
+
+	mounted: {},
+	methods: {
+		openInstallPWA() {
+			deletePWACookie();
+
+			Vue.toasted
+				.success(
+					'Can check the installation button when you re-Login  again ',
+					{
+						icon: 'check',
+						position: 'bottom-center',
+						action: {
+							text: 'Close',
+							onClick: (e, toastObject) => {
+								toastObject.goAway(0);
+							},
+						},
+					},
+				)
+				.goAway(3500);
+		},
 	},
 };
 </script>
