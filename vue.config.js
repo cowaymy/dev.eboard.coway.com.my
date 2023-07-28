@@ -2,11 +2,6 @@ const path = require('path');
 const { mergeSassVariables } = require('@vuetify/cli-plugin-utils');
 
 module.exports = {
-	pwa: {
-		iconPaths: {
-			favicon32: './src/assets/logo.png',
-		},
-	},
 	transpileDependencies: ['vuetify'],
 	configureWebpack: {
 		resolve: {
@@ -41,7 +36,19 @@ module.exports = {
 		disableHostCheck: true,
 	},
 	pwa: {
+		iconPaths: {
+			faviconSVG: 'img/newIcons/epapan-icon_592x592px.png',
+			favicon16: 'img/newIcons/epapan-icon_592x592px.png',
+			favicon32: 'img/newIcons/epapan-icon_592x592px.png',
+			appleTouchIcon: 'img/newIcons/_epapan-icon_592x592px.png',
+			maskIcon: 'img/newIcons/epapan-icon_592x592px.png',
+			msTileImage: 'img/newIcons/epapan-app-icon_512x512px.png'
+		},
 		manifestOptions: {
+			"icons": [{
+				"src": "img/newIcons/epapan-icon_592x592px.png",
+				"sizes": "592x592"
+			}],
 			"scope": "/",
 			"start_url": "/",
 			"related_applications": [{
