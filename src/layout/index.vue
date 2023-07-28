@@ -97,8 +97,11 @@
 		</v-app-bar>
 
 		<v-main>
-			<div v-if="$store.state.userInfo && $store.state.userInfo.userTypeId == '1'" class="app-content-container boxed-container pa-6">
-				<eMdaltor open="true"></eMdaltor>
+			<div
+				v-if="$store.state.userInfo && $store.state.userInfo.userTypeId == '1'"
+				class="app-content-container boxed-container pa-6"
+			>
+				<!-- <eMdaltor open="true"></eMdaltor> -->
 			</div>
 
 			<template v-if="spinnerStatus">
@@ -143,6 +146,7 @@ import {
 	mdiCogRefresh,
 	mdiTwitter,
 	mdiCalendarClockOutline,
+	mdiClipboardTextSearch,
 } from '@mdi/js';
 import bus from '../utils/bus.js';
 import AppBarNotification from '../components/appBar/AppBarNotification.vue';
@@ -160,6 +164,11 @@ export default {
 			userImage: `https://epapan.malaysia.coway.do/img/viewImg?imgPath=images/comm/${this.$store.state.userInfo.imgPath}`,
 			items: [
 				{ icon: mdiMonitorDashboard, text: '', route: 'main', style: '' },
+				{
+					icon: mdiClipboardTextSearch,
+					text: 'order List',
+					route: '/OrderMgt',
+				},
 				{
 					icon: mdiCogRefresh,
 					text: 'userInfo',
@@ -245,8 +254,6 @@ export default {
 
 	methods: {
 		newClass(item) {
-			console.log(item);
-
 			if (item == '/AttendScanQR') {
 				return 'ml-2 my-3 pwa';
 			} else {

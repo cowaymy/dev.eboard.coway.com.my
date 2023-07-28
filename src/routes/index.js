@@ -177,6 +177,14 @@ const router = new VueRouter({
 			props: true,
 			meta: { requiresAuth: false },
 		},
+
+		{
+			path: '/OrderMgt',
+			name: 'OrderMgt',
+			component: () => import('../views/comm/orderMgt/OrderMgt.vue'),
+			props: true,
+			meta: { requiresAuth: false },
+		},
 	],
 });
 
