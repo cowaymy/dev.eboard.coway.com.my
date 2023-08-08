@@ -101,7 +101,7 @@
 				v-if="$store.state.userInfo && $store.state.userInfo.userTypeId == '1'"
 				class="app-content-container boxed-container pa-6"
 			>
-				<!-- <eMdaltor open="true"></eMdaltor> -->
+				<eMdaltor open="true"></eMdaltor>
 			</div>
 
 			<template v-if="spinnerStatus">
