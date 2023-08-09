@@ -12,7 +12,15 @@ export default {
 	name: 'App',
 	components: { Layout },
 	created() {
-		console.log(this);
+		window.onbeforeunload = function () {
+			navigator.mediaDevices.getUserMedia({ video: true }).then(md => {
+				console.log(md);
+				md.getTracks().forEach(t => {
+					console.log(t);
+					t.stop();
+				});
+			});
+		};
 	},
 };
 </script>
