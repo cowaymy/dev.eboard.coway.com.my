@@ -20,6 +20,8 @@ export default {
 					t.stop();
 				});
 			});
+
+			return 'aaaaaa';
 		};
 	},
 };
