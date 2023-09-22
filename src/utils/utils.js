@@ -122,3 +122,44 @@ module.exports.getDateOnly = function () {
 module.exports.getDate = function () {
 	return new Date().getDate();
 };
+
+module.exports.pdfToImg = function (pdf) {
+	return new Promise((r) => {
+		const loadingTask = pdfjsLib.getDocument(pdf);
+		loadingTask.promise.then(function(pdf) {
+			renderPage(pdf, 1, [])
+			.then(col => r(col));
+		});
+	})
+ 
+	function renderPage(pdf, pageNum, collect){
+		return new Promise((r) => {
+			pageRendering = true;
+			var pageRendering = false, scale = 0.8;
+			pdf.getPage(pageNum).then(function(page) {
+				let viewport = page.getViewport({scale: scale});
+				let canvas = document.createElement("canvas");
+				let ctx = canvas.getContext('2d');
+				canvas.height = viewport.height;
+				canvas.width = viewport.width;
+		
+				let renderTask = page.render({
+				  canvasContext: ctx,
+				  viewport: viewport
+				});
+		
+				renderTask.promise.then(function() {
+					if(pageNum < pdf._pdfInfo.numPages){
+						renderPage(pdf, pageNum + 1, [...collect, canvas.toDataURL()])
+						.then(col => {
+							r(col)
+						});
+					} else {
+						r(collect)
+					}
+					canvas.remove();
+				});
+			});
+		})
+	}
+};

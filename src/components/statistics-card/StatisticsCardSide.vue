@@ -25,7 +25,7 @@
 				</v-carousel-item>
 			</v-carousel>
 
-			<!-- <div>
+			<div>
 				<v-carousel
 					:cycle="true"
 					:interval="5000"
@@ -67,13 +67,16 @@
 						</v-sheet>
 					</v-carousel-item>
 				</v-carousel> 
-			</div>-->
+			</div>
 		</v-card-text>
 	</v-card>
+
+
 </template>
 
 <script>
 import { mdiDotsVertical } from '@mdi/js';
+import {pdfToImg} from '../../utils/utils'
 
 export default {
 	props: {
@@ -88,8 +91,76 @@ export default {
 			default: () => [],
 		},
 	},
+	mounted() {
+		pdfToImg("/assets/Coway Channel_FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/InfoCell Air Purifier_v2210 FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/InfoCell Bidet_FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/InfoCell Heart Service.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/Infocell Mattress.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/InfoCell MCS_v2210.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/InfoCell Water Purifier_v2207_FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/InfoCell_Award & Certificate_v2212_FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/Infocell_Water Softener_Outdoor_FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/Purchase Requirement for Rental & Outright_Infocell_R5.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+
+		pdfToImg("/assets/R&D & Manufacturing_FA.pdf").then(r => {
+			this.items = [...this.items, ...r.map(src => {
+				return {src}
+			})]
+		});
+	},
 	data() {
 		return {
+			
 			mdiDotsVertical,
 			items: [
 				{
@@ -100,11 +171,7 @@ export default {
 				},
 				{
 					src: 'https://www.coway.com.my/files/Products/massage-chair/massage-chair/coway-quiet-and-silence-massage-chair-for-a-blissful-rest.jpg',
-				},
-
-				{
-					src: 'https://www.coway.com.my/img/banner/coway-run-2023-early-bird-sales.jpg',
-				},
+				}
 			],
 		};
 	},
