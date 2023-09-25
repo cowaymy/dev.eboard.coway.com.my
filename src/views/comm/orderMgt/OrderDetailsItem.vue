@@ -7,196 +7,254 @@
 				</v-icon>
 			</v-chip>
 		</template>
-
-		<v-card>
-			<v-card-title>
-				Order status
-				<v-spacer></v-spacer>
-				<v-btn color="secondary" icon @click="isDialogVisible = false">
-					<v-icon class="me-1">
-						{{ setTag('close') }}
-					</v-icon>
-				</v-btn>
-			</v-card-title>
-			<v-divider></v-divider>
-			<v-card-text>
-				<v-timeline
-					dense
-					class="timeline-custom-dense timeline-custom-dots card-content"
+		<div id="element-to-convert">
+			<v-card>
+				<v-card-title>
+					<div>
+						<span style="font-weight: bold"> Order progress status</span>
+					</div>
+					<v-spacer></v-spacer>
+					<v-btn color="secondary" icon @click="isDialogVisible = false">
+						<v-icon class="me-1">
+							{{ setTag('close') }}
+						</v-icon>
+					</v-btn>
+				</v-card-title>
+				<v-card-text>
+					<span style="font-weight: bold">
+						{{ this.ekeinItem.userName }}</span
+					></v-card-text
 				>
-					<!-- install   -->
-					<v-timeline-item small color="#1F7872">
-						<v-card color="#1F7872">
-							<v-card-title>
-								<span class="text-base white--text">Install</span>
-								<v-spacer></v-spacer>
-								<small class="text-xs white--text text-no-wrap">
-									{{ insItem.salesDate }}</small
-								>
-							</v-card-title>
+				<v-divider></v-divider>
+				<v-card-text>
+					<v-timeline
+						dense
+						class="timeline-custom-dense timeline-custom-dots card-content"
+					>
+						<!-- install   -->
+						<v-timeline-item small color="#1F7872">
+							<v-card color="#1F7872">
+								<v-card-title>
+									<span class="text-base white--text font-weight: bold"
+										>Install</span
+									>
+									<v-spacer></v-spacer>
+									<small style="color: #ffffff; font-weight: bold">
+										{{ insItem.salesDate }}</small
+									>
+								</v-card-title>
 
-							<v-card-text>
-								<div><span style="font-weight: bold"> Order No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ insItem.salesOrdNo }}
-								</div>
-								<div><span style="font-weight: bold"> Install No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ insItem.installNo }}
-								</div>
-								<div>
-									<span style="font-weight: bold">Install Status </span>
-								</div>
-								<div class="ms-4" style="color: #fe0000; font-weight: bold">
-									{{ insItem.status }}
-								</div>
+								<v-card-text>
+									<div><span style="font-weight: bold"> Order No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ insItem.salesOrdNo }}
+									</div>
+									<div>
+										<span style="font-weight: bold"> Install No.</span>
+									</div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ insItem.installNo }}
+									</div>
+									<div>
+										<span style="font-weight: bold">Install Status </span>
+									</div>
+									<div class="ms-4" style="color: #fe0000; font-weight: bold">
+										{{ insItem.status }}
+									</div>
 
-								<div><span style="font-weight: bold"> Remark</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ insItem.rem }}
-								</div>
-							</v-card-text>
-						</v-card>
-					</v-timeline-item>
+									<div><span style="font-weight: bold"> Remark</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ insItem.rem }}
+									</div>
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
 
-					<!-- call -log  -->
-					<v-timeline-item small color="#23B5D3">
-						<v-card color="#23B5D3">
-							<v-card-title>
-								<span class="text-base white--text">CALL-LOG</span>
-								<v-spacer></v-spacer>
-								<small class="text-xs white--text text-no-wrap">
-									{{ calllogItem.salesDate }}</small
-								>
-							</v-card-title>
-							<v-card-text>
-								<div><span style="font-weight: bold"> Order No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ calllogItem.salesOrdNo }}
-								</div>
-								<div><span style="font-weight: bold">Type</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ calllogItem.type }}
-								</div>
+						<!-- call -log  -->
+						<v-timeline-item small color="#23B5D3">
+							<v-card color="#23B5D3">
+								<v-card-title>
+									<span class="text-base white--text font-weight: bold"
+										>CALL-LOG</span
+									>
+									<v-spacer></v-spacer>
+									<small style="color: #ffffff; font-weight: bold">
+										{{ calllogItem.salesDate }}</small
+									>
+								</v-card-title>
+								<v-card-text>
+									<div><span style="font-weight: bold"> Order No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ calllogItem.salesOrdNo }}
+									</div>
+									<div><span style="font-weight: bold">Type</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ calllogItem.type }}
+									</div>
 
-								<div><span style="font-weight: bold">Action </span></div>
-								<div class="ms-4" style="color: #fe0000; font-weight: bold">
-									{{ calllogItem.status }}
-								</div>
-								<div><span style="font-weight: bold"> Remark</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ calllogItem.rem }}
-								</div>
-							</v-card-text>
-						</v-card>
-					</v-timeline-item>
+									<div><span style="font-weight: bold">Action </span></div>
+									<div class="ms-4" style="color: #fe0000; font-weight: bold">
+										{{ calllogItem.status }}
+									</div>
+									<div><span style="font-weight: bold"> Remark</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ calllogItem.rem }}
+									</div>
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
 
-					<!-- E-CASH-->
-					<v-timeline-item small color="#8b8687">
-						<v-card color="#8b8687">
-							<v-card-title>
-								<span class="text-base white--text">E-CASH </span>
-								<v-spacer></v-spacer>
-								<small class="text-xs white--text text-no-wrap">
-									{{ eCashItem.salesDate }}
-								</small>
-							</v-card-title>
+						<!-- E-CASH-->
+						<v-timeline-item small color="#8b8687">
+							<v-card color="#8b8687">
+								<v-card-title>
+									<span class="text-base white--text font-weight: bold"
+										>E-CASH
+									</span>
+									<v-spacer></v-spacer>
+									<small style="color: #ffffff; font-weight: bold">
+										{{ eCashItem.salesDate }}
+									</small>
+								</v-card-title>
 
-							<v-card-text>
-								<div><span style="font-weight: bold"> Order No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ eCashItem.salesOrdNo }}
-								</div>
-								<div><span style="font-weight: bold">Payment Type</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ eCashItem.type }}
-								</div>
+								<v-card-text>
+									<div><span style="font-weight: bold"> Order No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ eCashItem.salesOrdNo }}
+									</div>
+									<div>
+										<span style="font-weight: bold">Payment Type</span>
+									</div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ eCashItem.type }}
+									</div>
 
-								<div><span style="font-weight: bold">Status</span></div>
-								<div class="ms-4" style="color: #fe0000; font-weight: bold">
-									{{ eCashItem.status }}
-								</div>
-								<div><span style="font-weight: bold"> Remark</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ eCashItem.rem }}
-								</div>
-							</v-card-text>
-						</v-card>
-					</v-timeline-item>
+									<div><span style="font-weight: bold">Status</span></div>
+									<div class="ms-4" style="color: #fe0000; font-weight: bold">
+										{{ eCashItem.status }}
+									</div>
+									<div><span style="font-weight: bold"> Remark</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ eCashItem.rem }}
+									</div>
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
 
-					<!-- CCP-->
-					<v-timeline-item small color="#514938">
-						<v-card color="#514938">
-							<v-card-title>
-								<span class="text-base white--text">CCP </span>
-								<v-spacer></v-spacer>
-								<small class="text-xs white--text text-no-wrap">{{
-									ccpItem.salesDate
-								}}</small>
-							</v-card-title>
+						<!-- CCP-->
+						<v-timeline-item small color="#514938">
+							<v-card color="#514938">
+								<v-card-title>
+									<span class="text-base white--text font-weight: bold"
+										>CCP
+									</span>
+									<v-spacer></v-spacer>
+									<small style="color: #ffffff; font-weight: bold">{{
+										ccpItem.salesDate
+									}}</small>
+								</v-card-title>
 
-							<v-card-text>
-								<div><span style="font-weight: bold"> Order No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ccpItem.salesOrdNo }}
-								</div>
-								<div><span style="font-weight: bold"> REF No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ccpItem.salesRefNo }}
-								</div>
+								<v-card-text>
+									<div><span style="font-weight: bold"> Order No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ccpItem.salesOrdNo }}
+									</div>
+									<div><span style="font-weight: bold"> REF No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ccpItem.salesRefNo }}
+									</div>
 
-								<div><span style="font-weight: bold"> CCP Status</span></div>
-								<div class="ms-4" style="color: #fe0000; font-weight: bold">
-									{{ ccpItem.status }}
-								</div>
-								<div><span style="font-weight: bold"> CCP Remark</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ccpItem.pncRem }}
-								</div>
-							</v-card-text>
-						</v-card>
-					</v-timeline-item>
+									<div>
+										<span style="font-weight: bold"> CCP Status</span>
+									</div>
+									<div class="ms-4" style="color: #fe0000; font-weight: bold">
+										{{ ccpItem.status }}
+									</div>
+									<div>
+										<span style="font-weight: bold"> CCP Remark</span>
+									</div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ccpItem.pncRem }}
+									</div>
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
 
-					<!-- ekey In -->
-					<v-timeline-item small color="#A8A196">
-						<v-card color="#A8A196">
-							<v-card-title>
-								<span class="text-base white--text">eKey-in </span>
-								<v-spacer></v-spacer>
-								<small class="text-xs white--text text-no-wrap">{{
-									ekeinItem.salesDate
-								}}</small>
-							</v-card-title>
+						<!-- ekey In -->
+						<v-timeline-item small color="#A8A196">
+							<v-card color="#A8A196">
+								<v-card-title>
+									<span class="text-base white--text font-weight: bold"
+										>eKey-in
+									</span>
+									<v-spacer></v-spacer>
+									<small style="color: #ffffff; font-weight: bold">{{
+										ekeinItem.salesDate
+									}}</small>
+								</v-card-title>
 
-							<v-card-text>
-								<div><span style="font-weight: bold"> SFO No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ekeinItem.salesRefNo }}
-								</div>
-								<div><span style="font-weight: bold"> Order No.</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ekeinItem.salesOrdNo }}
-								</div>
-								<div>
-									<span style="font-weight: bold"> NRIC/Company No</span>
-								</div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ekeinItem.nric }}
-								</div>
-								<div><span style="font-weight: bold"> Status</span></div>
-								<div class="ms-4" style="color: #fe0000; font-weight: bold">
-									{{ ekeinItem.status }}
-								</div>
-								<div><span style="font-weight: bold"> Product</span></div>
-								<div class="ms-4" style="color: #000000; font-weight: bold">
-									{{ ekeinItem.product }}
-								</div>
-							</v-card-text>
-						</v-card>
-					</v-timeline-item>
-				</v-timeline>
-			</v-card-text>
-		</v-card>
+								<v-card-text>
+									<div><span style="font-weight: bold"> SFO No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ekeinItem.salesRefNo }}
+									</div>
+									<div><span style="font-weight: bold"> Order No.</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ekeinItem.salesOrdNo }}
+									</div>
+									<div>
+										<span style="font-weight: bold"> NRIC/Company No</span>
+									</div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ekeinItem.nric }}
+									</div>
+									<div><span style="font-weight: bold"> Status</span></div>
+									<div class="ms-4" style="color: #fe0000; font-weight: bold">
+										{{ ekeinItem.status }}
+									</div>
+									<div><span style="font-weight: bold"> Product</span></div>
+									<div class="ms-4" style="color: #000000; font-weight: bold">
+										{{ ekeinItem.product }}
+									</div>
+									<div>
+										<span style="font-weight: bold"> Share with whatsapp </span>
+									</div>
+									<div class="ms-4">
+										<!-- <v-icon class="me-1" color="info" @click="sendWhatsApp">
+											{{ icons.mdiWhatsapp }}
+										</v-icon> -->
+										<v-chip color="info" @click="exportToPDF">
+											<v-icon>
+												{{ icons.mdiWhatsapp }}
+											</v-icon>
+										</v-chip>
+
+										<!-- <div style="font-weight: bold">
+											<a v-bind:href="linkUri">
+												<v-btn>
+													✅ lajfasljflkasjfljlaslkjasfjlaksfjlkasfjasklf</v-btn
+												></a
+											>
+										</div> -->
+									</div>
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
+					</v-timeline>
+				</v-card-text>
+
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-img
+						max-height="20vw"
+						max-width="20vw"
+						contain
+						class="me-3"
+						:src="appLogo"
+					/>
+				</v-card-actions>
+			</v-card>
+		</div>
 	</v-dialog>
 </template>
 
@@ -217,11 +275,18 @@ import {
 	mdiShapePlusOutline,
 	mdiClose,
 	mdiPageNextOutline,
+	mdiWhatsapp,
+	mdiFilePdfBox,
 } from '@mdi/js';
 
 import store from '@/store';
+import bus from '../../../utils/bus.js';
+import themeConfig from '../../../../themeConfig';
+
 import orderMgtStoreModule from './orderMgtStoreModule';
 const ORDER_MGT_APP_STORE_MODULE_NAME = 'app-ordermgt';
+import html2pdf from 'html2pdf.js';
+import axios from 'axios';
 
 export default {
 	props: ['item'],
@@ -234,7 +299,9 @@ export default {
 		}
 		return {
 			date: new Date().toISOString().substr(0, 7),
+			linkUri: 'https://epapan.malaysia.coway.do',
 			menu: false,
+			appLogo: themeConfig.app.logo,
 			modal: false,
 			isDialogVisible: false,
 			events: [],
@@ -274,6 +341,7 @@ export default {
 				status: '',
 				nric: '',
 				product: '',
+				userName: '',
 			},
 			icons: {
 				mdiDotsVertical,
@@ -291,6 +359,8 @@ export default {
 				mdiShapePlusOutline,
 				mdiClose,
 				mdiPageNextOutline,
+				mdiWhatsapp,
+				mdiFilePdfBox,
 			},
 		};
 	},
@@ -311,6 +381,177 @@ export default {
 		},
 	},
 	methods: {
+		sendWhatsApp() {
+			// "getLocationInfo"는 react-native에서 받는 메서드 이름입니다.
+			window.webViewBridge.send(
+				'sendWhatsApp',
+				this.ekeinItem,
+				res => {
+					this.result = JSON.stringify(res);
+				},
+				err => {
+					alert(err);
+					console.error(err);
+				},
+			);
+		},
+		exportToPDF() {
+			let el = document.getElementById('element-to-convert');
+
+			let opt = {
+				margin: 1,
+				filename: this.ekeinItem.salesOrdNo,
+				image: { type: 'jpeg', quality: 1 },
+				html2canvas: { scale: 2 },
+				jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' },
+			};
+
+			html2pdf()
+				.set(opt)
+				.from(el)
+				.toPdf()
+				.outputPdf()
+				.then(function (pdf) {
+					const newpdf = btoa(pdf);
+
+					var formData = new FormData();
+					formData.append('uploadedFile', newpdf);
+					formData.append('orderNo', opt.filename);
+
+					//'https://epapanapis.malaysia.coway.do/apps/comm/genPdf',
+
+					bus.$emit('start:spinner');
+
+					axios
+						.post(
+							'https://epapanapis.malaysia.coway.do/apps/comm/genPdf',
+							formData,
+						)
+						.then(res => {
+							console.log(res.data);
+							window.webViewBridge.send(
+								'downloadFile',
+								res.data,
+								res => {
+									this.result = JSON.stringify(res);
+								},
+								err => {
+									alert(err);
+									console.error(err);
+								},
+							);
+						})
+						.catch(error => {
+							console.log(error.response);
+						})
+						.finally(() => {
+							bus.$emit('end:spinner');
+						});
+
+					// const file = new File([pdfBase64], opt.filename, {
+					// 	type: 'application/pdf',
+					// });
+
+					// const formData = new FormData();
+					// formData.append('file', newpdf);
+
+					// fetch('http://172.16.252.101:3000/apps/comm/genPdf', {
+					// 	method: 'post',
+					// 	body: formData,
+					// })
+					// 	.then(response => response.json())
+					// 	.then(result => {
+					// 		console.log('Success:', result);
+					// 	})
+					// 	.catch(error => {
+					// 		console.error('Error:', error);
+					// 	});
+
+					// console.log('--------->');
+
+					// const pdfData = {};
+					// pdfData.base64data = pdfBase64;
+					// pdfData.filename = opt.filename;
+
+					// //this.callGenPdfApi(pdfBase64);
+					// //console.log(pdfAsString);
+					// // const preBlob = () => {
+					// // 	var byteString;
+					// // 	if (pdfBase64.split(',')[0].indexOf('base64') >= 0)
+					// // 		byteString = atob(pdfBase64.split(',')[1]);
+					// // 	else byteString = unescape(pdfBase64.split(',')[1]);
+
+					// // 	// separate out the mime component
+					// // 	var mimeString = pdfBase64
+					// // 		.split(',')[0]
+					// // 		.split(':')[1]
+					// // 		.split(';')[0];
+
+					// // 	// write the bytes of the string to a typed array
+					// // 	var ia = new Uint8Array(byteString.length);
+					// // 	for (var i = 0; i < byteString.length; i++) {
+					// // 		ia[i] = byteString.charCodeAt(i);
+					// // 	}
+
+					// // 	console.log('end --->');
+					// // 	return new Blob([ia], { type: mimeString });
+					// // };
+					// //console.log('return::preBlob');
+					// //console.log(preBlob);
+					// // const file = new File([pdfBase64], opt.filename, {
+					// // 	type: 'application/pdf',
+					// // });
+
+					// // console.log(file);
+					// // const formData = new FormData();
+					// // formData.append('file', file);
+					// // let data = new FormData();
+					// // data.append('file', file);
+
+					// fetch('http://172.16.252.101:3000/apps/comm/genPdf', {
+					// 	method: 'post',
+					// 	body: JSON.stringify(pdfBase64),
+					// 	headers: { 'Content-Type': 'application/json' },
+					// })
+					// 	.then(response => response.json())
+					// 	.then(result => {
+					// 		console.log('Success:', result);
+					// 	})
+					// 	.catch(error => {
+					// 		console.error('Error:', error);
+					// 	});
+
+					// //console.log('========>', formData);
+					// //this.callGenPdfApi(formData);
+					// console.log('========>');
+				});
+		},
+
+		async callGenPdfApi(data) {
+			console.log('api in ::::', data);
+			console.log(data);
+		},
+
+		dataURItoBlob(dataURI) {
+			console.log('in --->');
+			// convert base64/URLEncoded data component to raw binary data held in a string
+			var byteString;
+			if (dataURI.split(',')[0].indexOf('base64') >= 0)
+				byteString = atob(dataURI.split(',')[1]);
+			else byteString = unescape(dataURI.split(',')[1]);
+
+			// separate out the mime component
+			var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+			// write the bytes of the string to a typed array
+			var ia = new Uint8Array(byteString.length);
+			for (var i = 0; i < byteString.length; i++) {
+				ia[i] = byteString.charCodeAt(i);
+			}
+
+			console.log('end --->');
+			return new Blob([ia], { type: mimeString });
+		},
 		fetchEkeyInOrderList() {
 			const preOrdId = this.item.preOrdId;
 			store
@@ -328,6 +569,7 @@ export default {
 						this.ekeinItem.status = dataList.data.data[0].NAME;
 						this.ekeinItem.nric = dataList.data.data[0].NRIC;
 						this.ekeinItem.product = dataList.data.data[0].STK_DESC;
+						this.ekeinItem.userName = dataList.data.data[0].NAME_1;
 					}
 				})
 				.catch(error => {
@@ -467,3 +709,12 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss">
+@import '@core/preset/preset/pages/auth.scss';
+
+#app {
+	margin-top: 60px;
+	text-align: center;
+}
+</style>

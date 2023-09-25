@@ -141,7 +141,7 @@
 							outlined
 							placeholder="keyin a orderNo...."
 							hide-details
-							class="kb-search-input"
+							class="kb-search-input keywordInput"
 						>
 							<template #prepend-inner>
 								<v-icon size="23" class="mx-1">
@@ -335,6 +335,7 @@ export default {
 			item.orderStus = this.setOrderStus(rowItem);
 			item.nric = rowItem.CUST_NRIC;
 			item.insStus = rowItem.INSTALL_STUS;
+			item.telNo = rowItem.TEL_M1;
 
 			return item;
 		},
@@ -390,10 +391,29 @@ export default {
 
 	watch: {
 		orderNoSearchQuery: function (ordNo) {
-			this.events = this.oldEventsList.filter(item =>
-				item.orderNo.toLowerCase().includes(ordNo),
+			this.events = this.oldEventsList.filter(
+				item =>
+					item.orderNo.toLowerCase().includes(ordNo) ||
+					item.custName.toLowerCase().includes(ordNo),
 			);
 		},
 	},
 };
 </script>
+
+<style lang="scss" scoped>
+.keywordInput {
+	border-radius: 6.666666667px;
+	font-size: 16px;
+	line-height: 26.666666667px;
+	padding: 6.666666667px;
+	width: 133.333333333%;
+
+	transform: scale(0.75);
+	transform-origin: left top;
+
+	/* 여기를 추가합니다. */
+	margin-bottom: -10px;
+	margin-right: -33.333333333%;
+}
+</style>

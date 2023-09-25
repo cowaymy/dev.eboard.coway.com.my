@@ -3,7 +3,7 @@
 		<div class="auth-inner">
 			<v-card class="auth-card">
 				<v-card-title class="d-flex align-center justify-center py-7">
-					<qrcode-stream :camera="camera" @decode="onDecode" @init="onInit">
+					<qrcode-stream @decode="onDecode" @init="onInit">
 						<div v-if="validationSuccess" class="validation-success">
 							The attendance check is complete.
 						</div>
@@ -80,7 +80,7 @@
 import { mdiClose, mdiCheckBold, mdiCheckDecagramOutline } from '@mdi/js';
 
 import { QrcodeStream } from 'vue-qrcode-reader';
-
+import bus from '../../utils/bus.js';
 import { getMonthName, getDate } from '../../utils/validation';
 
 export default {
@@ -113,7 +113,16 @@ export default {
 		validationFailure() {
 			return this.isValid === false;
 		},
+
+		isCameraOn() {
+			return this.camera != 'close';
+		},
 	},
+
+	beforeDestroy() {
+		console.info('------- 메인 페이지 아웃시 --------------------');
+	},
+
 	methods: {
 		onInit(promise) {
 			promise.catch(console.error).then(this.resetValidationState);
@@ -126,7 +135,6 @@ export default {
 		async onDecode(content) {
 			this.result = content;
 			this.turnCameraOff();
-
 			//this.isValid = content.startsWith('http');
 
 			// pretend it's taking really long
@@ -135,13 +143,10 @@ export default {
 			// some more delay, so users have time to read the message
 			//await this.timeout(100);
 
-			this.turnCameraOn();
-
-			console.log(content);
-			this.$router.push({
-				name: 'AttendScanQRResult',
-				params: { scandata: content },
-			});
+			//start spinner
+			//bus.$emit('start:spinner');
+			this.getLocationInfo(content);
+			//this.toPassRouter(content);
 		},
 
 		turnCameraOn() {
@@ -155,6 +160,30 @@ export default {
 		timeout(ms) {
 			return new Promise(resolve => {
 				window.setTimeout(resolve, ms);
+			});
+		},
+
+		getLocationInfo(content) {
+			// "getLocationInfo"는 react-native에서 받는 메서드 이름입니다.
+			window.webViewBridge.send(
+				'getLocationInfo',
+				'',
+				res => {
+					this.result = JSON.stringify(res);
+					//bus.$emit('end:spinner');
+					this.toPassRouter(content);
+				},
+				err => {
+					alert('native errr::::', err.toString());
+					console.error(err);
+				},
+			);
+		},
+
+		toPassRouter(content) {
+			this.$router.push({
+				name: 'AttendScanQRResult',
+				params: { scandata: content, gpsInfo: this.result },
 			});
 		},
 	},

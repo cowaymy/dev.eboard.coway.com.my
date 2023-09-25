@@ -132,7 +132,10 @@ export default {
 					userBranchId: this.$store.state.userInfo.businessAreaId,
 					userBranchName: this.$store.state.userInfo.businessAreaDesc,
 					userBranchCode: this.$store.state.userInfo.code,
+					userBranchLatitude: obj.branchLatitude,
+					userBranchLongitude: obj.branchLongitude,
 				};
+
 				const { data } = await baseApi.updateAttendQRBranchData(payload);
 
 				this.updateProgress(data);

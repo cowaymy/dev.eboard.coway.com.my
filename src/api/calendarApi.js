@@ -31,7 +31,13 @@ async function fetchAttendBranchName(id) {
 async function fetchAttendAllowLactionFroHp(data) {
 	console.log('fetchAttendAllowLactionFroHp=====>', data);
 	return newInstance.get(
-		`/apps/calendar/checkAttendanceAllowLocationForHp/${data.id}/scanDevice/${data.deviceId}`,
+		`/apps/calendar/checkAttendanceAllowLocationForHp/${data.id}/scanDevice/${data.deviceId}/latitude/${data.latitude}/longitude/${data.longitude}`,
+	);
+}
+async function verifyLocationForHp(data) {
+	console.log('verifyLocationForHp=====>', data);
+	return newInstance.get(
+		`/apps/calendar/verifyLocationForHp/${data.id}/scanDevice/${data.deviceId}/latitude/${data.latitude}/longitude/${data.longitude}`,
 	);
 }
 
@@ -40,4 +46,5 @@ export default {
 	fetchAttendBranchName,
 	fetchAttendAllowLactionFroHp,
 	fetchAttendHistoryEvents,
+	verifyLocationForHp,
 };

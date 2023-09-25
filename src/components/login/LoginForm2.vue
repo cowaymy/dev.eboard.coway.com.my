@@ -35,15 +35,14 @@
 					<v-form @submit.prevent="submitForm">
 						<v-text-field
 							v-model="userId"
-							outlined
 							label="UserID"
 							hide-details
-							class="mb-3"
+							class="mb-3 logInput"
 						></v-text-field>
 
 						<v-text-field
 							v-model="password"
-							outlined
+							class="logInput"
 							:type="isPasswordVisible ? 'text' : 'password'"
 							label="Password"
 							placeholder="············"
@@ -91,33 +90,6 @@
 			</v-card>
 		</div>
 
-		<!-- background triangle shape  -->
-		<img
-			class="auth-mask-bg"
-			height="173"
-			:src="
-				require(`@/assets/images/misc/mask-${
-					$vuetify.theme.dark ? 'dark' : 'light'
-				}.png`)
-			"
-		/>
-
-		<!-- tree -->
-		<v-img
-			class="auth-tree"
-			width="247"
-			height="185"
-			src="@/assets/images/misc/tree.png"
-		></v-img>
-
-		<!-- tree  -->
-		<v-img
-			class="auth-tree-3"
-			width="377"
-			height="289"
-			src="@/assets/images/misc/tree-3.png"
-		></v-img>
-
 		<v-bottom-sheet v-model="sheet" inset>
 			<v-sheet class="text-center" height="200px">
 				<v-btn class="mt-6" text color="error" @click="sheet = !sheet">
@@ -152,6 +124,7 @@ export default {
 			// themeConfig
 			appName: themeConfig.app.name,
 			appLogo: themeConfig.app.logo,
+			result: ':::=>',
 
 			icons: {
 				mdiEyeOutline,
@@ -170,7 +143,34 @@ export default {
 			return isValid;
 		},
 	},
+
+	mounted() {
+		// console.debug('===========>');
+		// // 웹에서 메시지를 받을 수 있도록 이벤터 리스너를 등록한다
+		// document.addEventListener('message', this.receiveMessage, true);
+		// window.addEventListener('message', this.receiveMessage, true);
+		// alert(document.toString());
+	},
 	methods: {
+		// receiveMessage(event) {
+		// 	alert(event.data);
+		// 	console.log('origin: ', event.origin); // 메시지를 보낸 곳
+		// 	console.log('message: ', event.data); // 보낸 메시지
+		// },
+
+		onNativeEventTest() {
+			// "getLocationInfo"는 react-native에서 받는 메서드 이름입니다.
+			window.webViewBridge.send(
+				'getLocationInfo',
+				'',
+				function (res) {
+					this.result = JSON.stringify(res);
+				},
+				function (err) {
+					console.error(err);
+				},
+			);
+		},
 		async submitForm() {
 			try {
 				const userdata = {
@@ -301,4 +301,19 @@ export default {
 
 <style lang="scss" scoped>
 @import '/src/@core/preset/preset/pages/auth.scss';
+
+.logInput {
+	border-radius: 6.666666667px;
+	font-size: 16px;
+	line-height: 26.666666667px;
+	padding: 6.666666667px;
+	width: 133.333333333%;
+
+	transform: scale(0.75);
+	transform-origin: left top;
+
+	/* 여기를 추가합니다. */
+	margin-bottom: -10px;
+	margin-right: -33.333333333%;
+}
 </style>

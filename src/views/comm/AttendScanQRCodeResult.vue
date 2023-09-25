@@ -27,6 +27,13 @@
 			<div>{{ this.scandate }}</div>
 			<div>{{ this.scantime }}</div>
 			<div>[{{ this.scanbranchCode }}]{{ this.scanbranchName }}</div>
+			<v-divider></v-divider>
+			<div>
+				[location]::[{{ this.scanGpsInfo.location.geocode[0].postalCode }}]{{
+					this.scanGpsInfo.location.geocode[0].city
+				}}
+				- {{ this.scanGpsInfo.location.geocode[0].street }}
+			</div>
 		</v-card-text>
 
 		<v-card-text>
@@ -71,6 +78,7 @@ export default {
 	components: {},
 	props: {
 		scandata: { type: String, default: '' },
+		gpsInfo: { type: String, defalult: '' },
 		// resultCode: { type: String, default::'' 'fail' },
 		// resultMessage: { type: String, default: '' },
 	},
@@ -85,6 +93,7 @@ export default {
 			scantime: '',
 			scanbranchName: '',
 			scanbranchCode: '',
+			scanGpsInfo: JSON.parse(this.gpsInfo),
 			month: getMonthName(),
 			ndate: getDate(),
 			mdiCheckBold,
@@ -177,15 +186,31 @@ export default {
 					scanDevice: obj.deviceId,
 					scanQRType: 'A0001',
 					scanQRTypeDesc: 'QR',
+					scanBranchLatitude: obj.branchLatitude,
+					scanBranchLongitude: obj.branchLongitude,
 					scanUserToken: getAttendFromCookie(
 						this.$store.state.userInfo.userName,
 					),
 					userName: this.$store.state.userInfo.userName,
 				};
 
+				const locData = await calendarApi.verifyLocationForHp({
+					id: this.$store.state.userInfo.userName,
+					deviceId: obj.deviceId,
+					latitude: obj.branchLatitude,
+					longitude: obj.branchLongitude,
+				});
+
+				if (!locData.data.success) {
+					this.updateProgress(locData.data);
+					return;
+				}
+
 				const data = await calendarApi.fetchAttendAllowLactionFroHp({
 					id: this.$store.state.userInfo.userName,
 					deviceId: obj.deviceId,
+					latitude: obj.branchLatitude,
+					longitude: obj.branchLongitude,
 				});
 
 				if (data.data.dataList[0].isAllow >= 1) {
@@ -213,6 +238,7 @@ export default {
 					});
 				}
 			} catch (e) {
+				alert(e.toString);
 				console.log(e.toString());
 				let data = new Object();
 				data.success = false;

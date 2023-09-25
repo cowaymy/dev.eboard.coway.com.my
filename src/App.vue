@@ -12,17 +12,16 @@ export default {
 	name: 'App',
 	components: { Layout },
 	created() {
-		window.onbeforeunload = function () {
-			navigator.mediaDevices.getUserMedia({ video: true }).then(md => {
-				console.log(md);
-				md.getTracks().forEach(t => {
-					console.log(t);
-					t.stop();
-				});
-			});
-
-			return 'aaaaaa';
-		};
+		// window.onbeforeunload = function () {
+		// 	navigator.mediaDevices.getUserMedia({ video: true }).then(md => {
+		// 		console.log(md);
+		// 		md.getTracks().forEach(t => {
+		// 			console.log(t);
+		// 			t.stop();
+		// 		});
+		// 	});
+		// 	return 'aaaaaa';
+		// };
 	},
 };
 </script>

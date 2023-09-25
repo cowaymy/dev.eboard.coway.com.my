@@ -24,7 +24,7 @@ const themeConfig = {
     ! In Content Layout Horizontal Nav type `hidden` value won't work
     ! In Content Layout Horizontal Nav type value of `type` will affect both Appbar and Horizontal Navigation Menu
     */
-		type: 'fixed', // fixed, static, hidden
+		type: 'static', // fixed, static, hidden
 		isBlurred: true,
 	},
 	footer: {

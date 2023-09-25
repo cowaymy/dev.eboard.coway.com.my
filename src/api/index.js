@@ -10,6 +10,10 @@ function userLogin(userData) {
 	return newInstance.post('login', userData);
 }
 
+async function saveBase64Pdf(data) {
+	return newInstance.post('/apps/comm/genPdf', data);
+}
+
 async function saveNotification(data) {
 	return newInstance.post('/apps/comm/mergeNotification', data);
 }
@@ -114,6 +118,11 @@ async function fileUpLoad(form) {
 	});
 }
 
+async function genPdfUpLoad(form) {
+	console.log(form);
+	return newInstance.post('/apps/comm/genPdf', form);
+}
+
 async function getImgData(userData) {
 	let options = {
 		imgPath: userData.userImagePath,
@@ -136,4 +145,6 @@ export default {
 	getImgData,
 	updateAttendData,
 	updateAttendQRBranchData,
+	genPdfUpLoad,
+	saveBase64Pdf,
 };

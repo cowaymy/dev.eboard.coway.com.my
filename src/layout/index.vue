@@ -49,6 +49,7 @@
 		</v-navigation-drawer>
 
 		<v-app-bar
+			height="50"
 			app
 			v-if="(this.$route.name != 'login') & (this.$route.name != 'ssoLogin')"
 		>
@@ -101,7 +102,7 @@
 				v-if="$store.state.userInfo && $store.state.userInfo.userTypeId == '1'"
 				class="app-content-container boxed-container pa-6"
 			>
-				<eMdaltor open="true"></eMdaltor>
+				<eMdaltor open="false"></eMdaltor>
 			</div>
 
 			<template v-if="spinnerStatus">
@@ -128,7 +129,7 @@
 					<span>
 						&copy; 2022
 						<a href="" class="text-decoration-none" target="_blank"
-							>COWAY ITS</a
+							>COWAY ITS&O</a
 						></span
 					>
 				</div>
@@ -255,9 +256,9 @@ export default {
 	methods: {
 		newClass(item) {
 			if (item == '/AttendScanQR') {
-				return 'ml-2 my-3 pwa';
+				return 'ml-2 my-3 ';
 			} else {
-				return 'ml-2 my-3';
+				return 'ml-2 my-3 ';
 			}
 		},
 
