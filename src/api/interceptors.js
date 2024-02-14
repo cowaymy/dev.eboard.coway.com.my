@@ -7,7 +7,7 @@ Vue.use(Toasted);
 
 export function createInstance() {
 	const instance = axios.create({
-		baseURL: 'http://172.16.252.101:3000', //process.env.VUE_APP_API_URL,
+		baseURL: 'https://epapanapis.malaysia.coway.do', //
 	});
 
 	instance.interceptors.request.use(
@@ -51,6 +51,22 @@ export function createInstance() {
 			//return Promise.reject('1');
 		},
 	);
+
+	return instance;
+}
+
+
+
+export function createRPTInstance() {
+	const instance = axios.create({
+		baseURL: 'http://172.16.252.100:8080/report/', //
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		}
+
+	});
+
+	
 
 	return instance;
 }

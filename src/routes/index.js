@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
+import commission  from './commission'
+
 
 Vue.use(VueRouter);
 
@@ -185,6 +187,9 @@ const router = new VueRouter({
 			props: true,
 			meta: { requiresAuth: false },
 		},
+
+		...commission
+		
 	],
 });
 
