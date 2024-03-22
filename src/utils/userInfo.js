@@ -1,5 +1,5 @@
 const userInfo = {};
 
 export default {
-	userInfo,
+  userInfo,
 };

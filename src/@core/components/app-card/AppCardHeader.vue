@@ -1,7 +1,7 @@
 <template>
-	<v-card-title class="app-card-header">
-		<slot></slot>
-	</v-card-title>
+  <v-card-title class="app-card-header">
+    <slot></slot>
+  </v-card-title>
 </template>
 
 <script>

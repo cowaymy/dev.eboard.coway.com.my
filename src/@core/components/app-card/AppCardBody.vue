@@ -1,14 +1,14 @@
 <template>
-	<v-card-text class="app-card-body">
-		<slot></slot>
-	</v-card-text>
+  <v-card-text class="app-card-body">
+    <slot></slot>
+  </v-card-text>
 </template>
 
 <script>
 export default {
-	setup() {
-		return {};
-	},
+  setup() {
+    return {};
+  },
 };
 </script>
 

@@ -1,16 +1,16 @@
 <template>
-	<div>
-		<UserInfoForm> </UserInfoForm>
-	</div>
+  <div>
+    <UserInfoForm> </UserInfoForm>
+  </div>
 </template>
 
 <script>
-import UserInfoForm from '@/components/member/UserInfoForm.vue';
+import UserInfoForm from "@/components/member/UserInfoForm.vue";
 
 export default {
-	components: {
-		UserInfoForm,
-	},
+  components: {
+    UserInfoForm,
+  },
 };
 </script>
 

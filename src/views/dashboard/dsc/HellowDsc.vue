@@ -1,5 +1,5 @@
 <template>
-	<div>Hi DSC!!!!!</div>
+  <div>Hi DSC!!!!!</div>
 </template>
 
 <script>

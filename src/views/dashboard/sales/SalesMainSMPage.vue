@@ -1,95 +1,95 @@
 <template>
-	<v-row>
-		<v-col cols="12" md="12">
-			<v-alert border="left" color="black" dark elevation="1">
-				<div class="nocard">Sales e-TrustBoard</div>
+  <v-row>
+    <v-col cols="12" md="12">
+      <v-alert border="left" color="black" dark elevation="1">
+        <div class="nocard">Sales e-TrustBoard</div>
 
-				<div align="right">
-					<DigitalClock />
-				</div>
-			</v-alert>
-		</v-col>
-		<v-col cols="12" md="12"
-			><div align="center">
-				<v-alert
-					v-model="alert"
-					dismissible
-					color="#00BFFF"
-					border="left"
-					elevation="2"
-					colored-border
-					icon="mdi-twitter"
-				>
-					<Notification :autoplay="autoplay" />
-				</v-alert>
-			</div>
-		</v-col>
+        <div align="right">
+          <DigitalClock />
+        </div>
+      </v-alert>
+    </v-col>
+    <v-col cols="12" md="12"
+      ><div align="center">
+        <v-alert
+          v-model="alert"
+          dismissible
+          color="#00BFFF"
+          border="left"
+          elevation="2"
+          colored-border
+          icon="mdi-twitter"
+        >
+          <Notification :autoplay="autoplay" />
+        </v-alert>
+      </div>
+    </v-col>
 
-		<v-col cols="12" md="4">
-			<DashboardCongratulationBest />
-		</v-col>
+    <v-col cols="12" md="4">
+      <DashboardCongratulationBest />
+    </v-col>
 
-		<!-- <v-col cols="12" md="8">
+    <!-- <v-col cols="12" md="8">
 			<DashboardStatisticsCard />
 		</v-col> -->
 
-		<!-- vertical statistics card -->
+    <!-- vertical statistics card -->
 
-		<v-col cols="12" sm="4" md="2">
-			<StatisticsCardVertical v-bind="eKeyInData"> </StatisticsCardVertical>
-		</v-col>
-		<v-col cols="12" sm="4" md="2">
-			<StatisticsCardVertical v-bind="NetSalesData"></StatisticsCardVertical>
-		</v-col>
-		<v-col cols="12" sm="4" md="2">
-			<StatisticsCardVertical v-bind="ActiveHpData"></StatisticsCardVertical>
-		</v-col>
-		<v-col cols="12" sm="4" md="2">
-			<StatisticsCardVertical v-bind="SHIData"></StatisticsCardVertical>
-		</v-col>
+    <v-col cols="12" sm="4" md="2">
+      <StatisticsCardVertical v-bind="eKeyInData"> </StatisticsCardVertical>
+    </v-col>
+    <v-col cols="12" sm="4" md="2">
+      <StatisticsCardVertical v-bind="NetSalesData"></StatisticsCardVertical>
+    </v-col>
+    <v-col cols="12" sm="4" md="2">
+      <StatisticsCardVertical v-bind="ActiveHpData"></StatisticsCardVertical>
+    </v-col>
+    <v-col cols="12" sm="4" md="2">
+      <StatisticsCardVertical v-bind="SHIData"></StatisticsCardVertical>
+    </v-col>
 
-		<v-col cols="12" md="8">
-			<DashboardSalesTotalProfit></DashboardSalesTotalProfit>
-		</v-col>
+    <v-col cols="12" md="8">
+      <DashboardSalesTotalProfit></DashboardSalesTotalProfit>
+    </v-col>
 
-		<v-col cols="12" md="4">
-			<v-row>
-				<v-col cols="12">
-					<StatisticsCardSide />
-				</v-col>
-				<v-col cols="12">
-					<!-- <StatisticsCardRadialBarChart
+    <v-col cols="12" md="4">
+      <v-row>
+        <v-col cols="12">
+          <StatisticsCardSide />
+        </v-col>
+        <v-col cols="12">
+          <!-- <StatisticsCardRadialBarChart
 						:stat-title="salesRadialChart.statTitle"
 						:statistics="salesRadialChart.statistics"
 						:chart-series="salesRadialChart.series"
 					>
 					</StatisticsCardRadialBarChart> -->
-					<DashboardSalesStatisticsTotalSales
-						:isDoneTartgetApi="isDoneTartgetApi"
-						:isDoneCurMonthApi="isDoneCurMonthApi"
-					/>
-				</v-col>
-				<!-- <v-col cols="12" sm="6">
+          <DashboardSalesStatisticsTotalSales
+            :isDoneTartgetApi="isDoneTartgetApi"
+            :isDoneCurMonthApi="isDoneCurMonthApi"
+          />
+        </v-col>
+        <!-- <v-col cols="12" sm="6">
 					<DashboardTopGMChart />
 				</v-col> -->
-			</v-row>
-		</v-col>
+      </v-row>
+    </v-col>
 
-		<!--/ vertical statistics card -->
+    <!--/ vertical statistics card -->
 
-		<v-col cols="12" md="3">
-			<DashboardCardSalesRankingbySM />
-		</v-col>
-		<v-col cols="12" md="3">
-			<DashboardCardSalesRankingbyHM />
-		</v-col>
-		<v-col cols="12" md="3">
-			<DashboardCardSalesByCountries />
-		</v-col>
+    <v-col cols="12" md="3">
+      <DashboardCardSalesRankingbySM />
+    </v-col>
+    <v-col cols="12" md="3">
+      <DashboardCardSalesRankingbyHM />
+    </v-col>
+    <v-col cols="12" md="3">
+      <DashboardCardSalesByCountries />
+    </v-col>
 
-		<v-col cols="12" md="3"> </v-col>
+    <v-col cols="12" md="3"> </v-col>
 
-		<!-- <v-col cols="12" md="3">
+    <!-- <v-col cols="12" md="3">
 			<StatisticsCardRankingList> </StatisticsCardRankingList>
 		</v-col>
 		<v-col cols="12" md="3">
@@ -101,31 +101,31 @@
 		<v-col cols="12" md="3">
 			<StatisticsCardRankingList> </StatisticsCardRankingList>
 		</v-col> -->
-		<!-- <v-col cols="12" md="8">
+    <!-- <v-col cols="12" md="8">
 			<DashboardCardDepositAndWithdraw />
 		</v-col> -->
 
-		<div v-if="!sheet"></div>
-		<div v-else>
-			<v-bottom-sheet v-model="sheet" inset>
-				<v-sheet class="text-center" height="200px">
-					<v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-						close
-					</v-btn>
-					<div class="my-3">
-						<v-alert
-							border="bottom"
-							colored-border
-							type="warning"
-							elevation="2"
-						>
-							{{ logMaessage }}
-						</v-alert>
-					</div>
-				</v-sheet>
-			</v-bottom-sheet>
-		</div>
-	</v-row>
+    <div v-if="!sheet"></div>
+    <div v-else>
+      <v-bottom-sheet v-model="sheet" inset>
+        <v-sheet class="text-center" height="200px">
+          <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
+            close
+          </v-btn>
+          <div class="my-3">
+            <v-alert
+              border="bottom"
+              colored-border
+              type="warning"
+              elevation="2"
+            >
+              {{ logMaessage }}
+            </v-alert>
+          </div>
+        </v-sheet>
+      </v-bottom-sheet>
+    </div>
+  </v-row>
 </template>
 
 <!-- 
@@ -138,33 +138,33 @@
 <script>
 // eslint-disable-next-line object-curly-newline
 import {
-	mdiClipboardEditOutline,
-	mdiCheckboxMultipleMarkedOutline,
-	mdiHelpCircleOutline,
-	mdiTrendingUp,
-	mdiAccountCheckOutline,
-} from '@mdi/js';
-import store from '@/store';
+  mdiClipboardEditOutline,
+  mdiCheckboxMultipleMarkedOutline,
+  mdiHelpCircleOutline,
+  mdiTrendingUp,
+  mdiAccountCheckOutline,
+} from "@mdi/js";
+import store from "@/store";
 
-import DigitalClock from '../../comm/DigitalClock.vue';
-import salesApiStoreModule from './salesApiStoreModule';
+import DigitalClock from "../../comm/DigitalClock.vue";
+import salesApiStoreModule from "./salesApiStoreModule";
 
-import StatisticsCardVertical from '../../../components/statistics-card/StatisticsCardVertical.vue';
-import StatisticsCardSide from '../../../components/statistics-card/StatisticsCardSide.vue';
+import StatisticsCardVertical from "../../../components/statistics-card/StatisticsCardVertical.vue";
+import StatisticsCardSide from "../../../components/statistics-card/StatisticsCardSide.vue";
 
 //import StatisticsCardRankingList from '../../../components/statistics-card/StatisticsCardRankingList.vue';
 // import StatisticsCardRadialBarChart from '../../../components/statistics-card/StatisticsCardRadialBarChart.vue';
 
-import DashboardCongratulationBest from './DashboardCongratulationBest.vue';
-import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue';
+import DashboardCongratulationBest from "./DashboardCongratulationBest.vue";
+import DashboardCardSalesByCountries from "./DashboardCardSalesByCountries.vue";
 //import DashboardCardSalesRankingbyGM from './DashboardCardSalesRankingbyGM.vue';
-import DashboardCardSalesRankingbySM from './DashboardCardSalesRankingbySM.vue';
-import DashboardCardSalesRankingbyHM from './DashboardCardSalesRankingbyHM.vue';
+import DashboardCardSalesRankingbySM from "./DashboardCardSalesRankingbySM.vue";
+import DashboardCardSalesRankingbyHM from "./DashboardCardSalesRankingbyHM.vue";
 
-import DashboardSalesTotalProfit from './DashboardSalesTotalProfit.vue';
-import DashboardSalesStatisticsTotalSales from './DashboardSalesStatisticsTotalSales.vue';
-import Notification from '../../comm/Notification.vue';
-const SASLE_APP_STORE_MODULE_NAME = 'app_salseEpapan';
+import DashboardSalesTotalProfit from "./DashboardSalesTotalProfit.vue";
+import DashboardSalesStatisticsTotalSales from "./DashboardSalesStatisticsTotalSales.vue";
+import Notification from "../../comm/Notification.vue";
+const SASLE_APP_STORE_MODULE_NAME = "app_salseEpapan";
 
 //
 
@@ -177,114 +177,114 @@ beforeUpdate: Called when the data changes, before the virtual DOM is re-rendere
 updated: Called after a data change causes the virtual DOM to be re-rendered and patched.
 */
 export default {
-	curmontData: {},
+  curmontData: {},
 
-	components: {
-		StatisticsCardVertical,
-		DashboardCongratulationBest,
-		DashboardCardSalesByCountries,
-		DashboardSalesTotalProfit,
-		DashboardSalesStatisticsTotalSales,
-		StatisticsCardSide,
-		//DashboardCardSalesRankingbyGM,
-		DashboardCardSalesRankingbySM,
-		DashboardCardSalesRankingbyHM,
-		//StatisticsCardRankingList,
-		DigitalClock,
-		Notification,
-		// StatisticsCardRadialBarChart,
-	},
+  components: {
+    StatisticsCardVertical,
+    DashboardCongratulationBest,
+    DashboardCardSalesByCountries,
+    DashboardSalesTotalProfit,
+    DashboardSalesStatisticsTotalSales,
+    StatisticsCardSide,
+    //DashboardCardSalesRankingbyGM,
+    DashboardCardSalesRankingbySM,
+    DashboardCardSalesRankingbyHM,
+    //StatisticsCardRankingList,
+    DigitalClock,
+    Notification,
+    // StatisticsCardRadialBarChart,
+  },
 
-	//page
-	beforeMount() {
-		//bus.$emit('end:spinner');
-	},
-	methods: {
-		fetchCurMonthData() {
-			//console.log('fetchCurMonthData ==>');
-			store
-				.dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchCurMonthData`)
-				.then(response => {
-					(this.eKeyInData = {
-						statTitle: 'Key In',
-						icon: mdiClipboardEditOutline,
-						color: 'success',
-						subtitle: response.data.data[0].LST_UP_TIME,
-						statistics: response.data.data[0].SAL_KEYIN + '',
-						//change: response.data.user[0].PE_SAL_KEYIN,
-					}),
-						(this.NetSalesData = {
-							statTitle: 'Net Sales',
-							icon: mdiCheckboxMultipleMarkedOutline,
-							color: 'error',
-							subtitle: response.data.data[0].LST_UP_TIME,
-							statistics: response.data.data[0].SAL_NET_SALES + '',
-							//change: response.data.user[0].PE_SAL_NET_SALES,
-						}),
-						(this.ActiveHpData = {
-							statTitle: 'Active HP',
-							icon: mdiCheckboxMultipleMarkedOutline,
-							color: 'primary',
-							subtitle: response.data.data[0].LST_UP_TIME,
-							statistics: response.data.data[0].SAL_ACTIVE_HP + '',
-							//change: response.data.user[0].PE_SAL_ACTIVE_HP,
-						}),
-						(this.SHIData = {
-							statTitle: 'SHI',
-							icon: mdiTrendingUp,
-							color: 'warning',
-							subtitle: response.data.data[0].LST_UP_TIME,
-							statistics: response.data.data[0].SAL_SHI + '',
-							//change: response.data.user[0].PE_SAL_SHI,
-							moreshow: 'true',
-						});
+  //page
+  beforeMount() {
+    //bus.$emit('end:spinner');
+  },
+  methods: {
+    fetchCurMonthData() {
+      //console.log('fetchCurMonthData ==>');
+      store
+        .dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchCurMonthData`)
+        .then((response) => {
+          (this.eKeyInData = {
+            statTitle: "Key In",
+            icon: mdiClipboardEditOutline,
+            color: "success",
+            subtitle: response.data.data[0].LST_UP_TIME,
+            statistics: response.data.data[0].SAL_KEYIN + "",
+            //change: response.data.user[0].PE_SAL_KEYIN,
+          }),
+            (this.NetSalesData = {
+              statTitle: "Net Sales",
+              icon: mdiCheckboxMultipleMarkedOutline,
+              color: "error",
+              subtitle: response.data.data[0].LST_UP_TIME,
+              statistics: response.data.data[0].SAL_NET_SALES + "",
+              //change: response.data.user[0].PE_SAL_NET_SALES,
+            }),
+            (this.ActiveHpData = {
+              statTitle: "Active HP",
+              icon: mdiCheckboxMultipleMarkedOutline,
+              color: "primary",
+              subtitle: response.data.data[0].LST_UP_TIME,
+              statistics: response.data.data[0].SAL_ACTIVE_HP + "",
+              //change: response.data.user[0].PE_SAL_ACTIVE_HP,
+            }),
+            (this.SHIData = {
+              statTitle: "SHI",
+              icon: mdiTrendingUp,
+              color: "warning",
+              subtitle: response.data.data[0].LST_UP_TIME,
+              statistics: response.data.data[0].SAL_SHI + "",
+              //change: response.data.user[0].PE_SAL_SHI,
+              moreshow: "true",
+            });
 
-					this.isDoneCurMonthApi = true;
-				})
-				.catch(error => {
-					console.error(error);
-					console.error(error.response);
-				});
-		},
+          this.isDoneCurMonthApi = true;
+        })
+        .catch((error) => {
+          console.error(error);
+          console.error(error.response);
+        });
+    },
 
-		fetchTargetData() {
-			//console.log('fetchTargetData ==>');
-			store
-				.dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchTargetData`)
-				.then(response => {
-					this.isDoneTartgetApi = true;
-				})
-				.catch(error => {
-					console.error(error);
-					console.error(error.response);
-				});
-		},
-	},
+    fetchTargetData() {
+      //console.log('fetchTargetData ==>');
+      store
+        .dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchTargetData`)
+        .then((response) => {
+          this.isDoneTartgetApi = true;
+        })
+        .catch((error) => {
+          console.error(error);
+          console.error(error.response);
+        });
+    },
+  },
 
-	data() {
-		if (!store.hasModule(SASLE_APP_STORE_MODULE_NAME)) {
-			store.registerModule(SASLE_APP_STORE_MODULE_NAME, salesApiStoreModule);
-		}
-		return {
-			isDoneCurMonthApi: false,
-			isDoneTartgetApi: false,
-			logMaessage: '',
-			sheet: false,
-			mdiHelpCircleOutline,
-			mdiAccountCheckOutline,
-			eKeyInData: {},
-			NetSalesData: {},
-			ActiveHpData: {},
-			SHIData: {},
-			salesRadialChart: {},
-			color: { secondary: 'secondary', warning: 'warning', error: '#00f' },
-			autoplay: true,
-			alert: true,
-		};
-	},
-	created() {
-		this.fetchCurMonthData();
-		this.fetchTargetData();
-	},
+  data() {
+    if (!store.hasModule(SASLE_APP_STORE_MODULE_NAME)) {
+      store.registerModule(SASLE_APP_STORE_MODULE_NAME, salesApiStoreModule);
+    }
+    return {
+      isDoneCurMonthApi: false,
+      isDoneTartgetApi: false,
+      logMaessage: "",
+      sheet: false,
+      mdiHelpCircleOutline,
+      mdiAccountCheckOutline,
+      eKeyInData: {},
+      NetSalesData: {},
+      ActiveHpData: {},
+      SHIData: {},
+      salesRadialChart: {},
+      color: { secondary: "secondary", warning: "warning", error: "#00f" },
+      autoplay: true,
+      alert: true,
+    };
+  },
+  created() {
+    this.fetchCurMonthData();
+    this.fetchTargetData();
+  },
 };
 </script>
