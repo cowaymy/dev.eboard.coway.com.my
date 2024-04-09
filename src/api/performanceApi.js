@@ -48,11 +48,29 @@ async function fetchGetTotalNestSalesLevel1(userData) {
 
 
 
+async function fetchGetTotalActiveHPLevel1(userData) {
+  return newInstance.get("/sales/getRinkForTotActiveHPData", {
+    params: userData,
+  });
+}
 
 
+async function fetchActiveHPLevel1(userData) {
+  return newInstance.get("/sales/getRinkForGMActiveData", {
+    params: userData,
+  });
+}
 
-
-
+async function fetchActiveHPLevel2(userData) {
+  return newInstance.get("/sales/getRinkForActiveLevel2Data", {
+    params: userData,
+  });
+}
+async function fetchActiveHPLevel3(userData) {
+  return newInstance.get("/sales/getRinkForActiveLevel3Data", {
+    params: userData,
+  });
+}
 
 function trickToLevel0(userData) {
   const options = {};
@@ -77,5 +95,7 @@ function trickToLevel0(userData) {
 }
 
 export default {
-  fetchNetSalesLevel2,fetchNetSalesLevel3,fetchNetSalesLevel4,fetchGetNameLevel1,fetchGetNestSalesLevel1,fetchGetTotalNestSalesLevel1
+  fetchNetSalesLevel2,fetchNetSalesLevel3,fetchNetSalesLevel4,fetchGetNameLevel1
+  ,fetchGetNestSalesLevel1,fetchGetTotalNestSalesLevel1,fetchGetTotalActiveHPLevel1
+  ,fetchActiveHPLevel1,fetchActiveHPLevel2,fetchActiveHPLevel3
 };

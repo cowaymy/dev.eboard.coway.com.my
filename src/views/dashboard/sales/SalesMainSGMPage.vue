@@ -219,6 +219,7 @@ export default {
           }),
             (this.NetSalesData = {
               statTitle: "Net Sales",
+              jumpRoute: "/performance/NetSalesReport",
               icon: mdiCheckboxMultipleMarkedOutline,
               color: "error",
               subtitle: response.data.data[0].LST_UP_TIME,
@@ -227,6 +228,7 @@ export default {
             }),
             (this.ActiveHpData = {
               statTitle: "Active HP",
+              jumpRoute: "/performance/ActiveHPReport",
               icon: mdiCheckboxMultipleMarkedOutline,
               color: "primary",
               subtitle: response.data.data[0].LST_UP_TIME,

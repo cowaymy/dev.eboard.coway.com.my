@@ -8,6 +8,7 @@ import {
   deleteCookie,
 } from "../utils/cookies.js";
 import userApi from "../api/index";
+import store from "@/store";
 
 //import userInfo from '@/utils/userInfo';
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     userInfo: getUserFromCookie() || {},
     token: getAuthFromCookie() || "",
     userName: getUserFromCookie().userName || "",
+    memuList :[]
   },
   getters: {
     isLogin(state) {
@@ -32,7 +34,6 @@ export default new Vuex.Store({
   },
   mutations: {
     setUserInfo(state, user) {
-      console.log(user);
       state.userInfo = user;
       state.userName = user.userName;
     },
@@ -48,15 +49,36 @@ export default new Vuex.Store({
       deleteCookie("user");
       state.newNotifiCnt = 0;
     },
+
+    setMemuList (state, list){
+
+      var temp =[];
+      list.data.dataList.map((mysqlObj) => {
+        var t = {
+          text: mysqlObj.text,
+          connect_by_order: mysqlObj.connect_by_order,
+          sublinks: [],
+        };
+
+        if (mysqlObj.sublinks == "") {
+          temp.push(t);
+        } else {
+          for (var i in temp) {
+            if (temp[i].connect_by_order == mysqlObj.connect_by_order) {
+              temp[i].sublinks.push(mysqlObj);
+            }
+          }
+        }
+      });
+
+      state.memuList = temp;
+    }
   },
 
   actions: {
     async LOGIN({ commit }, userData) {
       const result = await userApi.userLogin(userData);
-      console.log("====>");
-      console.log(result.data);
-      console.log("====>");
-
+      
       if (result.data.success) {
         commit("setUserInfo", result.data.user[0]);
         commit("setToken", result.data.token);
@@ -67,6 +89,24 @@ export default new Vuex.Store({
       }
 
       return result.data;
+    },
+
+    
+    async getMemuList({ commit }) {
+      const userInfo = store.state.userInfo;
+  
+      return new Promise((resolve, reject) => {
+        userApi
+          .getMenuList(userInfo)
+          .then((response) => {
+            commit("setMemuList",response);
+            resolve(response);
+          })
+          .catch((error) => reject(error))
+          .finally(() => {
+          });
+      });
+
     },
   },
 });

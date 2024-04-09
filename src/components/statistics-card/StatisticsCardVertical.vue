@@ -11,7 +11,7 @@
         {{ statTitle }}
       </p>
       <v-spacer></v-spacer>
-      <v-btn small icon class="me-n3 mt-n1">
+      <v-btn small icon class="me-n3 mt-n1" @click="gotoDetailView()">
         <v-icon>
           {{ mdiDotsVertical }}
         </v-icon>
@@ -79,12 +79,20 @@ export default {
     change: { type: String, default: "" },
     moreshow: { type: String, default: "" },
     isDialogBestVisible: { type: boolean, default: "" },
+    jumpRoute:{ type: String, default: "" },
   },
   methods: {
     fun_numFormat(number) {
       const neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       return neFor;
     },
+
+
+    gotoDetailView(){
+      if (this.jumpRoute != this.$router.history.current.path) {
+        this.$router.push(this.jumpRoute);
+      }
+    }
   },
   data() {
     const isDialogVisible = false;

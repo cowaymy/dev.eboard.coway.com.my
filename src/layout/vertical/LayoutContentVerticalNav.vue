@@ -118,11 +118,10 @@
   </v-app>
 </template>
 <script>
-import baseApi from "../../api/index";
+import store from "@/store";
 import AppBarNotification from "../../components/appBar/AppBarNotification.vue";
 import AppBarUserMenu from "../../components/appBar/AppBarUserMenu.vue";
 import AppBarShortcuts from "../../components/appBar/AppBarShortcuts";
-var temp = [];
 
 export default {
   components: {
@@ -139,34 +138,16 @@ export default {
     userInfo() {
       return this.$store.state.userInfo;
     },
+    
+    links(){
+      return this.$store.state.memuList;
+    },
   },
 
-  created() {
-    this.asyncfetchDataList().then((request) => {
-      request.data.dataList.map((mysqlObj) => {
-        var t = {
-          text: mysqlObj.text,
-          connect_by_order: mysqlObj.connect_by_order,
-          sublinks: [],
-        };
-
-        if (mysqlObj.sublinks == "") {
-          temp.push(t);
-        } else {
-          for (var i in temp) {
-            if (temp[i].connect_by_order == mysqlObj.connect_by_order) {
-              temp[i].sublinks.push(mysqlObj);
-            }
-          }
-        }
-      });
-    });
-  },
   data() {
     return {
       drawer: null,
       spinnerStatus: false,
-      links: temp,
     };
   },
 
@@ -175,14 +156,15 @@ export default {
       this.$store.commit("clearUserInfo");
       this.$router.push("/");
     },
-    async asyncfetchDataList() {
-      try {
-        const userInfo = this.$store.state.userInfo;
-        return await baseApi.getMenuList(userInfo);
-      } catch (error) {
-        console.log(error);
-      }
+    
+    asyncfetchDataList() { 
+      console.log('log.....')
+      store.dispatch("getMemuList");
     },
+  },
+
+  created(){
+          this.asyncfetchDataList();
   },
 };
 </script>

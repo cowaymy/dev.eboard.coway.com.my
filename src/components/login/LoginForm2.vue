@@ -109,9 +109,9 @@
 // eslint-disable-next-line object-curly-newline
 import { mdiEyeOutline, mdiEyeOffOutline } from "@mdi/js";
 //import { ref } from '@vue/composition-api';
-import themeConfig from "../../../themeConfig";
+import themeConfig from "/themeConfig";
 //import { validEmail } from '@/utils/validation';
-import bus from "../../utils/bus.js";
+import bus from "@/utils/bus.js";
 
 export default {
   data() {
@@ -185,7 +185,6 @@ export default {
         const data = await this.$store.dispatch("LOGIN", userdata);
 
         if (data.success) {
-          const userInfo = this.$store.state.userInfo;
           //const dataNotifi = await this.$store.dispatch('GETNOTIFI', userInfo);
           //go to main page
           this.$router.push(this.getNextRoute(data.user[0]));
@@ -252,68 +251,26 @@ export default {
   },
 };
 
-// export default {
-// 	data() {
-// 		const isPasswordVisible = false;
-// 		const email = '';
-// 		const password = '';
-// 		const socialLink = [
-// 			{
-// 				icon: mdiFacebook,
-// 				color: '#4267b2',
-// 				colorInDark: '#4267b2',
-// 			},
-// 			{
-// 				icon: mdiTwitter,
-// 				color: '#1da1f2',
-// 				colorInDark: '#1da1f2',
-// 			},
-// 			{
-// 				icon: mdiGithub,
-// 				color: '#272727',
-// 				colorInDark: '#fff',
-// 			},
-// 			{
-// 				icon: mdiGoogle,
-// 				color: '#db4437',
-// 				colorInDark: '#db4437',
-// 			},
-// 		];
-
-// 		return {
-// 			isPasswordVisible,
-// 			email,
-// 			password,
-// 			socialLink,
-
-// 			// themeConfig
-// 			appName: themeConfig.app.name,
-// 			appLogo: 'themeConfig.app.logo',
-
-// 			icons: {
-// 				mdiEyeOutline,
-// 				mdiEyeOffOutline,
-// 			},
-// 		};
-// 	},
-// };
 </script>
 
 <style lang="scss" scoped>
-@import "/src/@core/preset/preset/pages/auth.scss";
+  @import '../../@core/preset/preset/pages/auth';
 
-.logInput {
-  border-radius: 6.666666667px;
-  font-size: 16px;
-  line-height: 26.666666667px;
-  padding: 6.666666667px;
-  width: 133.333333333%;
+  .logInput {
+      border-radius: 6.666666667px;
+      font-size: 16px;
+      line-height: 26.666666667px; 
+      padding: 6.666666667px;
+      width: 133.333333333%;
 
-  transform: scale(0.75);
-  transform-origin: left top;
+      transform: scale(0.75);
+      transform-origin: left top;
 
-  /* 여기를 추가합니다. */
-  margin-bottom: -10px;
-  margin-right: -33.333333333%;
-}
+      /* 여기를 추가합니다. */
+      margin-bottom: -10px;
+      margin-right: -33.333333333%;
+  }
+
+
+
 </style>

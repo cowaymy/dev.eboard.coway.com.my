@@ -3,7 +3,7 @@ import "material-design-icons-iconfont/dist/material-design-icons.css";
 import Vue from "vue";
 
 import preset from "@/@core/preset/preset";
-import Vuetify from "vuetify/lib/framework";
+import Vuetify from "vuetify/lib";
 
 Vue.use(Vuetify);
 

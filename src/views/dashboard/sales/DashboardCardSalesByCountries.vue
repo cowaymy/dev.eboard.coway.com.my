@@ -5,7 +5,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon small class="me-n3 mt-n2">
+      <v-btn icon small class="me-n3 mt-n2" @click="gotoDetailView()">
         <v-icon>
           {{ icons.mdiDotsVertical }}
         </v-icon>
@@ -210,6 +210,34 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    gotoDetailView(){
+
+          const userInfo = this.$store.state.userInfo;
+          let jumpRoute =this.$router.history.current.path;
+
+          console.log(userInfo.memberLevel,userInfo.userTypeId)
+          if (userInfo.memberLevel == 0 
+                  || userInfo.userTypeId == 4 ){
+              jumpRoute ='/performance/NetSalesReport';
+          }
+
+          if (userInfo.memberLevel == 1){
+              jumpRoute ='/performance/NetSalesGMReport';
+          }
+
+          if (userInfo.memberLevel == 2){
+              jumpRoute ='/performance/NetSalesSMReport';
+          }
+
+          if (userInfo.memberLevel == 3){
+              jumpRoute ='/performance/NetSalesHMReport';
+          }
+
+          if (jumpRoute != this.$router.history.current.path) {
+            this.$router.push(jumpRoute);
+          }
     },
   },
 };

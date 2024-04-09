@@ -5,8 +5,8 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon small class="me-n3 mt-n2">
-        <v-icon>
+      <v-btn icon small class="me-n3 mt-n2" @click=gotoDetailView()>
+        <v-icon >
           {{ icons.mdiDotsVertical }}
         </v-icon>
       </v-btn>
@@ -85,7 +85,7 @@
 
                   <div>
                     <h4 class="font-weight-semibold"></h4>
-                    <span class="text-xs">{{ data.change }} %</span>
+                    <span class="text-xs">{{ fun_toFixed(data.change) }} %</span>
                     <v-progress-linear
                       height="6"
                       rounded
@@ -201,6 +201,13 @@ export default {
       //console.log(neFor);
       return neFor;
     },
+
+    fun_toFixed(val){
+            if(val){
+             return  val.toFixed(2);
+            }
+    },
+
     async callApiRinkForGMData() {
       try {
         const userInfo = this.$store.state.userInfo;
@@ -209,6 +216,29 @@ export default {
         console.log(error);
       }
     },
+
+
+    gotoDetailView(){
+
+        const userInfo = this.$store.state.userInfo;
+        let jumpRoute =this.$router.history.current.path;
+
+        
+
+        if(userInfo.memberLevel == 0 
+                  || userInfo.userTypeId == 4    ){
+            jumpRoute ='/performance/NetSalesReport';
+        }else if(userInfo.memberLevel == 1 ) {
+            jumpRoute ='/performance/NetSalesGMReport';
+        }else {
+            jumpRoute ='/performance/NetSalesSMReport';
+        }
+
+        if (jumpRoute != this.$router.history.current.path) {
+          this.$router.push(jumpRoute);
+        }
+    },
+
   },
 };
 </script>

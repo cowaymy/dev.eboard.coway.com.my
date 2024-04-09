@@ -332,5 +332,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "/src/@core/preset/preset/pages/auth.scss";
+  @import "/src/@core/preset/preset/pages/auth.scss";
 </style>

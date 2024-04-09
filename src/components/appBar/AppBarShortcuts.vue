@@ -167,10 +167,6 @@ export default {
 }
 
 .notification-menu-content {
-  @media #{map-get($display-breakpoints, 'xs-only')} {
-    min-width: calc(100vw - (1.5rem * 2)) !important;
-    left: 50% !important;
-    transform: translateX(-50%);
-  }
+
 }
 </style>

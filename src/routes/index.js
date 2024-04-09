@@ -7,27 +7,24 @@ import sales from "./sales";
 import profile from "./profile";
 
 
-
-
-
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: "history",
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/login/LoginPage.vue'),
-      meta: {
-        layout: 'blank',
-        resource: 'Public',
-      },
-    }
-    ,{
       path: "/",
       redirect: "/login",
       name: "home",
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import("../views/login/LoginPage.vue"),
+      meta: {
+        layout: 'blank',
+        requiresAuth: false
+      },
     },
     {
       path: "/error",
@@ -64,43 +61,43 @@ const router = new VueRouter({
       component: () => import("../views/comm/NotFoundPage.vue"),
     },
     {
-      path: "/salesMainHQ",
-      name: "salesMainHQ",
+      path: "/Main",
+      name: "Main",
       component: () => import("../views/dashboard/sales/SalesMainHQPage.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true ,layout: "content" },
     },
     {
-      path: "/salesMainSGM",
-      name: "salesMainSGM",
+      path: "/SGMMain",
+      name: "SGMMain",
       component: () => import("../views/dashboard/sales/SalesMainSGMPage.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true  ,layout: "content" },
     },
     {
-      path: "/salesMainGM",
-      name: "salesMainGM",
+      path: "/GMMain",
+      name: "GMMain",
       component: () => import("../views/dashboard/sales/SalesMainGMPage.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true  ,layout: "content" },
     },
 
     {
-      path: "/salesMainSM",
-      name: "salesMainSM",
+      path: "/SMMain",
+      name: "SMMain",
       component: () => import("../views/dashboard/sales/SalesMainSMPage.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true ,layout: "content" },
     },
 
     {
-      path: "/salesMainHM",
-      name: "salesMainHM",
+      path: "/HMMain",
+      name: "HMMain",
       component: () => import("../views/dashboard/sales/SalesMainHMPage.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true ,layout: "content" },
     },
 
     {
-      path: "/salesMainHP",
-      name: "salesMainHP",
+      path: "/HPMain",
+      name: "HPMain",
       component: () => import("../views/dashboard/sales/SalesMainHPage.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true },layout: "content" ,
     },
 
     {

@@ -194,7 +194,7 @@ export default {
   // search input
   .kb-search-input {
     max-width: 28.125rem;
-    background-color: map-get($shades, "white");
+    //background-color: map-get($shades, "white");
     border-radius: 5px;
   }
 

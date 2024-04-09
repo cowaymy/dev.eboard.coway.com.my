@@ -48,7 +48,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("54") }}
+                  {{ STK_WP_CNT}}
                 </v-list-item-title>
                 <v-list-item-subtitle>Water purifier</v-list-item-subtitle>
               </v-list-item-content>
@@ -60,7 +60,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("400") }}
+                  {{ STK_POE_CNT }}
                 </v-list-item-title>
                 <v-list-item-subtitle>POE</v-list-item-subtitle>
               </v-list-item-content>
@@ -75,7 +75,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("55") }}
+                  {{ STK_AP_CNT}}
                 </v-list-item-title>
                 <v-list-item-subtitle>Air purifier</v-list-item-subtitle>
               </v-list-item-content>
@@ -88,7 +88,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("5706") }}
+                  {{ STK_MATT_CNT }}
                 </v-list-item-title>
                 <v-list-item-subtitle>Mattress</v-list-item-subtitle>
               </v-list-item-content>
@@ -103,7 +103,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("56") }}
+                  {{ STK_BIDET_CNT}}
                 </v-list-item-title>
                 <v-list-item-subtitle>Bidet</v-list-item-subtitle>
               </v-list-item-content>
@@ -116,7 +116,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("5707") }}
+                  {{ STK_OUTH_CNT }}
                 </v-list-item-title>
                 <v-list-item-subtitle>Other</v-list-item-subtitle>
               </v-list-item-content>
@@ -130,7 +130,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("AI") }}
+                  {{ STK_AIR_CNT }}
                 </v-list-item-title>
                 <v-list-item-subtitle>Air Cond</v-list-item-subtitle>
               </v-list-item-content>
@@ -143,11 +143,30 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title class="font-weight-semibold text-3xl">
-                  {{ checkNull("99999") }}
+                  {{ STK_EMAIL_CNT }}
                 </v-list-item-title>
                 <v-list-item-subtitle>eMALL</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
+
+            <v-list-item class="pa-0">
+              <!-- item 1------->
+              <v-list-item-avatar class="" size="40" rounded>
+                <v-icon size="30" color="success">
+                  {{ icons.mdiSofaSingle  }}
+                </v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title class="font-weight-semibold text-3xl">
+                  {{ STK_MASS_CNT }}
+                </v-list-item-title>
+                <v-list-item-subtitle>Massage Chair</v-list-item-subtitle>
+              </v-list-item-content>
+
+             
+            </v-list-item>
+
+            
           </v-list>
           <!-- Action Button -->
           <!-- <v-btn block color="primary"> View Report </v-btn> -->
@@ -179,7 +198,7 @@ import {
   mdiNumeric10BoxMultiple,
   mdiAlphaEBox,
   mdiChevronUp,
-  mdiChevronDown,
+  mdiChevronDown,mdiSofaSingle 
 } from "@mdi/js";
 
 import salesApi from "../../../api/salesApi";
@@ -193,7 +212,6 @@ export default {
     async callApiEKeyInData() {
       try {
         const userInfo = this.$store.state.userInfo;
-        console.log("callApiEKeyInData API 호출 ");
         return await salesApi.getEKeyInData(userInfo);
       } catch (error) {
         console.log(error);
@@ -203,7 +221,6 @@ export default {
     async callApiTodayEkeyinData() {
       try {
         const userInfo = this.$store.state.userInfo;
-        console.log("callApiTodayEkeyinData API 호출 ");
         return await salesApi.getTodayEkeyinData(userInfo);
       } catch (error) {
         console.log(error);
@@ -216,6 +233,80 @@ export default {
     clearInterval(this.pollData);
   },
 
+
+  computed: {
+    STK_AIR_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_AIR_CNT;
+        });
+        return rtnValue;
+    },
+    STK_AP_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_AP_CNT;
+        });
+        return rtnValue;
+    },
+    STK_BIDET_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_BIDET_CNT;
+        });
+        return rtnValue;
+    },
+    STK_EMAIL_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_EMAIL_CNT;
+        });
+        return rtnValue;
+    },
+    STK_MASS_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_MASS_CNT;
+        });
+        return rtnValue;
+    },
+    STK_MATT_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_MATT_CNT;
+        });
+        return rtnValue;
+    },
+    STK_OUTH_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_OUTH_CNT;
+        });
+        return rtnValue;
+    },
+    STK_POE_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_POE_CNT;
+        });
+        return rtnValue;
+    },
+    STK_SOFT_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_SOFT_CNT;
+        });
+        return rtnValue;
+    },
+    STK_WP_CNT (){
+        let rtnValue =0;
+        this.todayEeyin.filter((item) =>{
+          rtnValue =item. STK_WP_CNT;
+        });
+        return rtnValue;
+    }
+  },
+
   created() {
     this.callApiEKeyInData().then((request) => {
       console.log("callApiEKeyInData API 수신 완료 ");
@@ -223,7 +314,6 @@ export default {
     });
 
     this.callApiTodayEkeyinData().then((request) => {
-      console.log("callApiTodayEkeyinData API 수신 완료 ");
       this.todayEeyin = request.data.data;
     });
     this.pollData = setInterval(() => {
@@ -238,25 +328,10 @@ export default {
   },
 
   data() {
-    const checkNull = (value) => {
-      var rtnVal = 0;
-      try {
-        this.todayEeyin.forEach(function (v) {
-          if (value == v.STK_CTGRY_ID) {
-            rtnVal = v.P_TOTAL_CNT;
-          }
-        });
-      } catch (error) {
-        rtnVal = 0;
-      }
-
-      return rtnVal;
-    };
-
+   
     const rollerKeyin = 0;
     const pollData = null;
     return {
-      checkNull,
       tvalue: {},
       chartData: [],
       todayEeyin: [],
@@ -283,6 +358,7 @@ export default {
         mdiAlphaEBox,
         mdiChevronUp,
         mdiChevronDown,
+        mdiSofaSingle 
       },
     };
   },
