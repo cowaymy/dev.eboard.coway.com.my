@@ -145,8 +145,10 @@ export default {
 
       //start spinner
       //bus.$emit('start:spinner');
-      this.getLocationInfo(content);
+      //this.getLocationInfo(content);
       //this.toPassRouter(content);
+
+      console.log(content)
     },
 
     turnCameraOn() {

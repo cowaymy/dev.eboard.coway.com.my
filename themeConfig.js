@@ -39,6 +39,9 @@ const themeConfig = {
       info: "#16B1FF",
       warning: "#FFB400",
       error: "#FF4C51",
+      completed :"#0ABF67",
+      active:"#1874f5"
+
     },
     dark: {
       primary: "#9155FD",
@@ -48,6 +51,8 @@ const themeConfig = {
       info: "#16B1FF",
       warning: "#FFB400",
       error: "#FF4C51",
+      completed :"#0ABF67",
+      active:"#1874f5"
     },
   },
 };

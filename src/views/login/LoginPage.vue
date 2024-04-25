@@ -1,200 +1,5 @@
+
 <template>
-
-
-  <v-card
-    class="mx-auto"
-    max-width="425"
-  >
-    <v-list lines="two">
-      <v-list-subheader>Today</v-list-subheader>
-
-      <v-list-item
-        prepend-avatar="https://cdn.vuetifyjs.com/images/lists/1.jpg"
-        title="Brunch this weekend?"
-      >
-        <template v-slot:subtitle>
-          <span class="font-weight-bold">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?
-        </template>
-      </v-list-item>
-
-      <v-divider inset></v-divider>
-
-      <v-list-item
-        prepend-avatar="https://cdn.vuetifyjs.com/images/lists/2.jpg"
-      >
-        <template v-slot:title>
-          Summer BBQ <span class="text-grey-lighten-1">4</span>
-        </template>
-
-        <template v-slot:subtitle>
-          <span class="font-weight-bold">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.
-        </template>
-      </v-list-item>
-
-      <v-divider inset></v-divider>
-
-      <v-list-item
-        prepend-avatar="https://cdn.vuetifyjs.com/images/lists/3.jpg"
-        title="Oui oui"
-      >
-        <template v-slot:subtitle>
-          <span class="font-weight-bold">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?
-        </template>
-      </v-list-item>
-    </v-list>
-  </v-card>
-</template>
-
-
-<script>
-
-import { mdiEyeOutline, mdiEyeOffOutline } from "@mdi/js";
-import themeConfig from "/themeConfig";
-import bus from "@/utils/bus.js";
-
-export default {
-  data() {
-    return {
-      userId: "",
-      password: "",
-      logMaessage: "",
-      isPasswordVisible: false,
-      sheet: false,
-      // themeConfig
-      appName: themeConfig.app.name,
-      appLogo: themeConfig.app.logo,
-      result: ":::=>",
-
-      icons: {
-        mdiEyeOutline,
-        mdiEyeOffOutline,
-      },
-    };
-  },
-  created() {
-    console.log(process.env.VUE_APP_API_URL);
-  },
-  computed: {
-    isFormValid() {
-      var isValid = true; //validEmail(this.username);
-      if (this.password == "") isValid = false;
-
-      return isValid;
-    },
-  },
-
-  mounted() {
-    // console.debug('===========>');
-    // // 웹에서 메시지를 받을 수 있도록 이벤터 리스너를 등록한다
-    // document.addEventListener('message', this.receiveMessage, true);
-    // window.addEventListener('message', this.receiveMessage, true);
-    // alert(document.toString());
-  },
-  methods: {
-    // receiveMessage(event) {
-    // 	alert(event.data);
-    // 	console.log('origin: ', event.origin); // 메시지를 보낸 곳
-    // 	console.log('message: ', event.data); // 보낸 메시지
-    // },
-
-    onNativeEventTest() {
-      // "getLocationInfo"는 react-native에서 받는 메서드 이름입니다.
-      window.webViewBridge.send(
-        "getLocationInfo",
-        "",
-        function (res) {
-          this.result = JSON.stringify(res);
-        },
-        function (err) {
-          console.error(err);
-        }
-      );
-    },
-    async submitForm() {
-      try {
-        const userdata = {
-          memCode: this.userId,
-          password: this.password,
-        };
-
-        //start spinner
-        bus.$emit("start:spinner");
-
-        //call lgoin api
-        const data = await this.$store.dispatch("LOGIN", userdata);
-
-        if (data.success) {
-          //const dataNotifi = await this.$store.dispatch('GETNOTIFI', userInfo);
-          //go to main page
-          this.$router.push(this.getNextRoute(data.user[0]));
-        } else {
-          this.sheet = true;
-          this.logMaessage = data.message;
-        }
-      } catch (error) {
-        console.log(error);
-        this.sheet = true;
-        this.logMaessage = error.message;
-      } finally {
-        this.initForm();
-        bus.$emit("end:spinner");
-      }
-    },
-
-    initForm() {
-      this.userId = "";
-      this.password = "";
-      this.isPasswordVisible = false;
-    },
-
-    getNextRoute(data) {
-      if (data.userTypeId == "1") {
-        var rtnRoute;
-        if (data.memberLevel == null || data.memberLevel == undefined) {
-          return "/error";
-        }
-        switch (data.memberLevel) {
-          case 0:
-            rtnRoute = "/salesMainSGM";
-            break;
-          case 1:
-            rtnRoute = "/salesMainGM";
-            break;
-          case 2:
-            rtnRoute = "/salesMainSM";
-            break;
-          case 3:
-            rtnRoute = "/salesMainHM";
-            break;
-          case 4:
-            rtnRoute = "/salesMainHP";
-            break;
-          case 99:
-            rtnRoute = "/salesMainHQ";
-            break;
-        }
-        return rtnRoute;
-      } else if (data.userTypeId == "2") {
-        return "/codyMain";
-      } else if (data.userTypeId == "3") {
-        return "/dscMain";
-      } else if (data.userTypeId == "7") {
-        return "/homecareMain";
-      } else if (data.userTypeId == "4") {
-        //HQ
-        return "/performance/eKeyinPerformance";
-      } else {
-        return "/salesMainHQ";
-      }
-    },
-  },
-};
-
-</script>
-
-<style>
-
-</style><template>
   <div class="auth-wrapper auth-v1">
     <div class="auth-inner">
       <v-form @submit.prevent="submitForm">
@@ -239,7 +44,7 @@ export default {
 
             <v-text-field
               v-model="password"
-              class="logInput"
+              class ="logInput"
               :type="isPasswordVisible ? 'text' : 'password'"
               label="Password"
               placeholder="············"
@@ -255,8 +60,8 @@ export default {
           
           <v-btn
               block
-              color="primary"
-              class="mt-6"
+              color ="#16B1FF"
+              class="mt-6 "
               :disabled="!isFormValid"
               type="submit"
             >
@@ -291,7 +96,6 @@ export default {
     </v-bottom-sheet>
   </div>
 </template>
-
 <script>
 
 import { mdiEyeOutline, mdiEyeOffOutline } from "@mdi/js";
@@ -373,9 +177,11 @@ export default {
           //const dataNotifi = await this.$store.dispatch('GETNOTIFI', userInfo);
           //go to main page
 
-          console.log(data.user[0].mainFun);
-          this.$router.push(data.user[0].mainFun);
+          console.log('mainFun:::',data.user[0].mainFun);
 
+          this.$store.dispatch('SET_USER_MAIN_HOME', data.user[0].mainFun);
+          this.$router.push(data.user[0].mainFun);
+          
         } else {
           this.$toasted
             .error(data.message, {
@@ -392,7 +198,7 @@ export default {
             .goAway(2500);
         }
       } catch (error) {
-      
+        console.log(error)
       } finally {
         this.initForm();
         bus.$emit("end:spinner");

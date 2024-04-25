@@ -235,6 +235,12 @@ export default {
               jumpRoute ='/performance/NetSalesHMReport';
           }
 
+
+          if (userInfo.memberLevel == 4){
+              jumpRoute ='/performance/NetSalesHPReport';
+          }
+
+
           if (jumpRoute != this.$router.history.current.path) {
             this.$router.push(jumpRoute);
           }

@@ -59,10 +59,10 @@
 						
 						</div> -->
 
-            <template v-if="item.category == '/salesMainSGM'">
+            <template v-if="item.category == '/SalesMain'">
               <StatisticsCardHQMain></StatisticsCardHQMain>
             </template>
-            <template v-if="item.category == '/codyMain'">
+            <template v-if="item.category == '/CodyMain'">
               <StatisticsCardHQMain_Cody></StatisticsCardHQMain_Cody>
             </template>
 
@@ -162,7 +162,7 @@ export default {
       return [
         {
           //character: '',
-          category: "/salesMainSGM",
+          category: "/SalesMain",
           //characterSize: '139',
           title: "Sales Dashboard",
           desc: "",
@@ -170,7 +170,7 @@ export default {
 
         {
           //character: '',
-          category: "/codyMain",
+          category: "/CodyMain",
           //characterSize: '139',
           title: "Cody Dashboard",
           desc: "",

@@ -129,6 +129,12 @@ export default {
                       item.NAME
                           .toLowerCase()
                           .includes(this.search.toLowerCase()) ||
+                      item.DEPT_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.MEM_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
                       item.ORG_CODE
                           .toLowerCase()
                           .includes(this.search.toLowerCase())

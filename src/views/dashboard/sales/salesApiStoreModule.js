@@ -19,12 +19,12 @@ export default {
   },
   mutations: {
     setApiCurMonthData(state, data) {
-      console.log(data);
+      //console.log(data);
       state.apiCurMonthData = data;
     },
 
     setApiTargetData(state, data) {
-      console.log(data);
+      //console.log(data);
       state.apiTargetData = data;
     },
   },

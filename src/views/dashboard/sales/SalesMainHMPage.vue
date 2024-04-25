@@ -199,12 +199,12 @@ export default {
   },
   methods: {
     fetchCurMonthData() {
-      console.log("fetchCurMonthData ==>");
       store
         .dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchCurMonthData`)
         .then((response) => {
           (this.eKeyInData = {
             statTitle: "Key In",
+            jumpRoute: "/performance/keyInReport", 
             icon: mdiClipboardEditOutline,
             color: "success",
             subtitle: response.data.data[0].LST_UP_TIME,
@@ -213,6 +213,7 @@ export default {
           }),
             (this.NetSalesData = {
               statTitle: "Net Sales",
+              jumpRoute: "/performance/NetSalesHMReport",
               icon: mdiCheckboxMultipleMarkedOutline,
               color: "error",
               subtitle: response.data.data[0].LST_UP_TIME,
@@ -221,6 +222,7 @@ export default {
             }),
             (this.ActiveHpData = {
               statTitle: "Active HP",
+              jumpRoute: "/performance/ActiveHPHMReport",
               icon: mdiCheckboxMultipleMarkedOutline,
               color: "primary",
               subtitle: response.data.data[0].LST_UP_TIME,
@@ -229,6 +231,7 @@ export default {
             }),
             (this.SHIData = {
               statTitle: "SHI",
+              jumpRoute: "/performance/SHIHMReport",
               icon: mdiTrendingUp,
               color: "warning",
               subtitle: response.data.data[0].LST_UP_TIME,
@@ -246,7 +249,6 @@ export default {
     },
 
     fetchTargetData() {
-      console.log("fetchTargetData ==>");
       store
         .dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchTargetData`)
         .then((response) => {

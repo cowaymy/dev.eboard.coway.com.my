@@ -3,7 +3,7 @@
     <!-- tabs -->
     <v-tabs v-model="tab" show-arrows>
       <v-tab v-for="tab in tabs" :key="tab.icon">
-        <v-icon size="20" class="me-3">
+        <v-icon  size="20" class="me-3">
           {{ tab.icon }}
         </v-icon>
         <span>{{ tab.title }}</span>
@@ -31,11 +31,13 @@
       <!-- <v-tab-item>
 				<account-settings-billing></account-settings-billing>
 			</v-tab-item> -->
-      <v-tab-item>
-        <account-settings-notification
-          :notification-data="accountSettingData.notification"
-        ></account-settings-notification>
-      </v-tab-item>
+      <template v-if="canMakeNotication()">
+        <v-tab-item>
+          <account-settings-notification
+            :notification-data="accountSettingData.notification"
+          ></account-settings-notification>
+        </v-tab-item>
+      </template>
       <template v-if="isOfficeAdmin()">
         <v-tab-item>
           <AccountSettingAttendScanQRCodeSetting></AccountSettingAttendScanQRCodeSetting>
@@ -69,17 +71,16 @@ export default {
   data() {
     const tab = "";
 
-    console.log(this.$store.state);
+    
     // tabs
     const tabs = [
       { title: "Account", icon: mdiAccountOutline },
       { title: "Security", icon: mdiLockOpenOutline },
-      { title: "Info", icon: mdiInformationOutline },
-      { title: "Notifications", icon: mdiBellOutline },
-      this.isOfficeAdmin()
-        ? { title: "Attendance Settings", icon: mdiQrcodeEdit }
-        : { title: "", icon: "" },
+      { title: "Info", icon: mdiInformationOutline }
     ];
+
+    if(this.canMakeNotication()) tabs.push( { title: "Notifications", icon: mdiBellOutline })
+    if(this.isOfficeAdmin()) tabs.push( { title: "Attendance Settings", icon: mdiQrcodeEdit })
 
     // account settings data
     const accountSettingData = {
@@ -145,13 +146,19 @@ export default {
 
   methods: {
     isOfficeAdmin() {
-      console.log(this.$store.state.userInfo);
       if (this.$store.state.userInfo.userTypeId == 1) {
         return true;
       } else {
         return false;
       }
     },
+    canMakeNotication(){
+        if (this.$store.state.userInfo.memberLevel < 2 || this.$store.state.userInfo.userTypeId==4) {
+          return true;
+        } else {
+          return false;
+        }
+    }
   },
 };
 </script>

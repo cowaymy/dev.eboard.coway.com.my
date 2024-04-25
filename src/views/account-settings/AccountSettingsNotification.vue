@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="pa-3">
-    <v-form class="multi-col-validation" @submit.prevent="submitForm">
+    <v-form class="multi-col-validation" ref="form"   @submit.prevent="submitForm">
 
       <v-card-text class="pt-5">
         <v-row class="fill-height ">          
@@ -11,7 +11,9 @@
               dense
               hide-details
               outlined
-            ></v-text-field>
+            >
+          </v-text-field>
+          <span v-if="!isValidSubject" class="vaildErr">  must enter at least 10 characters.</span>
           </v-col>
 
           <v-col cols="12">
@@ -27,6 +29,8 @@
                   @ready="onEditorReady($event)"
                 />
               </div>
+              <span v-if="!isValidEdit" class="vaildErr">  must enter at least 10 characters.</span>
+
             </v-col>
             <v-divider></v-divider>
           <v-col cols="12" md="6">
@@ -98,6 +102,7 @@
             :selection-type="selectionType"
             selectable
             return-object
+            required
           ></v-treeview>
         </v-col>
         <v-divider vertical></v-divider>
@@ -187,6 +192,7 @@ import { quillEditor } from 'vue-quill-editor';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import vueDropzone from 'vue2-dropzone';
 
+
 export default {
   props: {
     notificationData: {
@@ -202,7 +208,6 @@ export default {
   data(props) {
     const optionsLocale = JSON.parse(JSON.stringify(props.notificationData));
     const useYn = true;
-
     const items = [
       {
         id: "ALL",
@@ -273,18 +278,20 @@ export default {
         }  
       },
       dropzoneOptions: {
-        url: 'http://localhost:3000/apps/api/upload/mFileUpload', // 파일 업로드를 처리할 서버의 엔드포인트
+        url: `${process.env.VUE_APP_API_URL}/apps/api/upload/mFileUpload`, // 파일 업로드를 처리할 서버의 엔드포인트
         paramName: 'file', // 서버로 전송될 파일의 이름
         maxFilesize: 5, // 최대 파일 크기 (MB)
         // acceptedFiles: '.jpg, .jpeg, .png, .gif', // 허용되는 파일 형식
         headers: { "My-Awesome-Header": "header value" }
       },
-      uploadedFiles: [] // 업로드된 파일 목록을 저장할 배열
+      uploadedFiles: [], // 업로드된 파일 목록을 저장할 배열
+      
     };
   },
 
   methods: {
 
+   
     onSuccess(file, response) {
       console.log('파일 업로드 성공:', file, response.path);
       this.uploadedFiles.push(file);
@@ -345,16 +352,26 @@ export default {
     //   };
     // },
     async submitForm() {
+      if (! this.isValidSubject  && ! this.isValidEdit) {
+          this.$toasted
+          .error("You need to check required", {
+            icon: "check",
+            position: "top-right",
+            action: {
+              text: "Close",
+              onClick: (e, toastObject) => {
+                toastObject.goAway(0);
+              },
+            },
+          })
+          .goAway(2500);
+         return ;
+      }
       try {
           let target = "";
           this.selection.forEach(function (v) {
-            console.log(v);
             target += "^" + v.id;
           });
-
-
-        console.log(this.$refs.dropzone.getAcceptedFiles())
-
 
         let uploadedFileId =[];
         let uploadedFileName =[];
@@ -430,7 +447,6 @@ export default {
       },
       onEditorReady(quill) {
        // quill.getModule('toolbar').addHandler('image', this.imageButtonClickHandler);
-        console.log('editor ready!', quill)
       },
       onEditorChange({ quill, html, text }) {
        // console.log('editor change!', quill, html, text)
@@ -438,7 +454,6 @@ export default {
       },
 
       fileSelected(file) {
-        console.log('선택된 파일:', file);
         // 선택된 파일을 여기서 처리할 수 있습니다.
         this.uploadFile(file);
       },
@@ -448,11 +463,8 @@ export default {
       form.append("name", this.$store.state.userName);
       form.append("files", vFile);
 
-
-
-
             
-      fetch('http://localhost:3000/apps/api/upload/mFileUpload', {
+      fetch(`${process.env.VUE_APP_API_URL}/apps/api/upload/mFileUpload`, {
           method: 'POST',
           body: form,
       })
@@ -489,12 +501,19 @@ export default {
   }, 
 
   computed: {
-      editor() {
+    editor() {
         return this.$refs.quillio.quill
+      },
+
+      isValidSubject () {
+        return  this.subject.length >= 10 ;
+      },
+      isValidEdit () {
+        return  this.contents.length >= 20 ;
       }
     },
     mounted() {
-      console.log('this is current quill instance object', this.editor)
+      //console.log('this is current quill instance object', this.editor)
     }
 
 };
@@ -508,6 +527,9 @@ export default {
       height: 15rem;
       margin-bottom: 0;
     }
-  
+  }
+
+  .vaildErr{
+    color: red;
   }
 </style>

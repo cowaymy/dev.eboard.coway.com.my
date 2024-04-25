@@ -5,7 +5,7 @@ const notiList = [
       component: () => import("../views/notification/NotificationList.vue"),
       meta: {
         layout: "content",
-        requiresAuth: false,
+        requiresAuth: process.env.VUE_APP_CHK_AUH,
       }, 
     }
   ];

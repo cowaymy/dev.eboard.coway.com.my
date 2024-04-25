@@ -227,6 +227,11 @@ export default {
       }
       this.show = true;
     },
+    fun_numFormat(number) {
+        if(number) return  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        //console.log(neFor);
+        return null;
+      },
   },
 
   beforeDestroy() {
@@ -240,76 +245,75 @@ export default {
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_AIR_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_AP_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_AP_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_BIDET_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_BIDET_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_EMAIL_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_EMAIL_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_MASS_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_MASS_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_MATT_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_MATT_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_OUTH_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_OUTH_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_POE_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_POE_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_SOFT_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_SOFT_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     },
     STK_WP_CNT (){
         let rtnValue =0;
         this.todayEeyin.filter((item) =>{
           rtnValue =item. STK_WP_CNT;
         });
-        return rtnValue;
+        return this.fun_numFormat(rtnValue);
     }
   },
 
   created() {
     this.callApiEKeyInData().then((request) => {
-      console.log("callApiEKeyInData API 수신 완료 ");
       this.rollerKeyin = request.data.data[0].TOTAL_SALES;
     });
 

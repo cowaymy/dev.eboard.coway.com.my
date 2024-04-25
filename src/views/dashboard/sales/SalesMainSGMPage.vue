@@ -211,6 +211,7 @@ export default {
         .then((response) => {
           (this.eKeyInData = {
             statTitle: "Key In",
+            jumpRoute: "/performance/keyInReport",  
             icon: mdiClipboardEditOutline,
             color: "success",
             subtitle: response.data.data[0].LST_UP_TIME,
@@ -237,6 +238,7 @@ export default {
             }),
             (this.SHIData = {
               statTitle: "SHI",
+              jumpRoute: "/performance/SHIReport",
               icon: mdiTrendingUp,
               color: "warning",
               subtitle: response.data.data[0].LST_UP_TIME,

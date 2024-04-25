@@ -2,9 +2,25 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" dark app>
       <div class="text-center mt-3">
-        <v-btn fab color="white" x-large>
-          <v-icon color="black">fas fa-chart-line </v-icon>
-        </v-btn>
+        <v-tooltip
+          v-model="show"
+          location="bottom"
+        >
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              fab
+              color="white" x-large @click="gotoHome()" 
+            >
+            <v-icon color="black">fas fa-chart-line </v-icon>
+            </v-btn>
+          </template>
+          <span >go to Home</span>
+        </v-tooltip>
+
+
+           
+      
       </div>
 
       <div class="text-center mt-3">
@@ -55,8 +71,8 @@
 
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block>
-            <v-icon @click="logoutUser"> fas fa-sign-out-alt</v-icon>
+          <v-btn block  @click="logoutUser">
+            <v-icon> fas fa-sign-out-alt</v-icon>
             Logout
           </v-btn>
         </div>
@@ -82,7 +98,7 @@
         v-if="$store.state.userInfo && $store.state.userInfo.userTypeId == '1'"
         class="app-content-container boxed-container pa-6"
       >
-        <eMdaltor open="false"></eMdaltor>
+       
       </div>
 
       <template v-if="spinnerStatus">
@@ -138,8 +154,13 @@ export default {
     userInfo() {
       return this.$store.state.userInfo;
     },
+
+    mainHome(){
+      return this.$store.state.userMainHome;
+    },
     
     links(){
+      //console.log(this.$store.state.memuList)
       return this.$store.state.memuList;
     },
   },
@@ -148,11 +169,13 @@ export default {
     return {
       drawer: null,
       spinnerStatus: false,
+      show: false,
     };
   },
 
   methods: {
     logoutUser() {
+
       this.$store.commit("clearUserInfo");
       this.$router.push("/");
     },
@@ -161,6 +184,13 @@ export default {
       console.log('log.....')
       store.dispatch("getMemuList");
     },
+
+    gotoHome(){
+
+      if (this.$router.history.current.path !== this.$store.state.userInfo.mainFun) {
+          this.$router.push(this.$store.state.userInfo.mainFun);
+      }
+    }
   },
 
   created(){

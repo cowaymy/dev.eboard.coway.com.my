@@ -89,8 +89,24 @@ export default {
 
 
     gotoDetailView(){
+      console.log(this.jumpRoute)
       if (this.jumpRoute != this.$router.history.current.path) {
+
+    
         this.$router.push(this.jumpRoute);
+      }
+    },
+    checkNull (value) {
+      if (typeof value === 'number') {
+            // 변수가 숫자인 경우에만 toFixed 호출
+            return value.toFixed(2);
+      } else {
+          if (value == undefined || value == null || value == "null"  || value == "") {
+              return 0;
+          }else{
+              //let numberValue = parseInt(value);
+              return value;
+          }
       }
     }
   },
@@ -113,18 +129,11 @@ export default {
       return true;
     };
 
-    const checkNull = (value) => {
-      if (value == undefined || value == null || value == "null") {
-        return 0;
-      }
-
-      return value;
-    };
+   
 
     return {
       mdiDotsVertical,
       checkChange,
-      checkNull,
       isDialogVisible,
       notifications,
       sound,

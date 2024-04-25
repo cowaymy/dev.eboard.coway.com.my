@@ -85,6 +85,7 @@ export default {
       userData.userTypeId = userInfo.userTypeId;
       userData.roleId = userInfo.roleId;
    
+      //console.log(performanceApi)
       return new Promise((resolve, reject) => {
         performanceApi
           .fetchGetNestSalesLevel1(userData)
@@ -97,7 +98,7 @@ export default {
             let cNameNetSales =[];
             
 
-            console.log('fetchGetNestSalesLevel1 ::: ',response)
+            //console.log('fetchGetNestSalesLevel1 ::: ',response)
             response.data.dataList.filter((e) => {
 
               cNetSales.push(e.NETSALES);
@@ -147,12 +148,12 @@ export default {
             let cTotalNetSales =[];
             let pMTotalNetSales =[];
             let pYTotalNetSales =[];
-            
+            //console.log(response.data.dataList)
             response.data.dataList.filter((e) => {
                   cTotalNetSales.push(e.CN_CNT);
                   pMTotalNetSales.push(e.PM_CNT);
                   pYTotalNetSales.push(e.PY_CNT);
-                  console.log(e)
+                  //console.log(e)
             });
 
               commit("SET_DATA_TOTALNETSALES_LEVEL1_LIST", cTotalNetSales);
@@ -231,7 +232,7 @@ export default {
           .fetchNetSalesLevel2(ov)
           .then((response) => {
 
-            console.log(response.data)
+            //console.log(response.data)
             context.commit("SET_DATA_ITEM_LEVEL2_LIST", response.data.dataList);
             resolve(response);
           })
@@ -257,7 +258,7 @@ export default {
           .fetchNetSalesLevel3(item)
           .then((response) => {
 
-            console.log(response.data)
+           // console.log(response.data)
             commit("SET_DATA_ITEM_LEVEL3_LIST", response.data.dataList);
             resolve(response);
           })
@@ -283,7 +284,6 @@ export default {
           .fetchNetSalesLevel4(item)
           .then((response) => {
 
-            console.log(response.data)
             commit("SET_DATA_ITEM_LEVEL4_LIST", response.data.dataList);
             resolve(response);
           })

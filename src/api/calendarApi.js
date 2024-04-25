@@ -28,12 +28,20 @@ async function fetchAttendBranchName(id) {
   return newInstance.get(`/apps/calendar/attendBranchName/${id}`);
 }
 
+// async function fetchAttendAllowLactionFroHp(data) {
+//   console.log("fetchAttendAllowLactionFroHp=====>", data);
+//   return newInstance.get(
+//     `/apps/calendar/checkAttendanceAllowLocationForHp/${data.id}/scanDevice/${data.deviceId}/latitude/${data.latitude}/longitude/${data.longitude}`
+//   );
+// }
+
 async function fetchAttendAllowLactionFroHp(data) {
   console.log("fetchAttendAllowLactionFroHp=====>", data);
   return newInstance.get(
-    `/apps/calendar/checkAttendanceAllowLocationForHp/${data.id}/scanDevice/${data.deviceId}/latitude/${data.latitude}/longitude/${data.longitude}`
+    `/apps/calendar/checkAttendanceAllowLocationForHp/${data.id}/scanDevice/${data.deviceId}`
   );
 }
+
 async function verifyLocationForHp(data) {
   console.log("verifyLocationForHp=====>", data);
   return newInstance.get(

@@ -127,12 +127,18 @@
                     .appPerformanceActiveHP.dataItemLevel2List
                     .filter(
                         (item) =>
-                        item.NAME
-                            .toLowerCase()
-                            .includes(this.search.toLowerCase()) ||
-                        item.ORG_CODE
-                            .toLowerCase()
-                            .includes(this.search.toLowerCase())
+                      item.NAME
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.DEPT_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.MEM_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.ORG_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase())
                     );
         },
 
@@ -198,7 +204,7 @@
             this.$store.state.appPerformanceActiveHP.dataItemLevel3List  =[];
             this.$store.state.appPerformanceActiveHP.dataItemLevel4List  =[];
 
-            console.log(item)
+            //console.log(item)
             const param ={};
             param.memCode =item.MEM_CODE;
             param.grpCode = item.GRP_CODE;

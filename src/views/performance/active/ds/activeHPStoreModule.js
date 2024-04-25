@@ -97,7 +97,7 @@ export default {
             let cNameNetSales =[];
             
 
-            console.log('fetchActiveHPLevel1 ::: ',response)
+            //console.log('fetchActiveHPLevel1 ::: ',response)
             response.data.dataList.filter((e) => {
 
               cNetSales.push(e.PCACT);
@@ -151,7 +151,7 @@ export default {
                   cT.push(e.PC);
                   pM.push(e.PM);
                   pY.push(e.PY);
-                  console.log(e)
+                  //console.log(e)
             });
 
               commit("SET_DATA_PCTOTAL_LEVEL1_LIST", cT);
@@ -212,7 +212,7 @@ export default {
           .fetchActiveHPLevel2(ov)
           .then((response) => {
 
-            console.log(response.data)
+            //console.log(response.data)
             context.commit("SET_DATA_ITEM_LEVEL2_LIST", response.data.dataList);
             resolve(response);
           })
@@ -238,7 +238,7 @@ export default {
           .fetchActiveHPLevel3(item)
           .then((response) => {
 
-            console.log(response.data)
+            //console.log(response.data)
             commit("SET_DATA_ITEM_LEVEL3_LIST", response.data.dataList);
             resolve(response);
           })
@@ -264,7 +264,7 @@ export default {
           .fetchNetSalesLevel4(item)
           .then((response) => {
 
-            console.log(response.data)
+            //console.log(response.data)
             commit("SET_DATA_ITEM_LEVEL4_LIST", response.data.dataList);
             resolve(response);
           })

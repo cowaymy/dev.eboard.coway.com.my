@@ -116,6 +116,22 @@
               <span> INSTALL</span>
             </v-chip>
           </VBadge>
+
+          <VBadge
+            :content="staticCompCnt"
+            bordered
+            color="error"
+            offset-x="24"
+            offset-y="20"
+          >
+            <v-chip
+              :color="setTagColor('M')"
+              @click="keyEvents('COM')"
+              class="me-3"
+            >
+              <span> COMPLETED</span>
+            </v-chip>
+          </VBadge>
         </v-chip-group>
       </div>
     </v-col>
@@ -262,6 +278,7 @@ export default {
       staticEASCnt: 0,
       staticCAGCnt: 0,
       staticINSCnt: 0,
+      staticCompCnt:0,
       events: [],
       oldEventsList: [],
       icons: {
@@ -282,7 +299,10 @@ export default {
     };
   },
   components: { orderDetail },
-  computed: {},
+  computed: {
+
+
+  },
 
   methods: {
     keyEvents(type) {
@@ -301,25 +321,35 @@ export default {
     },
 
     setOrderStus(item) {
-      if (item.INSTALL_STUS != null) {
+
+      console.log(item)
+
+      if (item.SALES_STUS_CODE == "Completed") {
+        this.staticCompCnt++;
+        return "COM";
+      }
+     
+      if (item.INSTALL_STUS != "Completed") {
         this.staticINSCnt++;
         return "INS";
       }
 
-      if (item.CALL_LOG_STUS != null) {
+      if (item.CALL_LOG_STUS != "Ready To Install" ) {
         this.staticCAGCnt++;
         return "CAG";
       }
 
-      if (item.ECASH_STUS != null) {
+      if (item.ECASH_STUS != "Completed") {
         this.staticEASCnt++;
         return "ECS";
       }
 
-      if (item.CCP_STUS != null) {
+      if (item.CCP_STUS != "Approved") {
         this.staticCCPCnt++;
         return "CCP";
       }
+
+      
     },
     convertData(rowItem) {
       let item = {};
@@ -344,6 +374,7 @@ export default {
       this.staticEASCnt = 0;
       this.staticCAGCnt = 0;
       this.staticINSCnt = 0;
+      this.staticCompCnt =0;
       this.events = [];
 
       const parsedValue = this.date.replace(/-/g, "");
@@ -383,6 +414,8 @@ export default {
         tagIcon = "#23B5D3";
       } else if (typeCode == "INS" || typeCode == "I") {
         tagIcon = "#1F7872";
+      } else if (typeCode == "COM" || typeCode == "M") {
+        tagIcon = "#0ABF67";
       }
 
       return tagIcon;

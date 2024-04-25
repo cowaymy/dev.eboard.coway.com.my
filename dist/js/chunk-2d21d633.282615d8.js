@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d21d633"],{d0a2:function(n,e,t){"use strict";t.r(e);var u=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[n._v("지금은 SSO 로그인 중입니다. 잠시만 기다려주세요!!!!!")])},c=[],l={},a=l,r=t("2877"),s=Object(r["a"])(a,u,c,!1,null,null,null);e["default"]=s.exports}}]);
-//# sourceMappingURL=chunk-2d21d633.282615d8.js.map

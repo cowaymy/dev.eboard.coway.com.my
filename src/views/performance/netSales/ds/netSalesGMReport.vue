@@ -241,7 +241,7 @@ export default {
         chart2HandleChartClick(event, chartContext, config){
 
              const dataPointIndex = config.dataPointIndex;
-              console.log('클릭 이벤트' ,dataPointIndex)
+              //console.log('클릭 이벤트' ,dataPointIndex)
 
 
             this.$store.state.appPerformanceNetSales.dataItemLevel3List  =[];

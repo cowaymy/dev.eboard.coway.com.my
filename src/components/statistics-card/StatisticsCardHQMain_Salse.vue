@@ -10,7 +10,7 @@
             :transition="4"
           ></VueRolling>
         </p>
-        <span class="text-base font-weight-semibold">ToDay's eKeyIn</span>
+        <span class="text-base font-weight-semibold">Today's KeyIn</span>
       </div>
     </v-card-text>
 
@@ -211,7 +211,6 @@ export default {
     async callApiEKeyInData() {
       try {
         const userInfo = this.$store.state.userInfo;
-        console.log("callApiEKeyInData API 호출 ");
         return await salesApi.getEKeyInData(userInfo);
       } catch (error) {
         console.log(error);
@@ -221,7 +220,6 @@ export default {
     async callApiTodayEkeyinData() {
       try {
         const userInfo = this.$store.state.userInfo;
-        console.log("callApiTodayEkeyinData API 호출 ");
         return await salesApi.getTodayEkeyinData(userInfo);
       } catch (error) {
         console.log(error);
@@ -230,27 +228,17 @@ export default {
   },
 
   beforeDestroy() {
-    console.info("------- 메인 페이지 아웃시 --------------------");
-
     clearInterval(this.pollData);
     clearInterval(this.pollTodyData);
-
-    console.log("this.polling id   종료후 :::::", this.polling);
-    console.log("this.pollTodyData id   종료후 :::::", this.pollTodyData);
   },
 
   created() {
-    console.info("------- 메인 페이지 생성시 --------------------");
     this.callApiEKeyInData().then((request) => {
-      console.log(request);
-      console.log("callApiEKeyInData HQ 메인화면 API 수신 완료 ");
       this.newEkeyIn = request.data.data[0].TOTAL_SALES;
     });
 
     this.callApiTodayEkeyinData().then((request) => {
       const newList = [];
-      console.log(request);
-      console.log("callApiTodayEkeyinData HQ 메인화면 API 수신 완료 ");
       request.data.data.filter(function (item) {
         if (item.INDX != [1]) {
           newList.push(item);
@@ -281,9 +269,6 @@ export default {
         this.newDataList = newList;
       });
     }, 30000);
-
-    console.log("this.polling_sales id   id :::::", this.pollData);
-    console.log("this.pollTodyData id :::::", this.pollTodyData);
   },
 };
 </script>

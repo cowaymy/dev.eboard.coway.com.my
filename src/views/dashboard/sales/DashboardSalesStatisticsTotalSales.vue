@@ -98,9 +98,9 @@ export default {
 
   watch: {
     isDoneTartgetApi(val) {
-      console.log("isDoneCurMonthApi :", this.isDoneCurMonthApi);
+      //console.log("isDoneCurMonthApi :", this.isDoneCurMonthApi);
       if (val && this.isDoneCurMonthApi) {
-        console.log(store.state.app_salseEpapan.apiTargetData);
+        //console.log(store.state.app_salseEpapan.apiTargetData);
         this.setData();
       } else {
         this.totalsales = 0;
@@ -108,9 +108,9 @@ export default {
     },
 
     isDoneCurMonthApi(val) {
-      console.log("isDoneCurMonthApi :", this.isDoneCurMonthApi);
+      //console.log("isDoneCurMonthApi :", this.isDoneCurMonthApi);
       if (val && this.isDoneTartgetApi) {
-        console.log(store.state.app_salseEpapan.apiTargetData);
+        //console.log(store.state.app_salseEpapan.apiTargetData);
         this.setData();
       }
     },

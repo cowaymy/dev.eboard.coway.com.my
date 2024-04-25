@@ -32,6 +32,12 @@ const router = new VueRouter({
       component: () => import("../views/comm/ErrorPage.vue"),
     },
     {
+      path: "/unknowUserTypeError",
+      name: "unknowUserTypeError",
+      component: () => import("../views/comm/UnknowUserTypeError.vue"),
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content" },
+    },
+    {
       path: "/ssoLogin",
       name: "ssoLogin",
       component: () => import("../views/login/AutoLogin.vue"),
@@ -61,106 +67,90 @@ const router = new VueRouter({
       component: () => import("../views/comm/NotFoundPage.vue"),
     },
     {
-      path: "/Main",
-      name: "Main",
+      path: "/SalesMain",
+      name: "SalesMain",
       component: () => import("../views/dashboard/sales/SalesMainHQPage.vue"),
-      meta: { requiresAuth: true ,layout: "content" },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content" },
     },
     {
       path: "/SGMMain",
       name: "SGMMain",
       component: () => import("../views/dashboard/sales/SalesMainSGMPage.vue"),
-      meta: { requiresAuth: true  ,layout: "content" },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH  ,layout: "content" },
     },
     {
       path: "/GMMain",
       name: "GMMain",
       component: () => import("../views/dashboard/sales/SalesMainGMPage.vue"),
-      meta: { requiresAuth: true  ,layout: "content" },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH  ,layout: "content" },
     },
-
     {
       path: "/SMMain",
       name: "SMMain",
       component: () => import("../views/dashboard/sales/SalesMainSMPage.vue"),
-      meta: { requiresAuth: true ,layout: "content" },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content" },
     },
 
     {
       path: "/HMMain",
       name: "HMMain",
       component: () => import("../views/dashboard/sales/SalesMainHMPage.vue"),
-      meta: { requiresAuth: true ,layout: "content" },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content" },
     },
-
     {
       path: "/HPMain",
       name: "HPMain",
-      component: () => import("../views/dashboard/sales/SalesMainHPage.vue"),
-      meta: { requiresAuth: true },layout: "content" ,
-    },
-
-    {
-      path: "/salesMain",
-      name: "salesMain",
-      component: () => import("../views/dashboard/sales/SalesMainPage.vue"),
-      meta: { requiresAuth: true },
+      component: () => import("../views/dashboard/sales/SalesMainHPPage.vue"),
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH  ,layout: "content" },
     },
     {
       path: "/dscMain",
       name: "dscMain",
       component: () => import("../views/dashboard/dsc/HellowDsc.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH },
     },
     {
-      path: "/codyMain",
-      name: "codyMain",
+      path: "/CodyMain",
+      name: "CodyMain",
       component: () => import("../views/dashboard/cody/HellowCody.vue"),
-      meta: { requiresAuth: true  , layout: "content"},
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH  , layout: "content"},
     },
     {
       path: "/homecareMain",
       name: "homecareMain",
       component: () => import("../views/dashboard/homecare/HellowHomecare.vue"),
-      meta: { requiresAuth: true   , layout: "content"},
-    },
-
-    {
-      path: "/hpmain",
-      name: "hpmain",
-      component: () => import("../views/dashboard/TempMainPageForHp.vue"),
-      meta: { requiresAuth: true  , layout: "content"},
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH   , layout: "content"},
     },
     {
       path: "/notif/NotificationList",
       name: "NotificationList",
       component: () => import("../views/notification/NotificationList.vue"),
-      meta: { requiresAuth: false ,layout: "content"},
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content"},
     },
     {
       path: "/notif/NotificationItemDetailView",
       name: "NotificationItemDetailView",
       component: () => import("../views/notification/NotificationItemDetailView.vue"),
-      meta: { requiresAuth: false ,layout: "content"},
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content"},
     },
     {
       path: "/notif/NotificationItemDetailEdit",
       name: "NotificationItemDetailEdit",
       component: () => import("../views/notification/NotificationItemDetailEdit.vue"),
-      meta: { requiresAuth: false ,layout: "content"},
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content"},
     },
     {
       path: "/AttendScanQR",
       name: "AttendScanQR",
       component: () => import("../views/comm/AttendScanQRCode.vue"),
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH , layout: "content"},
     },
     {
       path: "/AttendScanQRResult",
       name: "AttendScanQRResult",
       component: () => import("../views/comm/AttendScanQRCodeResult.vue"),
       props: true,
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH , layout: "content"},
     },
     {
       path: "/AttendScanQRSettingResult",
@@ -170,7 +160,7 @@ const router = new VueRouter({
           "../views/account-settings/AccountSettingASQRCodeSettingResult.vue"
         ),
       props: true,
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH , layout: "content"},
     },
 
     {
@@ -178,7 +168,7 @@ const router = new VueRouter({
       name: "AttendHistory",
       component: () => import("../views/comm/calendar/Calendar.vue"),
       props: true,
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH , layout: "content"},
     },
 
     {
@@ -187,7 +177,7 @@ const router = new VueRouter({
       component: () =>
         import("../views/comm/calendar/CalendarAttendanceHistory.vue"),
       props: true,
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH , layout: "content"},
     },
     ...profile,
     ...sales,

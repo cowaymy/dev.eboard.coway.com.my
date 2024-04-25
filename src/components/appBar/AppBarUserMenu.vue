@@ -85,7 +85,7 @@
       </v-list-item>
 
       <!-- Chat -->
-      <v-list-item :to="{ name: 'account' }">
+      <!-- <v-list-item :to="{ name: 'account' }">
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiChatOutline }}
@@ -98,7 +98,7 @@
         <v-list-item-action>
           <v-badge inline color="error" content="2"> </v-badge>
         </v-list-item-action>
-      </v-list-item>
+      </v-list-item> -->
 
       <v-divider class="my-2"></v-divider>
 
@@ -115,7 +115,7 @@
       </v-list-item>
 
       <!-- FAQ -->
-      <v-list-item :to="{ name: 'account' }">
+      <!-- <v-list-item :to="{ name: 'account' }">
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiHelpCircleOutline }}
@@ -124,7 +124,7 @@
         <v-list-item-content>
           <v-list-item-title>FAQ</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <v-divider class="my-2"></v-divider>
 

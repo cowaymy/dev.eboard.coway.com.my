@@ -129,6 +129,12 @@ export default {
                       item.NAME
                           .toLowerCase()
                           .includes(this.search.toLowerCase()) ||
+                      item.DEPT_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.MEM_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
                       item.ORG_CODE
                           .toLowerCase()
                           .includes(this.search.toLowerCase())
@@ -200,7 +206,7 @@ export default {
      
             this.$store.state.appPerformanceNetSales.dataItemLevel4List  =[];
 
-            console.log(item)
+            //console.log(item)
             const param ={};
             param.memCode =item.MEM_CODE;
             param.grpCode = item.GRP_CODE;

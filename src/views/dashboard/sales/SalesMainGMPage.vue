@@ -202,12 +202,12 @@ export default {
   },
   methods: {
     fetchCurMonthData() {
-      console.log("fetchCurMonthData ==>");
       store
         .dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchCurMonthData`)
         .then((response) => {
           (this.eKeyInData = {
             statTitle: "Key In",
+            jumpRoute: "/performance/keyInReport", 
             icon: mdiClipboardEditOutline,
             color: "success",
             subtitle: response.data.data[0].LST_UP_TIME,
@@ -234,13 +234,14 @@ export default {
             }),
             (this.SHIData = {
               statTitle: "SHI",
+              jumpRoute: "/performance/SHIGMReport",
               icon: mdiTrendingUp,
               color: "warning",
               subtitle: response.data.data[0].LST_UP_TIME,
               statistics: response.data.data[0].SAL_SHI + "",
               //change: response.data.user[0].PE_SAL_SHI,
               moreshow: "true",
-            });
+            }); 
 
           this.isDoneCurMonthApi = true;
         })
@@ -251,7 +252,6 @@ export default {
     },
 
     fetchTargetData() {
-      console.log("fetchTargetData ==>");
       store
         .dispatch(`${SASLE_APP_STORE_MODULE_NAME}/fetchTargetData`)
         .then((response) => {

@@ -19,7 +19,8 @@ export default new Vuex.Store({
     userInfo: getUserFromCookie() || {},
     token: getAuthFromCookie() || "",
     userName: getUserFromCookie().userName || "",
-    memuList :[]
+    memuList :[],
+    userMainHome:""
   },
   getters: {
     isLogin(state) {
@@ -50,6 +51,10 @@ export default new Vuex.Store({
       state.newNotifiCnt = 0;
     },
 
+    setUserMainHome(state, value){
+      state.userMainHome=value;
+    },
+
     setMemuList (state, list){
 
       var temp =[];
@@ -76,6 +81,12 @@ export default new Vuex.Store({
   },
 
   actions: {
+
+
+    async SET_USER_MAIN_HOME({ commit }, val){
+      commit("setUserMainHome", val);
+    },
+
     async LOGIN({ commit }, userData) {
       const result = await userApi.userLogin(userData);
       

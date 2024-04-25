@@ -67,17 +67,11 @@
 
                   <v-spacer></v-spacer>
 
-                  <!-- <div>
+                  <div>
                     <h4 class="font-weight-semibold"></h4>
-                    <span class="text-xs">{{ data.TARGET }} %</span>
-                    <v-progress-linear
-                      height="6"
-                      rounded
-                      class="project-progress mt-1"
-                      :color="resolveUserProgressVariant(data.TARGET)"
-                      :value="data.change"
-                    ></v-progress-linear>
-                  </div> -->
+                    <span class="text-xs">({{ data.DEPT_CODE }}) </span>
+                    
+                  </div>
                 </div>
               </v-list-item>
               </v-list-item-group>
@@ -106,6 +100,12 @@ export default {
                   .filter(
                       (item) =>
                       item.NAME
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.DEPT_CODE
+                          .toLowerCase()
+                          .includes(this.search.toLowerCase()) ||
+                      item.MEM_CODE
                           .toLowerCase()
                           .includes(this.search.toLowerCase()) ||
                       item.ORG_CODE

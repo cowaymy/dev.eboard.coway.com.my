@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.080f9f160475654b323bb2c39a70b3a7.js"
+  "/precache-manifest.42973b6a49a01bc3f3221fdbb4cb838c.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "epapan"});
