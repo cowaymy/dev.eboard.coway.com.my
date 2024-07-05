@@ -27,3 +27,20 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+## npm -v
+```
+8.19.2
+```
+
+## node -v
+```
+v16.18.1
+```
+
+## vue -V
+```
+@vue/cli 5.0.8
+```
