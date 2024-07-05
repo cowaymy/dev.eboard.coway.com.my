@@ -122,3 +122,10 @@ module.exports.getDateOnly = function () {
 module.exports.getDate = function () {
   return new Date().getDate();
 };
+
+
+
+// Format: dd/mm/yyyy
+module.exports.getDate = function () {
+  return new Date().getDate()+1;
+};

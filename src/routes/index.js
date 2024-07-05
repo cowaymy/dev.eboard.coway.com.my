@@ -5,6 +5,7 @@ import commission from "./commission";
 import performance from "./performance";
 import sales from "./sales";
 import profile from "./profile";
+import quotation from "./quotation";
 
 
 Vue.use(VueRouter);
@@ -35,6 +36,12 @@ const router = new VueRouter({
       path: "/unknowUserTypeError",
       name: "unknowUserTypeError",
       component: () => import("../views/comm/UnknowUserTypeError.vue"),
+      meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content" },
+    },
+    {
+      path: "/css",
+      name: "css",
+      component: () => import("../views/comm/CSS.vue"),
       meta: { requiresAuth: process.env.VUE_APP_CHK_AUH ,layout: "content" },
     },
     {
@@ -183,6 +190,7 @@ const router = new VueRouter({
     ...sales,
     ...commission,
     ...performance,
+    ...quotation,
   ],
 });
 

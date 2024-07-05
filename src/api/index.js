@@ -26,6 +26,12 @@ async function updateAttendQRBranchData(data) {
   return newInstance.post("/apps/comm/updateAttendQRBranchData", data);
 }
 
+
+async function selectBranchCode(userData) {
+  return newInstance.get("/apps/comm/selectBranchCode",userData);
+}
+
+
 async function getBestRecord(userData) {
   let options = {
     memCode: userData.userName,
@@ -37,6 +43,11 @@ async function getBestRecord(userData) {
   };
   return newInstance.get("/apps/comm/bestRecord", { params: options });
 }
+
+
+
+
+
 
 async function getBestRecordList(userData) {
   let options = {
@@ -212,6 +223,7 @@ async function removeFile(userData) {
 
 
 export default {
+  selectBranchCode,
   registerUser,
   userLogin,
   getBestRecord,

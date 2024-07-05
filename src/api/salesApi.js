@@ -50,6 +50,7 @@ function getRinkForHPData(userData) {
 }
 
 function getTargetData(userData) {
+
   return newInstance.get("/sales/targetData", {
     params: trickToLevel0(userData),
   });

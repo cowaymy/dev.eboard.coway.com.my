@@ -8,7 +8,7 @@
 
         <v-col cols="12" md="3" class="align-center">
             <v-card  class="scroll-card">
-              <v-overlay :value="loading">
+                  <v-overlay :value="loading">
                     <v-progress-circular
                       indeterminate
                       color="info"

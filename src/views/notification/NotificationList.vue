@@ -117,6 +117,8 @@
         :search="search"
         :loading="loading"
         :custom-filter="filterOnlyCapsText"
+        :mobile-breakpoint="0"
+
       >
         <template v-slot:top>
           <v-toolbar flat>

@@ -58,13 +58,23 @@
             <!-- <div class="kb-character-wrapper">
 						
 						</div> -->
+            <template>
+              <StatisticsCardHQMainAll></StatisticsCardHQMainAll>
+            </template>
 
-            <template v-if="item.category == '/SalesMain'">
+            
+
+
+            <!-- <template v-if="item.category == '/SalesMain'">
               <StatisticsCardHQMain></StatisticsCardHQMain>
             </template>
             <template v-if="item.category == '/CodyMain'">
               <StatisticsCardHQMain_Cody></StatisticsCardHQMain_Cody>
-            </template>
+            </template> -->
+
+
+
+
 
             <v-card-title
               class="justify-center text-2xl font-weight-semibold text--primary"
@@ -90,6 +100,10 @@ import { mdiMagnify } from "@mdi/js";
 //import LinkToBottomButtonVue from '../comm/LinkToBottomButton.vue';
 import StatisticsCardHQMain from "../../components/statistics-card/StatisticsCardHQMain_Salse.vue";
 import StatisticsCardHQMain_Cody from "../../components/statistics-card/StatisticsCardHQMain_Cody.vue";
+import StatisticsCardHQMainAll from "../../components/statistics-card/StatisticsCardHQMain.vue";
+
+
+
 //import LinkToSSO from '../../components/comm/LinkToSSO';
 
 import DigitalClock from "../../views/comm/DigitalClock.vue";
@@ -102,7 +116,7 @@ export default {
     //LinkToBottomButtonVue,
     StatisticsCardHQMain,
     StatisticsCardHQMain_Cody,
-    DigitalClock,
+    DigitalClock,StatisticsCardHQMainAll
   },
   data() {
     const knowledgeBaseSearchQuery = "";

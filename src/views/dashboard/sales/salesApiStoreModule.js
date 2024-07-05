@@ -6,6 +6,8 @@ import store from "@/store";
 export default {
   namespaced: true,
   state: {
+    loading:true,
+
     apiCurMonthData: {},
     apiTargetData: {},
   },
@@ -18,20 +20,26 @@ export default {
     },
   },
   mutations: {
-    setApiCurMonthData(state, data) {
-      //console.log(data);
-      state.apiCurMonthData = data;
+
+
+    SET_LOADING_DONE(state, val){
+      state.loading =val;
+    } ,
+
+    setApiCurMonthData(state, dataList) {
+      state.apiCurMonthData = dataList;
     },
 
     setApiTargetData(state, data) {
-      //console.log(data);
       state.apiTargetData = data;
     },
   },
   actions: {
+
     fetchCurMonthData({ commit }) {
-      //start spinner
-      bus.$emit("start:spinner");
+     
+      commit("SET_LOADING_DONE", true);
+
       const userInfo = store.state.userInfo;
 
       return new Promise((resolve, reject) => {
@@ -43,14 +51,13 @@ export default {
           })
           .catch((error) => reject(error))
           .finally(() => {
-            bus.$emit("end:spinner");
+            commit("SET_LOADING_DONE", false);
           });
       });
     },
 
     fetchTargetData({ commit }) {
-      bus.$emit("start:spinner");
-
+      commit("SET_LOADING_DONE", true);
       const userInfo = store.state.userInfo;
 
       return new Promise((resolve, reject) => {
@@ -62,7 +69,7 @@ export default {
           })
           .catch((error) => reject(error))
           .finally(() => {
-            bus.$emit("end:spinner");
+            commit("SET_LOADING_DONE", false);
           });
       });
     },

@@ -9,16 +9,18 @@
 <script>
 import { useRouter, useDynamicVh } from "./utils";
 import LayoutContentVerticalNav from "./layout/vertical/LayoutContentVerticalNav.vue";
+import LayoutContentVerticalPrint from "./layout/vertical/LayoutContentVerticalPrint.vue";
 import LayoutBlank from "./layout/blank/LayoutBlank";
 
 export default {
   name: "App",
-  components: { LayoutContentVerticalNav, LayoutBlank },
+  components: { LayoutContentVerticalNav, LayoutBlank , LayoutContentVerticalPrint},
 
   computed: {
     resolveLayoutVariant() {
       const { route } = useRouter();
 
+      if (route.value.meta.layout === "print") return "layout-content-vertical-print";
       if (route.value.meta.layout === "blank") return "layout-blank";
       if (route.value.meta.layout === "content")
         return `layout-content-Vertical-nav`;

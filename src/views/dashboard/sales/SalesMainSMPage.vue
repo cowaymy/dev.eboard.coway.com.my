@@ -139,7 +139,7 @@
 // eslint-disable-next-line object-curly-newline
 import {
   mdiClipboardEditOutline,
-  mdiCheckboxMultipleMarkedOutline,
+  mdiAccountGroup,mdiHandCoin,
   mdiHelpCircleOutline,
   mdiTrendingUp,
   mdiAccountCheckOutline,
@@ -209,7 +209,7 @@ export default {
             statTitle: "Key In",
             jumpRoute: "/performance/keyInReport", 
             icon: mdiClipboardEditOutline,
-            color: "success",
+            color: "info",
             subtitle: response.data.data[0].LST_UP_TIME,
             statistics: response.data.data[0].SAL_KEYIN + "",
             //change: response.data.user[0].PE_SAL_KEYIN,
@@ -217,7 +217,7 @@ export default {
             (this.NetSalesData = {
               statTitle: "Net Sales",
               jumpRoute: "/performance/NetSalesSMReport",
-              icon: mdiCheckboxMultipleMarkedOutline,
+              icon: mdiHandCoin,  
               color: "error",
               subtitle: response.data.data[0].LST_UP_TIME,
               statistics: response.data.data[0].SAL_NET_SALES + "",
@@ -226,8 +226,8 @@ export default {
             (this.ActiveHpData = {
               statTitle: "Active HP",
               jumpRoute: "/performance/ActiveHPSMReport",
-              icon: mdiCheckboxMultipleMarkedOutline,
-              color: "primary",
+              icon: mdiAccountGroup,
+              color: "info",
               subtitle: response.data.data[0].LST_UP_TIME,
               statistics: response.data.data[0].SAL_ACTIVE_HP + "",
               //change: response.data.user[0].PE_SAL_ACTIVE_HP,
@@ -236,7 +236,7 @@ export default {
               statTitle: "SHI",
               jumpRoute: "/performance/SHISMReport",
               icon: mdiTrendingUp,
-              color: "warning",
+              color: "info",
               subtitle: response.data.data[0].LST_UP_TIME,
               statistics: response.data.data[0].SAL_SHI + "",
               //change: response.data.user[0].PE_SAL_SHI,

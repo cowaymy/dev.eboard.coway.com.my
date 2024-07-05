@@ -7,13 +7,16 @@
           location="bottom"
         >
           <template v-slot:activator="{ props }">
-            <v-btn
-              v-bind="props"
-              fab
-              color="white" x-large @click="gotoHome()" 
-            >
-            <v-icon color="black">fas fa-chart-line </v-icon>
-            </v-btn>
+       
+
+            <v-img   v-bind="props"
+                              :src="appLogo"
+                              alt="logo"
+                              contain 
+                                  class="clickable-image"
+      @click="handleClick"
+                              />
+                              
           </template>
           <span >go to Home</span>
         </v-tooltip>
@@ -82,11 +85,12 @@
     <v-app-bar height="50" app>
       <span> &nbsp;</span>&nbsp;
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>eTtrust ePapan</v-toolbar-title>
+      <v-toolbar-title class='toolbarTitle'>eTrust Coway World</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!-- Right  Notification & User Dropdown -->
       <div class="d-flex align-center right-row">
+        <AppBarNetState></AppBarNetState> &nbsp; &nbsp;
         <AppBarShortcuts></AppBarShortcuts> &nbsp; &nbsp;
         <AppBarNotification></AppBarNotification> &nbsp;
         <AppBarUserMenu> </AppBarUserMenu>
@@ -138,12 +142,17 @@ import store from "@/store";
 import AppBarNotification from "../../components/appBar/AppBarNotification.vue";
 import AppBarUserMenu from "../../components/appBar/AppBarUserMenu.vue";
 import AppBarShortcuts from "../../components/appBar/AppBarShortcuts";
+import AppBarNetState from "../../components/appBar/AppBarNetState";
+import themeConfig from '@themeConfig'
+
+
 
 export default {
   components: {
     AppBarNotification,
     AppBarUserMenu,
     AppBarShortcuts,
+    AppBarNetState
   },
 
   computed: {
@@ -170,10 +179,16 @@ export default {
       drawer: null,
       spinnerStatus: false,
       show: false,
+      appLogo: themeConfig.app.logo,
+
     };
   },
 
   methods: {
+
+    handleClick(){
+      this.gotoHome();
+    },
     logoutUser() {
 
       this.$store.commit("clearUserInfo");
@@ -200,6 +215,11 @@ export default {
 </script>
 
 <style>
+
+.clickable-image {
+  cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 이미지임을 나타냅니다. */
+}
+
 .ListItemClass {
   color: #f5f5f5;
 }

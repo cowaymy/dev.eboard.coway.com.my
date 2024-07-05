@@ -1,1 +1,306 @@
 // Override Vuetify Variables & Template variables
+
+
+.input_text_cfield{
+    font-size: 16px; /* or larger */
+    -webkit-text-size-adjust: 100%; /* Prevent zoom on iOS */
+}
+
+
+.input_text{
+    border-radius: 6.666666667px;
+    font-size: 14px;
+    line-height: 26.666666667px; 
+    padding: 6.666666667px;
+    width: 133.333333333%;
+    height: 15px;
+
+    transform: scale(0.75);
+    transform-origin: left top;
+
+    /* 여기를 추가합니다. */
+    margin-bottom: -10px;
+    margin-right: -33.333333333%;
+}
+
+
+.custom-select .v-list-item__title {
+    font-family: 'Arial, sans-serif'; /* 원하는 폰트 설정 */
+    font-size: 10px; /* 원하는 폰트 크기 설정 */
+    color: #333; /* 원하는 폰트 색상 설정 */
+}
+
+
+.custom-text-field .v-input__control .v-input__slot  input  {
+    font-size: 13px; /* 원하는 글씨 크기로 변경 */
+    text-align: right;
+    height: 12px;
+}
+
+
+
+// .custom-text-field .v-input__control .v-input__slot  input  {
+//     font-size: 13px; /* 원하는 글씨 크기로 변경 */
+//     text-align: right;
+
+// }
+
+/*label 오른쪽 정렬 */
+.right-aligned-label .v-label {
+    text-align: right;
+    //width: 100%;
+}
+
+.ekey-in-span_bold{
+    font-size: 10px; /* 원하는 글씨 크기로 변경 */
+    font-weight: bold; /* 글씨 두께 */
+}
+
+.einput_text{
+    // height: 15px;
+    // font-size: 14px;
+}
+
+.margin-top20{
+    margin-top:20px
+}
+
+.toolbarTitle{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.v-btn {
+    /* 공통 버튼 스타일을 설정 */
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .v-btn.v-size--default {
+    /* 기본 크기 덮어쓰기 */
+    font-size: 13px;
+    padding: 10px 20px;
+  }
+  
+  /* Small button customization */
+  .custom-btn-small.v-size--default {
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+  }
+  
+  /* Medium button customization */
+  .custom-btn-medium.v-size--default {
+    font-size: 16px !important;
+    padding: 10px 20px !important;
+  }
+  
+  /* Large button customization */
+  .custom-btn-large.v-size--default {
+    font-size: 20px !important;
+    padding: 15px 30px !important;
+  }
+  
+
+.custom-button_primary {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 14px;
+        color: white;
+        background-color: #9155FD;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 70px;
+        height: 36px;
+}
+
+
+.custom-button_secondary {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #8A8D93;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+
+.custom-button_accent {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+.custom-button_success {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #56CA00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+.custom-button_info{
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #16B1FF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+.custom-button_warning{
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #FFB400;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+.custom-button_error{
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #FF4C51;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+.custom-button_completed{
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #0ABF67;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+.custom-button_active{
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: white;
+    background-color: #1874f5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 70px;
+    height: 36px;
+}
+
+
+
+
+
+.custom-height .v-input__control {
+    min-height: 25px; /* Adjust the minimum height */
+}
+
+.custom-height .v-input__slot {
+    height: 25px; /* Adjust the height */
+}
+
+.custom-height input {
+    height: 25px; /* Adjust the input field height */
+    padding-top: 5px; /* Adjust padding for better alignment */
+    padding-bottom: 5px; /* Adjust padding for better alignment */
+}
+
+.custom-height .v-label {
+    line-height: 25px; /* Adjust line height of the label */
+    font-size: 12px; /* Adjust the font size */
+}
+
+
+.custom-radio .v-input--selection-controls__input {
+    /* 라디오 버튼 크기 조정 */
+    transform: scale(0.8);
+  }
+  
+  .custom-radio .v-label {
+    /* 텍스트 크기 조정 */
+    font-size: 9px;
+    font-weight: bold;
+
+  }
+
+
+  
+.white-text-field input {
+    color: white !important;
+  }
+  
+  .white-text-field .v-label {
+    color: white !important;
+  }
+  
+  .white-text-field .v-input__control .v-input__placeholder {
+    color: white !important;
+  }
+  
+  .white-text-field .v-input__control .v-input__slot::before {
+    border-bottom: 1px solid white !important;
+  }
+  
+  .white-text-field .v-input__control .v-input__slot::after {
+    border-bottom: 2px solid white !important;
+  }

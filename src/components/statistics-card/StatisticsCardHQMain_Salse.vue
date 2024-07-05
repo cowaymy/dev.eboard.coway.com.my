@@ -20,8 +20,8 @@
         <v-list-item class="pa-0">
           <!-- item 1------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="success">
-              {{ icons.mdiWaterOutline }}
+            <v-icon size="30" color="info">
+              {{ icons.mdiWaterOpacity }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -47,8 +47,8 @@
         <v-list-item class="pa-0">
           <!-- item 3------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="warning">
-              {{ icons.mdiAutorenew }}
+            <v-icon size="30" color="info">
+              {{ icons.mdiAirPurifier }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -60,8 +60,8 @@
 
           <!-- item 4------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="error">
-              {{ icons.mdiSeatIndividualSuite }}
+            <v-icon size="30" color="info">
+              {{ icons.mdiBedKingOutline }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -75,8 +75,8 @@
         <v-list-item class="pa-0">
           <!-- item 5------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="primary">
-              {{ icons.mdiWeatherWindyVariant }}
+            <v-icon size="30" color="info">
+              {{ icons.mdiToilet }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -88,7 +88,7 @@
 
           <!-- item 6------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="success">
+            <v-icon size="30" color="info">
               {{ icons.mdiNumeric10BoxMultiple }}
             </v-icon>
           </v-list-item-avatar>
@@ -102,8 +102,8 @@
         <v-list-item class="pa-0">
           <!-- item 1------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="success">
-              {{ icons.mdiFanAuto }}
+            <v-icon size="30" color="info">
+              {{ icons.mdiAirConditioner }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -115,8 +115,8 @@
 
           <!-- item 6------->
           <v-list-item-avatar class="" size="40" rounded>
-            <v-icon size="30" color="#F08080">
-              {{ icons.mdiAlphaEBox }}
+            <v-icon size="30" color="info">
+              {{ icons.mdiCartMinus }}
             </v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
@@ -133,23 +133,7 @@
 
 <script>
 import {
-  mdiDotsVertical,
-  mdiTrendingUp,
-  mdiCurrencyUsd,
-  mdiChartBar,
-  mdiAirConditioner,
-  mdiAccountHeart,
-  mdiEgg,
-  mdiFanAuto,
-  mdiAutorenew,
-  mdiSeatReclineNormal,
-  mdiWeatherWindyVariant,
-  mdiBeaker,
-  mdiRadiatorDisabled,
-  mdiSeatIndividualSuite,
-  mdiWaterOutline,
-  mdiNumeric10BoxMultiple,
-  mdiAlphaEBox,
+  mdiAirConditioner, mdiAirPurifier,mdiToilet,mdiBedKingOutline ,mdiShowerHead,mdiWaterOpacity,mdiCartMinus,mdiBeaker,mdiNumeric10BoxMultiple
 } from "@mdi/js";
 import VueRolling from "vue-roller";
 import number_format from "../../utils/number_format.js";
@@ -171,23 +155,7 @@ export default {
       newDataList,
       newEkeyIn,
       icons: {
-        mdiDotsVertical,
-        mdiTrendingUp,
-        mdiCurrencyUsd,
-        mdiChartBar,
-        mdiAirConditioner,
-        mdiAccountHeart,
-        mdiEgg,
-        mdiFanAuto,
-        mdiAutorenew,
-        mdiSeatReclineNormal,
-        mdiWeatherWindyVariant,
-        mdiBeaker,
-        mdiRadiatorDisabled,
-        mdiSeatIndividualSuite,
-        mdiWaterOutline,
-        mdiNumeric10BoxMultiple,
-        mdiAlphaEBox,
+        mdiAirConditioner, mdiAirPurifier,mdiToilet,mdiBedKingOutline ,mdiShowerHead,mdiWaterOpacity,mdiCartMinus,mdiBeaker,mdiNumeric10BoxMultiple
       },
     };
   },

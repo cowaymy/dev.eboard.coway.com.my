@@ -260,6 +260,8 @@ import orderDetail from "./OrderDetailsItem.vue";
 const ORDER_MGT_APP_STORE_MODULE_NAME = "app-ordermgt";
 
 export default {
+  props: ['id'],
+
   data() {
     if (!store.hasModule(ORDER_MGT_APP_STORE_MODULE_NAME)) {
       store.registerModule(
@@ -300,7 +302,6 @@ export default {
   },
   components: { orderDetail },
   computed: {
-
 
   },
 
@@ -369,7 +370,8 @@ export default {
 
       return item;
     },
-    fetchEvents(_type) {
+
+    fetchEvents(orderNo) {
       this.staticCCPCnt = 0;
       this.staticEASCnt = 0;
       this.staticCAGCnt = 0;
@@ -378,8 +380,12 @@ export default {
       this.events = [];
 
       const parsedValue = this.date.replace(/-/g, "");
+      let payload ={};
+      payload.data =parsedValue;
+      if(orderNo) payload.salesNo =orderNo;
+
       store
-        .dispatch(`${ORDER_MGT_APP_STORE_MODULE_NAME}/fetchEvents`, parsedValue)
+        .dispatch(`${ORDER_MGT_APP_STORE_MODULE_NAME}/fetchEvents`, payload)
         .then((response) => {
           let dataList = JSON.parse(JSON.stringify(response));
 
@@ -431,6 +437,16 @@ export default {
       );
     },
   },
+
+  created(){
+    console.log("=============>", this.id)
+
+    if(this.id){
+      this.fetchEvents(this.id);
+    }
+  }
+
+ 
 };
 </script>
 

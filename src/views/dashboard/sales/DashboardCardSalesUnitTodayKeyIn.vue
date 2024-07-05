@@ -42,8 +42,8 @@
             <v-list-item class="pa-0">
               <!-- item 1------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
-                  {{ icons.mdiWaterOutline }}
+                <v-icon size="30" color="info">
+                  {{ icons.mdiWaterOpacity }}
                 </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -54,7 +54,7 @@
               </v-list-item-content>
               <!-- item 2------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
+                <v-icon size="30" color="info">
                   {{ icons.mdiBeaker }}
                 </v-icon>
               </v-list-item-avatar>
@@ -69,8 +69,8 @@
             <v-list-item class="pa-0">
               <!-- item 3------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
-                  {{ icons.mdiAutorenew }}
+                <v-icon size="30" color="info">
+                  {{ icons.mdiAirPurifier }}
                 </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -82,8 +82,8 @@
 
               <!-- item 4------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
-                  {{ icons.mdiSeatIndividualSuite }}
+                <v-icon size="30" color="info">
+                  {{ icons.mdiBedKingOutline  }}
                 </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -97,8 +97,8 @@
             <v-list-item class="pa-0">
               <!-- item 5------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
-                  {{ icons.mdiWeatherWindyVariant }}
+                <v-icon size="30" color="info">
+                  {{ icons.mdiToilet }}
                 </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -110,7 +110,7 @@
 
               <!-- item 6------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
+                <v-icon size="30" color="info">
                   {{ icons.mdiNumeric10BoxMultiple }}
                 </v-icon>
               </v-list-item-avatar>
@@ -124,8 +124,8 @@
             <v-list-item class="pa-0">
               <!-- item 1------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
-                  {{ icons.mdiFanAuto }}
+                <v-icon size="30" color="info">
+                  {{ icons.mdiAirConditioner }}
                 </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -137,8 +137,8 @@
 
               <!-- item 6------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
-                  {{ icons.mdiAlphaEBox }}
+                <v-icon size="30" color="info">
+                  {{ icons.mdiCartMinus }}
                 </v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -152,7 +152,7 @@
             <v-list-item class="pa-0">
               <!-- item 1------->
               <v-list-item-avatar class="" size="40" rounded>
-                <v-icon size="30" color="success">
+                <v-icon size="30" color="info">
                   {{ icons.mdiSofaSingle  }}
                 </v-icon>
               </v-list-item-avatar>
@@ -197,8 +197,8 @@ import {
   mdiWaterOutline,
   mdiNumeric10BoxMultiple,
   mdiAlphaEBox,
-  mdiChevronUp,
-  mdiChevronDown,mdiSofaSingle 
+  mdiChevronUp,mdiCartMinus,
+  mdiChevronDown,mdiSofaSingle ,mdiAirPurifier,mdiBedKingOutline ,mdiToilet,mdiShowerHead,mdiWaterOpacity
 } from "@mdi/js";
 
 import salesApi from "../../../api/salesApi";
@@ -361,8 +361,8 @@ export default {
         mdiNumeric10BoxMultiple,
         mdiAlphaEBox,
         mdiChevronUp,
-        mdiChevronDown,
-        mdiSofaSingle 
+        mdiChevronDown,mdiCartMinus,
+        mdiSofaSingle ,mdiAirPurifier,mdiBedKingOutline ,mdiToilet,mdiShowerHead,mdiWaterOpacity
       },
     };
   },

@@ -42,6 +42,13 @@ function getCodyBestRecordList(userData) {
   });
 }
 
+
+function getEKeyInData(userData) {
+  return newInstance.get("/sales/curEkeyInData", {
+    params: trickToLevel0(userData),
+  });
+}
+
 function trickToLevel0(userData) {
   const options = {};
 
@@ -69,4 +76,5 @@ export default {
   updateCodyMenu,
   getCodyBestRecord,
   getCodyBestRecordList,
+  getEKeyInData
 };

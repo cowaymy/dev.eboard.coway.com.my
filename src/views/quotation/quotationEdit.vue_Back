@@ -1,0 +1,457 @@
+    <template>
+        <v-card color="#F0F8FF">
+            <!-- Header -->
+            <v-card-text class="py-9 px-8 card-text-custom"  >
+                <div class="d-flex flex-wrap justify-space-between">
+                    <!-- Left Content -->
+                    <div class="mb-6">
+                        <div class="d-flex align-center mb-6">
+                            <v-img
+                                :src="appLogo"
+                                max-height="100px"
+                                max-width="100px"
+                                alt="logo"
+                                contain
+                                class="me-3"
+                            ></v-img>
+                            <span class="text--primary font-weight-bold text-xl">
+                            {{ appName }}
+                            </span>
+                        </div>
+                        <span class="d-block">{{ this.$store.state.userInfo.businessAreaDesc}} </span>
+                        <span class="d-block">{{ this.$store.state.userInfo.userFullName}} </span>
+                    </div>
+                    <!-- Right Content -->
+                    <div :class="$vuetify.rtl ? 'text-left' : 'text-right'">
+                        <div class="mb-4 d-flex align-center justify-end">
+                            <v-text-field
+                                label="Quoation Number"
+                                placeholder="quoation no Text"
+                                class="custom-text-field"
+                                v-model="appQuotInfo.quotationNo"
+                            ></v-text-field>
+                        </div>
+                        <div class="mb-4 d-flex align-center">
+                            <v-menu
+                                v-model="isIssueDateMenuOpen"
+                                :close-on-content-click="false"
+                                transition="scale-transition"
+                                offset-y
+                                eager
+                                min-width="auto"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        outlined
+                                        dense
+                                        hide-details="auto"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        label="Date Issued"
+                                        class="custom-text-field_required"
+                                        v-model="appQuotInfo.issuedDate"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    @input="isIssueDateMenuOpen = false"
+                                    v-model="appQuotInfo.issuedDate"
+                                    class="custom-date-picker"
+                                ></v-date-picker>
+                            </v-menu>
+                    </div>
+                    <div class="mb-2 d-flex align-center justify-end">
+            
+                        <v-menu
+                            v-model="isDueDateMenuOpen"
+                            :close-on-content-click="false"
+                            transition="scale-transition"
+                            offset-y
+                            eager
+                            min-width="auto"
+                        >
+                        <template v-slot:activator="{ on, attrs }">
+
+                            <v-text-field
+                                label="Due Date"
+                                outlined
+                                dense
+                                hide-details="auto"
+                                v-bind="attrs"
+                                v-on="on"
+                                v-model="appQuotInfo.dueDate"
+                                class="custom-text-field_required"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="appQuotInfo.dueDate"
+                            @input="isDueDateMenuOpen = false"
+                            class="custom-date-picker"
+                        ></v-date-picker>
+                        </v-menu>
+                    </div>
+                    </div>
+                </div>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12"  >   
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12">
+                                    <h6 class="font-weight-semibold text-2xl">
+                                    Customer Details
+                                    </h6>
+                                    <p class="text-xs mb-0">
+                                    Enter your customer details
+                                    </p>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model=appQuotInfo.appCustName
+                                        placeholder="Customer name"
+                                        label="Customer name"
+                                        class="custom-text-field_required"
+                                    />
+                                </v-col>
+
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model=appQuotInfo.appCustEmail
+                                        placeholder="leo.ham@coway.com.my"
+                                        label="Email"
+                                        class="custom-text-field_required"
+
+                                    />
+                                </v-col>
+
+                                <v-col cols="12"  md="4">
+                                    <v-text-field
+                                        v-model=appQuotInfo.appCustMobile
+                                        placeholder="Mobile Number"
+                                        label="Mobile Number"
+                                        class="custom-text-field_required"
+                                    />
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-col>
+                </v-row> 
+            </v-card-text>
+
+            <v-divider>-</v-divider>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12" md="4">
+                        <v-card-text>
+                            <div>
+                                <v-img  v-if="appProdcInfo" height="200px"  class="fixed-image"
+                                    :src= appProdcInfo.imgurl
+                                ></v-img>
+                            </div>
+                        </v-card-text>
+                    </v-col>
+
+                    <v-col cols="12" md="8">   
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12">
+                                    <h6 class="font-weight-semibold text-2xl">
+                                        {{appProdcInfo == null ?  "" :appProdcInfo.TITLE }}
+                                    </h6>
+                                    <p class="text-xs mb-0">
+                                        {{ appProdcInfo == null ?  "" : appProdcInfo.CATEGORY }}({{appProdcInfo == null ?  "" : appProdcInfo.MODEL}})
+                                    </p>
+                                </v-col>
+
+                                <v-col cols="12" >
+                                    <v-text-field
+                                        placeholder="APPLICATION TYPE"
+                                        label="APPLICATION TYPE"
+                                        class="custom-text-field"
+                                        v-model="appPriceInfo.appTypeDesc"
+                                        readonly
+                                    />  
+                                </v-col> 
+
+                                <v-col cols="12" >
+                                    <v-text-field
+                                        placeholder="PACKAGE"
+                                        label="PACKAGE"
+                                        class="custom-text-field"
+                                        v-model="appPriceInfo.appPackageDesc"
+                                        readonly
+                                    />
+                                </v-col>
+
+                                <v-col cols="12">
+                                    <v-text-field
+                                        placeholder="PROMOTION"
+                                        label="PROMOTION"
+                                        class="custom-text-field"
+                                        v-model="appPriceInfo.appPromotionDesc"
+                                        readonly
+                                    />
+                                </v-col>
+
+                                <v-col cols="12" >
+                                    <v-text-field
+                                        v-model="appPriceInfo.appQuantity"
+                                        placeholder="QUANTITY"
+                                        label="QUANTITY"
+                                        class="custom-text-field"
+                                        readonly
+                                    />
+                                </v-col>
+
+                            </v-row>
+                        </v-card-text>
+                    </v-col>
+                </v-row> 
+            </v-card-text>
+
+            <v-card-text class="py-9 px-8">
+                <div class="d-flex justify-space-between flex-wrap flex-column flex-sm-row">
+                    <div class="mb-6 mb-sm-0">
+                    <div class="mb-4 d-flex align-center">
+                        <span class="font-weight-semibold me-2">Salesperson: {{appQuotInfo.appSalespersonName}}</span>
+                    </div>
+                    </div>
+                    <div>
+                    <table class="w-full">
+                        <tr>
+                            <td class="pe-16 ">
+                                Subtotal:
+                            </td>
+                            <th :class="$vuetify.rtl ? 'text-left' : 'text-right'">
+                                {{appPriceInfo.appSubTotal}}
+                            </th>
+                        </tr>
+                        <!-- <tr>
+                            <td class="pe-16">
+                                Order Total:
+                            </td>
+                            <th :class="$vuetify.rtl ? 'text-left' : 'text-right'">
+                                RM 1,800
+                            </th>
+                        </tr> -->
+                        
+                    </table>
+                    <v-divider class="mt-4 mb-3"></v-divider>
+                    <table class="w-full">
+                        <tr>
+                            <td class="pe-16 font-weight-semibold text-1xl">
+                                Total:
+                            </td>
+                            <th :class="$vuetify.rtl ? 'font-weight-semibold text-1xl text-left' : 'font-weight-semibold text-1xl text-right'">
+                               RM {{appPriceInfo.appOrderTotal}}  {{appPriceInfo.appType==66 ? '/month' : ''}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="text-sst" colspan="2">
+                                6% SST included wherever applicable                           
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-text cols="12" md="6">
+                <div class="mb-0">
+                    <p class="font-weight-semibold mb-2">
+                    Note:
+                    </p>
+                    <v-textarea
+                    v-model="appQuotInfo.appNote"
+                    outlined
+                    rows="3"
+                    hide-details="auto"
+                    class="custom-text-field"
+                    placeholder="It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance projects. Thank You!"
+                    ></v-textarea>
+                </div>
+            </v-card-text>
+            <v-card-actions></v-card-actions>
+
+        </v-card>
+    </template>
+    
+    <script>
+    import themeConfig from '@themeConfig'
+    import store from "@/store";
+
+    
+    export default {
+
+        computed: {
+            selectedItemInfo(){
+                return store.state.appQuotationStoreModule.selectedProdct 
+            },
+
+            appPriceInfo(){
+                let obj ={};
+                obj.appType = store.state.appQuotationStoreModule.appType;
+                obj.appTypeDesc = store.state.appQuotationStoreModule.appTypeDesc;
+                obj.appPackage = store.state.appQuotationStoreModule.appPackage;
+                obj.appPackageDesc = store.state.appQuotationStoreModule.appPackageDesc;
+                obj.appPromotion = store.state.appQuotationStoreModule.appPromotion;
+                obj.appPromotionDesc = store.state.appQuotationStoreModule.appPromotionDesc;
+                obj.appSubTotal = store.state.appQuotationStoreModule.appSubTotal;
+                obj.appOrderTotal = store.state.appQuotationStoreModule.appOrderTotal;
+                obj.appDiscount = store.state.appQuotationStoreModule.appDiscount;
+                obj.appQuantity = store.state.appQuotationStoreModule.appQuantity;
+                
+
+                console.log(obj)
+
+                return obj;
+            },
+
+            appProdcInfo(){
+                return store.state.appQuotationStoreModule.selectedProdct ;
+            },
+            
+            appQuotInfo(){
+                let obj ={};
+                obj.quotationNo = store.state.appQuotationStoreModule.quotationNo;
+                obj.issuedDate = store.state.appQuotationStoreModule.issuedDate;
+                obj.appPackage = store.state.appQuotationStoreModule.appPackage;
+                obj.dueDate = store.state.appQuotationStoreModule.dueDate;
+                obj.appNote = store.state.appQuotationStoreModule.appNote;
+                obj.appThanksNote = store.state.appQuotationStoreModule.appThanksNote;
+                obj.appSalespersonName = store.state.appQuotationStoreModule.appSalespersonName; 
+
+                /** customer info */
+                obj.appCustName = store.state.appQuotationStoreModule.appCustName; 
+                obj.appCustEmail = store.state.appQuotationStoreModule.appCustEmail; 
+                obj.appCustMobile = store.state.appQuotationStoreModule.appCustMobile; 
+                obj.appCustType = store.state.appQuotationStoreModule.appCustType; 
+
+                return obj;            
+            },
+            
+            
+            
+        },
+        data () {
+            return {
+                appName: themeConfig.app.name,
+                appLogo: themeConfig.app.logo,
+                isDueDateMenuOpen:false,
+                isIssueDateMenuOpen:false,
+                custMobile:null, 
+                custEmail: null,
+                custName:null
+
+            }
+        }
+    }
+    </script>
+    
+    <style lang="scss" scoped>
+    
+    </style>
+
+
+
+
+  <style lang="scss">
+  @import '~@core/preset/preset/apps/invoice.scss';
+
+    .custom-date-picker{
+        
+        width: auto; /* Adjust the width as needed */
+        height: auto; /* Adjust the height as needed */
+    }
+
+    .fixed-image {
+        right: 20px; /* 화면 오른쪽에서의 간격 조절 */
+        max-width: 200px; /* 최대 너비 설정 */
+        max-height: 200px; /* 최대 높이 설정 */
+    /* 다른 스타일 속성들 */
+    }
+
+    .text-sst{
+        text-align: left;
+        font-size: 10px; /* 원하는 크기로 변경 */
+    }
+
+    .card-text-custom{
+        //height: 230px;
+    }
+
+    .custom-text-field_required{
+       
+        border: 1px solid red; /* Add a 2px solid red border */
+        height: 35px;
+        border-radius: 6.666666667px;
+        font-size: 16px;
+        line-height: 26.666666667px; 
+        padding: 6.666666667px;
+        width: 133.333333333%;
+        transform: scale(0.75);
+        transform-origin: left top;
+
+        /* 여기를 추가합니다. */
+        margin-bottom: -10px;
+        margin-right: -33.333333333%;
+    }
+
+    .custom-text-field {
+        height: 35px;
+        border-radius: 6.666666667px;
+        font-size: 13px;
+        line-height: 26.666666667px; 
+        padding: 6.666666667px;
+        width: 133.333333333%;
+
+        transform: scale(0.75);
+        transform-origin: left top;
+
+        /* 여기를 추가합니다. */
+        margin-bottom: -10px;
+        margin-right: -33.333333333%;
+    }
+  
+  .app-invoice-editable {
+    .input-salesperson {
+      width: 100px;
+    }
+  
+    .select-invoice-to {
+      width: 190px !important;
+    }
+  
+    .header-inputs {
+      width: 122px;
+    }
+  
+    .add-products-form {
+      .single-product-form {
+        &:not(:first-child) {
+          margin-top: 2rem;
+        }
+      }
+  
+      .header-spacer {
+        // This is according to item actions width
+        width: 39px;
+      }
+      .item-actions {
+        @at-root {
+          @include theme--child(add-products-form) using ($material) {
+            .item-actions {
+              border-left: thin solid map-deep-get($material, 'dividers');
+            }
+          }
+        }
+      }
+    }
+  }
+  </style>
+  

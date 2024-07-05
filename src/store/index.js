@@ -20,7 +20,8 @@ export default new Vuex.Store({
     token: getAuthFromCookie() || "",
     userName: getUserFromCookie().userName || "",
     memuList :[],
-    userMainHome:""
+    userMainHome:"",
+    isConnectServer:false,
   },
   getters: {
     isLogin(state) {
@@ -34,6 +35,11 @@ export default new Vuex.Store({
     // },
   },
   mutations: {
+
+    SET_CONNECT_SERVER(state, val){
+      state.isConnectServer = val;
+    },
+
     setUserInfo(state, user) {
       state.userInfo = user;
       state.userName = user.userName;
@@ -42,6 +48,7 @@ export default new Vuex.Store({
     setToken(state, token) {
       state.token = token;
     },
+    
 
     clearUserInfo(state) {
       state.userInfo = null;
@@ -81,6 +88,10 @@ export default new Vuex.Store({
   },
 
   actions: {
+
+    setServerConnectState({ commit }, val){
+        commit("SET_CONNECT_SERVER", val);
+    },
 
 
     async SET_USER_MAIN_HOME({ commit }, val){

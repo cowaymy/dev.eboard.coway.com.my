@@ -21,7 +21,7 @@
         <div class="font-weight-semibold text-1xl mb-0">
           Target Sales :
           <span class="font-weight-semibold text-2xl primary--text mb-0">
-            {{ totalsales }}
+            {{ this.totalsales }} ({{(this.fun_numFormat(this.netsales))}})
           </span>
         </div>
       </v-card-text>
@@ -44,42 +44,25 @@ export default {
     VueApexCharts,
   },
 
-  methods: {
-    setData() {
-      // this.totalsales = request.data.data[0];
-
-      this.totalsales = this.fun_numFormat(
-        store.state.app_salseEpapan.apiTargetData.data[0].TARGET_AMT
-      );
-
-      let _totalsales = Number(
-        store.state.app_salseEpapan.apiTargetData.data[0].TARGET_AMT
-      );
-      let _netsales = Number(
-        store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES
-      );
-      //console.log('_totalsales', _totalsales);
-      //console.log('_netsales', _netsales);
-
-      //this.chartSeries.push(_totalsales);
-      this.chartSeries.push(Math.round((_netsales / _totalsales) * 100));
+  computed: {
+    totalsales(){
+      if(Array.isArray(store.state.app_salseEpapan.apiTargetData.data)){
+        return   this.fun_numFormat(store.state.app_salseEpapan.apiTargetData.data[0].TARGET_AMT);
+      }else {
+        return 0;
+      }         
     },
-    // getNetSaleAmt() {
-    // 	let chartSeries = [];
-    // 	chartSeries[0] =
-    // 		store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES;
 
-    // 	console.log(chartSeries);
-    // 	return chartSeries;
-    // },
-    // async callApiTargetData() {
-    // 	try {
-    // 		const userInfo = this.$store.state.userInfo;
-    // 		return await salesApi.getTargetData(userInfo);
-    // 	} catch (error) {
-    // 		console.log(error);
-    // 	}
-    // },
+    netsales(){
+      if(Array.isArray(store.state.app_salseEpapan.apiCurMonthData.data)){
+        return  Number( store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES);
+      }else {
+        return 0;
+      }
+    } ,
+  },
+
+  methods: {
     fun_numFormat(number) {
       if (number != undefined) {
         const neFor = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -87,88 +70,34 @@ export default {
         return neFor;
       }
     },
-
-    // },
-    // 	this.totalsales = store.state.app_salseEpapan.apiTargetData[0].TARGET_AMT;
-    // 	let _totalsales = Number(this.totalsales);
-    // 	let _netsales = Number(
-    // 		store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES,
-    // 	);
   },
 
   watch: {
-    isDoneTartgetApi(val) {
-      //console.log("isDoneCurMonthApi :", this.isDoneCurMonthApi);
-      if (val && this.isDoneCurMonthApi) {
-        //console.log(store.state.app_salseEpapan.apiTargetData);
-        this.setData();
-      } else {
-        this.totalsales = 0;
+    netsales(val){
+      if(Array.isArray(store.state.app_salseEpapan.apiTargetData.data)){
+         let _tot = Number( store.state.app_salseEpapan.apiTargetData.data[0].TARGET_AMT);
+         let _net = Number( store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES);
+
+         this.chartSeries = [Math.round((_net / _tot) * 100)];
       }
     },
 
-    isDoneCurMonthApi(val) {
-      //console.log("isDoneCurMonthApi :", this.isDoneCurMonthApi);
-      if (val && this.isDoneTartgetApi) {
-        //console.log(store.state.app_salseEpapan.apiTargetData);
-        this.setData();
-      }
-    },
-  },
+    totalsales(val){
+      if(Array.isArray(store.state.app_salseEpapan.apiCurMonthData.data)){
+         let _tot = Number( store.state.app_salseEpapan.apiTargetData.data[0].TARGET_AMT);
+         let _net = Number( store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES);
 
-  computed: {
-    // ...mapState({
-    // 	loginInfo: state => store.state.app_salseEpapan.apiTargetData,
-    // }),
-    // totalsalesAmt() {
-    // 	let rtnValue = 0;
-    // 	if (this.doneTartgetApi) {
-    // 		console.log(store.state.app_salseEpapan.apiTargetData);
-    // 		this.fun_numFormat(
-    // 			util.checkNull(
-    // 				store.state.app_salseEpapan.apiTargetData[0].TARGET_AMT,
-    // 			),
-    // 		);
-    // 	}
-    // 	console.log(rtnValue);
-    // 	return rtnValue;
-    // },
-    // 	this.totalsales = store.state.app_salseEpapan.apiTargetData[0].TARGET_AMT;
-    // 	let _totalsales = Number(this.totalsales);
-    // 	let _netsales = Number(
-    // 		store.state.app_salseEpapan.apiCurMonthData.data[0].SAL_NET_SALES,
-    // 	);
-    // 	console.log('_totalsales', _totalsales);
-    // 	console.log('_netsales', _netsales);
+         this.chartSeries = [Math.round((_net / _tot) * 100)];
+      }
+    }
   },
 
   created() {
-    // this.callApiTargetData().then(request => {
-    // 	console.log(request);
-    // 	request.data.data.forEach(function (v) {
-    // 		//console.log(v.RATE);
-    // 		//cData = v.RATE;
-    // 	});
-    // 	//console.log(vRate);
-    // });
-    //this.setData();
-    //this.getApiTargetData();
-    // //isDoneTartgetApi(val) {
-    // console.log('===========>', this.isDoneTartgetApi);
-    // //clearTimeout(this.timer);
-    // if (this.isDoneTartgetApi) {
-    // 	console.log(store.state.app_salseEpapan.apiTargetData);
-    // 	this.totalsales = this.fun_numFormat(
-    // 		util.checkNull(store.state.app_salseEpapan.apiTargetData[0].TARGET_AMT),
-    // 	);
-    // } else {
-    // 	this.totalsales = 0;
-    // }
-    //},
+   
   },
 
   data() {
-    const chartSeries = [];
+    const chartSeries = [0];
 
     const chartOptions2 = {
       labels: ["Achieved Sales", "Target Sales"],
@@ -244,44 +173,11 @@ export default {
       },
       labels: ["Achieved"],
     };
-
-    // const chartOptions = {
-    // 	chart: {
-    // 		offsetY: 2,
-    // 		type: 'radialBar',
-    // 	},
-    // 	colors: ['#56C6F6'],
-    // 	plotOptions: {
-    // 		radialBar: {
-    // 			hollow: {
-    // 				margin: 15,
-    // 				size: '70%',
-    // 			},
-
-    // 			dataLabels: {
-    // 				showOn: 'always',
-    // 				name: {
-    // 					offsetY: 0,
-    // 					show: true,
-    // 					color: '#888',
-    // 					fontSize: '23px',
-    // 				},
-    // 				value: {
-    // 					color: '#111',
-    // 					fontSize: '30px',
-    // 					show: true,
-    // 				},
-    // 			},
-    // 		},
-    // 	},
-    // 	labels: ['Total'],
-    // };
-
     return {
       chartSeries,
       chartOptions,
       chartOptions2,
-      totalsales: {},
+      //totalsales: {},
       icons: {
         mdiChevronUp,
         mdiBullseyeArrow,

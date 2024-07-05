@@ -55,7 +55,7 @@
 <script>
 import {
   //mdiClipboardEditOutline,
-  mdiCheckboxMultipleMarkedOutline,
+  mdiAccountMultiplePlus,
   //mdiAccountCheckOutline,
   mdiClose,
 } from "@mdi/js";
@@ -83,8 +83,8 @@ export default {
       (response) =>
         (this.Recruitment = {
           statTitle: "Recruitment",
-          icon: mdiCheckboxMultipleMarkedOutline,
-          color: "warning",
+          icon: mdiAccountMultiplePlus,
+          color: "info",
           subtitle: response.data.data[0].LST_UP_TIME,
           statistics: response.data.data[0].SAL_RECRUITMENT,
           //change: response.data.data[0].SAL_RECRUITMENT,

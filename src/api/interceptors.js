@@ -29,24 +29,28 @@ export function createInstance() {
     function (response) {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
+      
+      store.state.isConnectServer =true;
       return response;
     },
     function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
 
-      Vue.toasted
-        .error("There is an API issue [" + error + "]", {
-          icon: "error",
-          position: "bottom-right",
-          action: {
-            text: "Close",
-            onClick: (e, toastObject) => {
-              toastObject.goAway(0);
-            },
-          },
-        })
-        .goAway(3500);
+      store.state.isConnectServer =false;
+
+      // Vue.toasted
+      //   .error("There is an API issue [" + error + "]", {
+      //     icon: "error",
+      //     position: "bottom-right",
+      //     action: {
+      //       text: "Close",
+      //       onClick: (e, toastObject) => {
+      //         toastObject.goAway(0);
+      //       },
+      //     },
+      //   })
+      //   .goAway(3500);
 
       //return Promise.reject('1');
     }
@@ -66,6 +70,30 @@ export function createRPTInstance() {
   return instance;
 }
 
+
+
+export function mobileFileUploadInstance() {
+  const instance = axios.create({
+    baseURL: process.env.VUE_APP_API_URL,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return instance;
+}
+
+
+export function mobileAPisInstance() {
+  const instance = axios.create({
+    baseURL:"https://etrust.my.coway.com/", 
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return instance;
+}
 
 export function createFileDwnInstance() {
   const instance = axios.create({

@@ -1,100 +1,62 @@
 
 <template>
-  <div class="auth-wrapper auth-v1">
-    <div class="auth-inner">
-      <v-form @submit.prevent="submitForm">
-      <v-card class="auth-card">
-        <!-- logo -->
-        <v-card-title class="d-flex align-center justify-center py-7">
-          <router-link to="/" class="d-flex align-center">
-            <v-img
-              :src="appLogo"
-              max-height="20vw"
-              max-width="20vw"
-              alt="logo"
-              contain
-              class="me-3"
-            ></v-img>
+   <div class="background-container no-scroll">
+      <v-row>
+        <v-col cols="12" md="6" >                
+        </v-col>
+      </v-row>
+      <v-row class="d-flex"  >
+       <v-col cols="12" md="12">
+          <div class="login-container">
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-img   src="../../assets/images/log-03.png"   contain  
+                max-height="130px" />
+              </v-col>
+            </v-row>
+            <v-col cols="12" md="12" >                
+              <v-spacer></v-spacer>
+            </v-col>
 
-            <h2 class="text-2xl font-weight-semibold">
-              {{ appName }}
-            </h2>
-          </router-link>
-        </v-card-title>
-
-        <!-- title -->
-        <v-card-text>
-          <!-- <p class="text-2xl font-weight-semibold text--primary mb-2">
-						Welcome to ePAPAN! 👋🏻
-					</p> -->
-          <p class="mb-2">
-            Please sign-in to your account and start the adventure
-          </p>
-        </v-card-text>
-
-        <!-- login form -->
-        <v-card-text>
-   
-            <v-text-field
-              v-model="userId"
-              label="UserID"
-              hide-details
-              class="mb-3 logInput"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="password"
-              class ="logInput"
-              :type="isPasswordVisible ? 'text' : 'password'"
-              label="Password"
-              placeholder="············"
-              :append-icon="
-                isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline
-              "
-              hide-details
-              @click:append="isPasswordVisible = !isPasswordVisible"
-            ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-
-          
-          <v-btn
-              block
-              color ="#16B1FF"
-              class="mt-6 "
-              :disabled="!isFormValid"
-              type="submit"
-            >
-              Login
-            </v-btn>
-        </v-card-actions>
-
-        <!-- create new account  -->
-        <!-- <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
-					<span class="me-2"> New on our platform? </span>
-					<router-link :to="{ name: 'auth-register-v1' }">
-						Create an account
-					</router-link>
-				</v-card-text> -->
-
-        <!-- divider -->
-      </v-card>
-    </v-form>
+            <v-row>
+              <v-col cols="12"  md="6">
+                <v-spacer></v-spacer>
+                <v-form @submit.prevent="submitForm">
+                  <v-text-field
+                    v-model="userId"
+                    label="Username"
+                    class="white-text-field"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                   v-model="password"
+                    label="Password"
+                    type="password"
+                     class="white-text-field"
+                    required
+                    @click:append="isPasswordVisible = !isPasswordVisible"
+                  ></v-text-field>
+                  <v-btn color="#16B1FF" :disabled="!isFormValid"  class="login-button white-text-btn"  type="submit"
+                  >Login</v-btn>
+                </v-form>
+              </v-col>
+            </v-row>
+            <v-row class="justify-center">
+              <v-col cols="12"  md="6"  >
+                <p class="white-text">&copy;2017 Coway Malaysia Snd Bhd.All rights reserved.</p>
+              </v-col>
+            </v-row>
+          </div>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" md="12" >                
+          <v-spacer></v-spacer>
+        </v-col>
+      </v-row>
     </div>
 
-    <v-bottom-sheet >
-      <v-sheet class="text-center" height="200px">
-        <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-          close
-        </v-btn>
-        <div class="my-3">
-          <v-alert border="bottom" colored-border type="warning" elevation="2">
-            {{ logMaessage }}
-          </v-alert>
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
-  </div>
+
 </template>
 <script>
 
@@ -186,7 +148,7 @@ export default {
           this.$toasted
             .error(data.message, {
               icon: "error",
-              position: "bottom-right",
+              position: "top-center",
               action: {
                 text: "Close",
                 onClick: (e, toastObject) => {
@@ -216,21 +178,54 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '../../@core/preset/preset/pages/auth.scss';
 
-  .logInput {
-      border-radius: 6.666666667px;
-      font-size: 16px;
-      line-height: 26.666666667px; 
-      padding: 6.666666667px;
-      width: 133.333333333%;
+.background-container {
+    background-image: url('../../assets/images/bg-02.png'); /* 실제 이미지 경로로 변경 */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-      transform: scale(0.75);
-      transform-origin: left top;
+.login-container {
+  border-radius: 8px;
+  padding: 20px;
+}
 
-      /* 여기를 추가합니다. */
-      margin-bottom: -10px;
-      margin-right: -33.333333333%;
-  }
+.logo {
+  width: 100px;
+}
+
+.login-button {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 80px; /* 원하는 라운드 정도로 설정 */
+
+}
+
+
+
+.login_input .v-input__control {
+  border-radius: 30px; /* 원하는 라운드 정도로 설정 */
+}
+
+  
+.white-text {
+    color: white !important;
+    font-size: 10px;
+    font-weight: bold;
+    font-style: italic;
+}
+.white-text-btn {
+  color: white !important;
+  font-weight: bold;
+
+}
+.no-scroll {
+  overflow: hidden; /* 특정 요소에서 스크롤 제거 */
+}
 
 </style>

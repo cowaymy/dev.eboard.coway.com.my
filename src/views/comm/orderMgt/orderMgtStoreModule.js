@@ -21,7 +21,7 @@ export default {
     },
   },
   actions: {
-    fetchEvents({ commit }, _date) {
+    fetchEvents({ commit }, payload ) {
       //start spinner
       bus.$emit("start:spinner");
 
@@ -29,7 +29,8 @@ export default {
 
       const pramData = {
         id: userInfo.userName,
-        salesDt: _date,
+        salesDt: payload.data,
+        salesNo : payload.salesNo
       };
 
       return new Promise((resolve, reject) => {
