@@ -12,6 +12,7 @@ module.exports = {
         "@core": path.resolve(__dirname, "src/@core"),
         '@user-variables': path.resolve(__dirname, 'src/style/variables.scss'),
       },
+      mainFields: [ 'main' ]
     },
   }, 
   chainWebpack: (config) => {
@@ -27,8 +28,14 @@ module.exports = {
         .oneOf(match)
         .use("sass-loader")
         .tap((opt) => mergeSassVariables(opt, "'@/style/variables.scss';"));
+      config.module
+        .rule('txt')
+        .test(/\.txt$/)
+        .use('raw-loader')
+        .loader('raw-loader')
+        .end();
     });
-  },
+  }, 
   devServer: {
     overlay: false,
     disableHostCheck: true,

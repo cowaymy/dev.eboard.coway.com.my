@@ -2,7 +2,8 @@
 
 ## Project setup
 ```
-npm install
+버전 충돌 때문에 다음 옵션을 사용해야 합니다. 
+npm install --legacy-peer-deps
 ```
 
 ### Compiles and hot-reloads for development
