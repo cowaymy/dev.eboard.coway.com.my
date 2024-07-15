@@ -62,7 +62,7 @@
 <script>
 //import gsap from 'gsap';
 import { mdiDotsVertical } from "@mdi/js";
-import { boolean } from "yargs";
+//import { boolean } from "yargs";
 import DashboardDialog from "../../views/dashboard/sales/DashboardDialogFullScreenforSales.vue";
 import DashboardBestDialog from "../../views/comm/DialogBottomScreen.vue";
 export default {
@@ -78,7 +78,7 @@ export default {
     statistics: { type: String, default: "" },
     change: { type: String, default: "" },
     moreshow: { type: String, default: "" },
-    isDialogBestVisible: { type: boolean, default: "" },
+    isDialogBestVisible:Boolean,
     jumpRoute:{ type: String, default: "" },
   },
   methods: {

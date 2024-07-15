@@ -2,10 +2,12 @@ const path = require("path");
 const { mergeSassVariables } = require("@vuetify/cli-plugin-utils");
 
 module.exports = {
-  publicPath: '/',
-  lintOnSave: false,
+  lintOnSave:false,
+  outputDir: 'dist',
+  assetsDir: 'static',
+  productionSourceMap: false,
   transpileDependencies: ["vuetify"],
-  configureWebpack: {
+  configureWebpack: { 
     resolve: {
       alias: {
         "@themeConfig": path.resolve(__dirname, "themeConfig.js"),
@@ -18,6 +20,14 @@ module.exports = {
   chainWebpack: (config) => {
     const modules = ["vue-modules", "vue", "normal-modules", "normal"];
     modules.forEach((match) => {
+
+      config.module
+      .rule('vue')
+      .test(/\.vue$/)
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end();
+
       config.module
         .rule("sass")
         .oneOf(match)
@@ -28,12 +38,6 @@ module.exports = {
         .oneOf(match)
         .use("sass-loader")
         .tap((opt) => mergeSassVariables(opt, "'@/style/variables.scss';"));
-      config.module
-        .rule('txt')
-        .test(/\.txt$/)
-        .use('raw-loader')
-        .loader('raw-loader')
-        .end();
     });
   }, 
   devServer: {
